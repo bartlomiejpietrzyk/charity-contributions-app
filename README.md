@@ -4,7 +4,10 @@ This app gives random user a chance to help another people by sending things or 
 
 # Technology used:
 
-```- Spring Boot
+```
+- Java 8
+- Spring Boot
 - Spring Form
 - Hibernate
-- Spring Data JPA```
+- Spring Data JPA
+
