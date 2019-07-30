@@ -14,7 +14,7 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long quantity;
-    @OneToMany(mappedBy = "donation")
+    @OneToMany
     private List<Category> categories;
     @ManyToOne
     private Institution institution;
