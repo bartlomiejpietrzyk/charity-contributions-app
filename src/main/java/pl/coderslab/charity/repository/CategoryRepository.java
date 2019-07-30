@@ -7,19 +7,16 @@ import pl.coderslab.charity.entity.Category;
 import java.util.List;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Long, Category> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Override
-    List<Long> findAll();
+    List<Category> findAll();
 
     @Override
-    Long getOne(Category category);
+    Category getOne(Long aLong);
 
     @Override
-    <S extends Long> S save(S s);
+    <S extends Category> S save(S s);
 
     @Override
-    long count();
-
-    @Override
-    void delete(Long aLong);
+    void delete(Category category);
 }

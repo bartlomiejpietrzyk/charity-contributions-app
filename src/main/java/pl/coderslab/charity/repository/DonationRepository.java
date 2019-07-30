@@ -7,19 +7,19 @@ import pl.coderslab.charity.entity.Donation;
 import java.util.List;
 
 @Repository
-public interface DonationRepository extends JpaRepository<Long, Donation> {
+public interface DonationRepository extends JpaRepository<Donation, Long> {
     @Override
-    List<Long> findAll();
+    List<Donation> findAll();
 
     @Override
-    Long getOne(Donation donation);
+    Donation getOne(Long aLong);
 
     @Override
-    <S extends Long> S save(S s);
+    <S extends Donation> S save(S s);
 
     @Override
     long count();
 
     @Override
-    void delete(Long aLong);
+    void delete(Donation donation);
 }
