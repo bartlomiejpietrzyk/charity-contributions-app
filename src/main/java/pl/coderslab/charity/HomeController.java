@@ -22,4 +22,9 @@ public class HomeController {
     public String showRegistrationForm(Model model) {
         return "registration";
     }
+
+    @RequestMapping("/form")
+    public String showForm(Model model) {
+        return "form";
+    }
 }
