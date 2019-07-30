@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="pl">
+<th:block th:replace="~{elements/head}"></th:block>
+
+<body>
+<header class="header--main-page">
+    <th:block th:replace="~{elements/navMenu}"></th:block>
+    <th:block th:replace="~{elements/index/slogan}"></th:block>
+</header>
+
+<th:block th:replace="~{elements/index/steps}"></th:block>
+<th:block th:replace="~{elements/index/stats}"></th:block>
+<th:block th:replace="~{elements/index/aboutUs}"></th:block>
+<th:block th:replace="~{elements/index/help}"></th:block>
+<th:block th:replace="~{elements/footer}"></th:block>
+</body>
+</html>
