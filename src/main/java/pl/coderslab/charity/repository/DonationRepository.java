@@ -22,4 +22,5 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     @Override
     void delete(Donation donation);
+
 }
