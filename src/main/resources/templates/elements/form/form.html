@@ -1,4 +1,4 @@
-<section class="form--steps">
+<section class="form--steps" xmlns:th="http://www.thymeleaf.org">
     <div class="form--steps-instructions">
         <div class="form--steps-container">
             <h3 th:text="#{form.important}">Ważne!</h3>
@@ -18,64 +18,24 @@
     </div>
 
     <div class="form--steps-container">
-        <div class="form--steps-counter"><span th:text="#{form.step}">Krok</span> <span>1</span>/4</div>
-
-        <form th:action="@{/form}" th:method="post">
+        <div class="form--steps-counter">
+            <span th:text="#{form.step}">Krok</span> <span>1</span>/4
+        </div>
+        <form th:action="@{/form}" th:method="post" th:object="${donation}">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3 th:text="#{form.what.you.give}">Zaznacz co chcesz oddać:</h3>
 
-                <div class="form-group form-group--checkbox">
+                <div class="form-group form-group--checkbox" th:each="category : ${categories}">
                     <label>
-                        <input
-                                type="checkbox"
-                                name="categories"
-                                value="clothes-to-use"
-                        />
+                        <input type="checkbox" th:value="*{categories}"/>
                         <span class="checkbox"></span>
-                        <span class="description" th:text="#{form.clothes.ok}">ubrania, które nadają się do ponownego użycia</span
-                        >
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input
-                                type="checkbox"
-                                name="categories"
-                                value="clothes-useless"
-                        />
-                        <span class="checkbox"></span>
-                        <span class="description" th:text="#{form.clothes.trash}">ubrania, do wyrzucenia</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="toys"/>
-                        <span class="checkbox"></span>
-                        <span class="description" th:text="#{form.toys}">zabawki</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="books"/>
-                        <span class="checkbox"></span>
-                        <span class="description" th:text="#{form.books}">książki</span>
-                    </label>
-                </div>
-
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="checkbox" name="categories" value="other"/>
-                        <span class="checkbox"></span>
-                        <span class="description" th:text="#{form.others}">inne</span>
+                        <span class="description" th:text="${category.name}"></span>
                     </label>
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn next-step" th:text="#{form.continue}">Dalej</button>
+                    <button type="button" class="btn next-step"><span th:text="#{form.continue}">Dalej</span></button>
                 </div>
             </div>
 
@@ -86,7 +46,7 @@
                 <div class="form-group form-group--inline">
                     <label>
                         <span th:text="#{form.count.bags}">Liczba 60l worków:</span>
-                        <input type="number" name="bags" step="1" min="1"/>
+                        <input type="number" name="bags" step="1" min="1" th:field="*{quantity}"/>
                     </label>
                 </div>
 
@@ -144,50 +104,56 @@
                         <h4 th:text="#{form.address.pickup}">>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.street}">Ulica <input type="text" name="address"/> </label>
+                                <span th:text="#{form.street}">Ulica <input type="text" name="address"
+                                                                            th:value="*{street}"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.city}">Miasto <input type="text" name="city"/> </label>
-                        </div>
-
-                        <div class="form-group form-group--inline">
-                            <label>
-                                <span th:text="#{form.post.code}">Kod pocztowy <input type="text" name="postcode"/>
+                                <span th:text="#{form.city}">Miasto <input type="text" name="city" th:value="*{city}"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.mobile}">Numer telefonu <input type="phone" name="phone"/>
+                                <span th:text="#{form.post.code}">Kod pocztowy <input type="text" name="postcode"
+                                                                                      th:value="*{zipCode}"/>
+                            </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label>
+                                <span th:text="#{form.mobile}">Numer telefonu <input type="phone" name="phone"
+                                                                                     th:value="*{mobile}"/>
                             </label>
                         </div>
                     </div>
 
                     <div class="form-section--column">
-                        <h4 th:text="#{form.pickup.date">Termin odbioru</h4>
+                        <h4 th:text="#{form.pickup.date}">Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.date}">Data</span> <input type="date" name="data"/> </label>
+                                <span th:text="#{form.date}">Data</span> <input type="date" name="data"
+                                                                                th:value="*{pickUpDate}"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.hour}">Godzina</span> <input type="time" name="time"/> </label>
+                                <span th:text="#{form.hour}">Godzina</span> <input type="time" name="time"
+                                                                                   th:value="*{pickUpTime}"/> </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.for.courier}">Uwagi dla kuriera</span>
-                                <textarea name="more_info" rows="5"></textarea>
+                                <textarea name="more_info" rows="5" th:field="*{pickUpComment}"></textarea>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step" th:text="#{form.back}">Wstecz</button>
-                    <button type="button" class="btn next-step" th:text="#{form.continue">Dalej</button>
+                    <button type="button" class="btn next-step" th:text="#{form.continue}">Dalej</button>
                 </div>
             </div>
 
