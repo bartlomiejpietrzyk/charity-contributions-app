@@ -9,8 +9,7 @@ import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
-import java.util.stream.Collectors;
-
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -42,11 +41,12 @@ public class HomeController {
 
     @ModelAttribute(name = "bags")
     public Long showQuantityOfGivenBags() {
-        return donationRepository
-                .findAll()
-                .stream()
-                .map(Donation::getQuantity)
-                .collect(Collectors.counting());
+        List<Donation> collect = donationRepository.findAll();
+        Long sum = 0l;
+        for (int i = 0; i < collect.size(); i++) {
+            sum += collect.get(i).getQuantity();
+        }
+        return sum;
     }
 
     @ModelAttribute(name = "charityOrg")
