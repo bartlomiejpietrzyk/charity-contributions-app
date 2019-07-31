@@ -20,9 +20,10 @@ public class Donation {
     private List<Category> categories;
     @ManyToOne
     private Institution institution;
+    private Long mobile;
     private String street;
     private String city;
-    private String zipConde;
+    private String zipCode;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
     @DateTimeFormat(pattern = "hh-mm-ss")
