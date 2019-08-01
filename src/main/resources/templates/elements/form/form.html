@@ -19,7 +19,7 @@
 
     <div class="form--steps-container">
         <div class="form--steps-counter">
-            <span th:text="#{form.step}">Krok</span> <span>1</span>/4
+            Krok <span>1</span>/4
         </div>
         <form th:action="@{/form}" th:method="post" th:object="${donation}">
             <!-- STEP 1: class .active is switching steps -->
@@ -46,7 +46,7 @@
                 <div class="form-group form-group--inline">
                     <label>
                         <span th:text="#{form.count.bags}">Liczba 60l worków:</span>
-                        <input type="number" name="bags" step="1" min="1" th:field="*{quantity}"/>
+                        <input id="quantity" type="number" name="bags" step="1" min="1" th:field="*{quantity}"/>
                         <p th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="error"></p>
                     </label>
                 </div>
@@ -121,7 +121,7 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.mobile}">Numer telefonu</span>
-                                <input type="phone" name="mobile" th:value="*{mobile}"/>
+                                <input id="mobile" type="phone" name="mobile" th:value="*{mobile}"/>
                                 <p th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="error"></p>
                             </label>
                         </div>
@@ -131,47 +131,48 @@
                         <h4 th:text="#{form.pickup.date}">Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.date}">Data</span> <input id="time" type="date" name="date"
-                                                                                th:value="*{date}"/> </label>
+                                <span th:text="#{form.date}">Data</span>
+                                <input id="date" type="date" name="date" th:value="*{date}"/> </label>
+                            <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error"></p>
                         </div>
-
                         <div class="form-group form-group--inline">
                             <label>
-                                <span th:text="#{form.hour}">Godzina</span> <input id="date" type="time" name="time"
-                                                                                   th:value="*{time}"/> </label>
+                                <span th:text="#{form.hour}">Godzina</span>
+                                <input id="time" type="time" name="time" th:value="*{time}"/> </label>
                         </div>
                         <!---->
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.for.courier}">Uwagi dla kuriera</span>
-                                <textarea name="comment" rows="5" th:value="*{comment}"></textarea>
+                                <textarea id="comment" name="comment" rows="5" th:value="*{comment}"></textarea>
+                                <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error"></p>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step" th:text="#{form.back}">Wstecz</button>
-                    <button type="button" class="btn next-step" th:text="#{form.continue}">Dalej</button>
+                    <button id="getSummary" type="button" class="btn next-step" th:text="#{form.continue}">Dalej
+                    </button>
                 </div>
             </div>
             <!---->
             <!-- STEP 5 -->
             <div data-step="5">
                 <h3 th:text="#{form.summary}">Podsumowanie Twojej darowizny</h3>
-
                 <div class="summary">
                     <div class="form-section">
-                        <h4 th:text="#{form.you.give}">Oddajesz:</h4>
+                        <h4>Oddajesz:</h4>
                         <ul>
-                            <li th:each="final : ${donation}">
+                            <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                      th:text="${final.getQuantity()} + ' worki ' + ${final.getCategory()}">4 worki ubrań w dobrym stanie dla dzieci</span>
+                                <span class="summary--text" id="quantityProceed"></span> <span class="summary--text"
+                                                                                               id="categoryProceed"></span>
                             </li>
-                            <!---->
+
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text" th:text="'Dla ' + ${donation.getInstitution()}">Dla fundacji "Mam marzenie" w Warszawie</span>
+                                <span class="summary--text" id="institutionProceed"></span>
                             </li>
                         </ul>
                     </div>
@@ -180,27 +181,27 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Prosta 51</li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li id="streetProceed">Prosta 51</li>
+                                <li id="cityProceed">Warszawa</li>
+                                <li id="zipCodeProceed">99-098</li>
+                                <li id="mobileProceed">123 456 789</li>
                             </ul>
                         </div>
-                        <!---->
+
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                                <li id="dateProceed">13/12/2018</li>
+                                <li id="timeProceed">15:40</li>
+                                <li id="commentProceed">Brak uwag</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step" th:text="#{form.back}">Wstecz</button>
-                    <button type="submit" class="btn" th:text="#{form.confirm}">Potwierdzam</button>
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
         </form>
