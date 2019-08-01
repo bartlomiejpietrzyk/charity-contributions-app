@@ -3,10 +3,7 @@ package pl.coderslab.charity.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
@@ -37,8 +34,21 @@ public class DonationController {
 
     @PostMapping("/form")
     public String proceedForm(@ModelAttribute("donation") Donation donation) {
-        System.out.println(donation.toString());
         donationRepository.save(donation);
         return "formConfirm";
     }
+
+    @GetMapping("/rest/institution/getTitle/{id}")
+    @ResponseBody
+    public String getInstitutionName(@PathVariable(name = "id") Long id) {
+        return institutionRepository.getOne(id).getName();
+    }
+
+    @GetMapping("/rest/category/getTitle/{id}")
+    @ResponseBody
+    public String getCategoryName(@PathVariable(name = "id") Long id) {
+        return categoryRepository.getOne(id).getName();
+    }
+
+
 }
