@@ -1,4 +1,4 @@
-<footer>
+<footer xmlns:th="http://www.thymeleaf.org">
     <div id="contact" class="contact">
         <h2 th:text="#{con.contact.us}">Skontaktuj się z nami</h2>
         <h3 th:text="#{con.form}">Formularz kontaktowy</h3>
@@ -20,6 +20,6 @@
             <a th:href="@{http://instagram.com}" class="btn btn--small"><img th:src="@{images/icon-instagram.svg}"/></a>
         </div>
     </div>
+    <script th:src="@{js/app.js}"></script>
 </footer>
 
-<script th:src="@{js/app.js}"></script>
