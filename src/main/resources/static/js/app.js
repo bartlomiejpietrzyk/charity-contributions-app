@@ -164,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
             this.$step.parentElement.hidden = this.currentStep >= 5;
 
-
             //todo list of categories in summary
             // let categoryForm = document.querySelector('input[name="categories"]:checked').value;
             // $('#categoryProceed').load(`rest/category/getTitle/${categoryForm}`);
@@ -205,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     }
+
     const form = document.querySelector(".form--steps");
     if (form !== null) {
         new FormSteps(form);
