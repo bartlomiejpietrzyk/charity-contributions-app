@@ -2,6 +2,7 @@ package pl.coderslab.charity.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.charity.validator.FieldMatch;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -9,7 +10,13 @@ import java.util.Set;
 
 @Getter
 @Setter
+@FieldMatch.List({
+        @FieldMatch(first = "password",
+                second = "confirmPassword",
+                message = "Hasła muszą być takie same!"),
+})
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
