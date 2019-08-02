@@ -1,18 +1,28 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       lang="pl">
-<th:block th:replace="~{elements/head}"></th:block>
-
+<div th:replace="~{elements/fragments/head}"></div>
 <body>
+<div sec:authorize="hasRole('USER')">Text visible to user.</div>
+<div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.<br></div>
+<span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                <a th:href="@{/logout}">Sign Out</a>
+            </span>
+</div>
 <header class="header--main-page">
-    <th:block th:replace="~{elements/navMenu}"></th:block>
-    <th:block th:replace="~{elements/index/slogan}"></th:block>
-</header>
+    <div th:replace="~{elements/fragments/navMenu}"></div>
 
-<th:block th:replace="~{elements/index/steps}"></th:block>
-<th:block th:replace="~{elements/index/stats}"></th:block>
-<th:block th:replace="~{elements/index/aboutUs}"></th:block>
-<th:block th:replace="~{elements/index/help}"></th:block>
-<th:block th:replace="~{elements/footer}"></th:block>
+
+    <div th:replace="~{elements/index/slogan}"></div>
+</header>
+<div th:replace="~{elements/index/steps}"></div>
+<div th:replace="~{elements/index/stats}"></div>
+<div th:replace="~{elements/index/aboutUs}"></div>
+<div th:replace="~{elements/index/help}"></div>
+<div th:replace="~{elements/fragments/footer}"></div>
 </body>
 </html>

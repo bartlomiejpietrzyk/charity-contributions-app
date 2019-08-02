@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       lang="pl">
-<th:block th:replace="~{elements/head}"></th:block>
+<div th:replace="~{elements/fragments/head}"></div>
 <body>
 <header class="header--form-page">
-    <th:block th:include="~{elements/navMenu}"></th:block>
-    <th:block th:include="~{elements/form/formSlogan}"></th:block>
+    <div th:replace="~{elements/fragments/navMenu}"></div>
+    <div th:replace="~{elements/form/formSlogan}"></div>
 </header>
-<th:block th:include="~{elements/form/form}"></th:block>
-<th:block th:include="~{elements/footer}"></th:block>
+<div th:replace="~{elements/form/form}"></div>
+<div th:replace="~{elements/fragments/footer}"></div>
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
