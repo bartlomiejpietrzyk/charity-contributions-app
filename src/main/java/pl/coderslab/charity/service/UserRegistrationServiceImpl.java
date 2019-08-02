@@ -12,14 +12,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserRegistrationServiceImpl implements UserRegistrationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
-                           BCryptPasswordEncoder passwordEncoder) {
+    public UserRegistrationServiceImpl(UserRepository userRepository, RoleRepository roleRepository,
+                                       BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;

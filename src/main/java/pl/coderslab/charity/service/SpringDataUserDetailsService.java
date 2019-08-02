@@ -13,16 +13,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SpringDataUserDetailsService implements UserDetailsService {
-    private UserService userService;
+    private UserRegistrationService userRegistrationService;
 
     @Autowired
-    public void setUserRepository(UserService userService) {
-        this.userService = userService;
+    public void setUserRepository(UserRegistrationService userRegistrationService) {
+        this.userRegistrationService = userRegistrationService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        User user = userService.findByEmail(email);
+        User user = userRegistrationService.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(email);
         }
