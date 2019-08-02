@@ -1,10 +1,30 @@
-<nav class="container container--70" xmlns:th="http://www.thymeleaf.org">
+<nav class="container container--70"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+     xmlns:th="http://www.thymeleaf.org">
     <ul class="nav--actions">
-        <li><a th:href="@{/login}" class="btn btn--small btn--without-border" th:text="#{nav.login}">Zaloguj</a></li>
-        <li><a th:href="@{/registration}" class="btn btn--small btn--highlighted" th:text="#{nav.register}">Załóż
-            konto</a></li>
+        <div th:unless="${#authorization.expression('isAuthenticated()')}">
+            <div th:text="#{placeholder.helloGuest}">Welcome, Guest</div>
+        </div>
+        <li sec:authorize="isAuthenticated()" class="logged-user">
+            <span th:text="#{logged.welcome}">Witaj</span> <span th:text="${loggedUser}"></span>
+            <ul class="dropdown">
+                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" th:text="#{nav.admin}">Panel
+                    Administratora</a></li>
+                <li><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profil</a></li>
+                <li><a th:href="@{/user/settings}" th:text="#{nav.settings}">Ustawienia</a></li>
+                <li><a th:href="@{/user/myDonation}" th:text="#{nav.myGatherings}">Moje zbiórki</a></li>
+                <li><a th:href="@{/logout}" th:text="#{nav.logout}">Wyloguj</a></li>
+            </ul>
+        </li>
     </ul>
-
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <ul>
+            <li><a th:href="@{/login}" class="btn btn--small btn--without-border" th:text="#{nav.login}">Zaloguj</a>
+            </li>
+            <li><a th:href="@{/registration}" class="btn btn--small btn--highlighted" th:text="#{nav.register}">Załóż
+                konto</a></li>
+        </ul>
+    </div>
     <ul>
         <li><a th:href="@{/}" class="btn btn--without-border active" th:text="#{nav.start}">Start</a></li>
         <li><a th:href="@{#steps}" class="btn btn--without-border" th:text="#{nav.about.case}">O co chodzi?</a></li>
