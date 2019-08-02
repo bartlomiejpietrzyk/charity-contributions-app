@@ -24,5 +24,7 @@
         </div>
     </div>
 
-    <a th:href="@{/registration}" class="btn btn--large" th:text="#{reg.create.acc}">Załóż konto</a>
+    <a th:unless="${#authorization.expression('isAuthenticated()')}"
+       th:href="@{/registration}" class="btn btn--large"
+       th:text="#{reg.create.acc}">Załóż konto</a>
 </section>
