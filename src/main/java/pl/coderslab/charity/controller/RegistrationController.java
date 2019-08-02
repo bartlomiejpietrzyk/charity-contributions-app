@@ -9,17 +9,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.service.UserServiceImpl;
+import pl.coderslab.charity.repository.UserRepository;
+import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
+    private UserRepository userRepository;
+    private final UserRegistrationService userRegistrationService;
 
     @Autowired
-    private UserServiceImpl userService;
-
+    public RegistrationController(UserRepository userRepository, UserRegistrationService userRegistrationService) {
+        this.userRepository = userRepository;
+        this.userRegistrationService = userRegistrationService;
+    }
 
     @GetMapping
     public String userRegistration(Model model) {
@@ -30,13 +35,15 @@ public class RegistrationController {
     @PostMapping
     public String userRegistration(@ModelAttribute("user") @Valid User user,
                                    BindingResult result) {
-        if (userService.findByEmail(user.getEmail()) != null) {
+        if (userRegistrationService.findByEmail(user.getEmail()) != null) {
             return "redirect:/registration?exist";
         }
         if (result.hasErrors()) {
             return "redirect:/registration?failed";
         }
-        userService.saveUser(user);
+
+        userRegistrationService.saveUser(user);
         return "redirect:/registration?success";
     }
+
 }

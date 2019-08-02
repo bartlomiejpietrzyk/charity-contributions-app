@@ -1,31 +1,40 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.charity.repository.UserRepository;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    @GetMapping
+    private UserRepository userRepository;
+
+    @Autowired
+    public LoginController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String logged() {
         return "user/login";
     }
 
-    @GetMapping("/admin")
-    @ResponseBody
-    public String userInfo(@AuthenticationPrincipal UserDetails customUser) {
-        System.out.println("customUsSer class {} " + customUser.getClass());
-        return "You are logged as " + customUser;
+    @GetMapping("/logout")
+    public String logoutProceed() {
+        return "login";
+    }
+
+    @PostMapping("/logout")
+    public String logoutProceeded() {
+        return "redirect:/login?logout";
     }
 
 }

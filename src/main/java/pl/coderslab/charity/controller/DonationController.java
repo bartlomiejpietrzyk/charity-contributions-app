@@ -8,17 +8,21 @@ import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 
 @Controller
 @RequestMapping
 public class DonationController {
+
+    private UserRepository userRepository;
     private CategoryRepository categoryRepository;
     private DonationRepository donationRepository;
     private InstitutionRepository institutionRepository;
 
     @Autowired
-    public DonationController(CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
+    public DonationController(UserRepository userRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
+        this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
         this.donationRepository = donationRepository;
         this.institutionRepository = institutionRepository;
@@ -49,6 +53,5 @@ public class DonationController {
     public String getCategoryName(@PathVariable(name = "id") Long id) {
         return categoryRepository.getOne(id).getName();
     }
-
 
 }

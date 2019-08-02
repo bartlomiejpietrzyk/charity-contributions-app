@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
-
+    private UserRepository userRepository;
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
 
     @Autowired
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository) {
+    public HomeController(UserRepository userRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository) {
+        this.userRepository = userRepository;
         this.institutionRepository = institutionRepository;
         this.donationRepository = donationRepository;
     }
@@ -54,6 +56,5 @@ public class HomeController {
         return institutionRepository
                 .count();
     }
-
 
 }
