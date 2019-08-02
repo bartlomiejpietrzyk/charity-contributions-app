@@ -33,13 +33,13 @@ public class DonationController {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categoriesList", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
-        return "form";
+        return "user/form";
     }
 
     @PostMapping("/form")
     public String proceedForm(@ModelAttribute("donation") Donation donation) {
         donationRepository.save(donation);
-        return "formConfirm";
+        return "user/formConfirm";
     }
 
     @GetMapping("/rest/institution/getTitle/{id}")
@@ -48,6 +48,7 @@ public class DonationController {
         return institutionRepository.getOne(id).getName();
     }
 
+    //todo categories in summary
     @GetMapping("/rest/category/getTitle/{id}")
     @ResponseBody
     public String getCategoryName(@PathVariable(name = "id") Long id) {
