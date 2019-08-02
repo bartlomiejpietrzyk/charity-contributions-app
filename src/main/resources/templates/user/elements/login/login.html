@@ -1,5 +1,5 @@
 <section class="login-page" xmlns:th="http://www.thymeleaf.org">
-    <h2>Zaloguj się</h2>
+    <h2 th:text="#{reg.login}">Zaloguj się</h2>
     <div th:if="${param.success}">
         <div class="alert"><span class="text-success" th:text="#{log.success}">Logowanie zakończone powodzeniem</span>
         </div>

@@ -2,19 +2,24 @@
     <div id="contact" class="contact">
         <h2 th:text="#{con.contact.us}">Skontaktuj się z nami</h2>
         <h3 th:text="#{con.form}">Formularz kontaktowy</h3>
-        <form class="form--contact">
-            <div class="form-group form-group--50"><input type="text" name="name" field="*{name}"
-                                                          th:placeholder="#{placeholder.firstname}"/></div>
-            <div class="form-group form-group--50"><input type="text" name="surname" field="*{surName}"
-                                                          th:placeholder="#{placeholder.lastname}"/></div>
 
-            <div class="form-group"><textarea name="message" th:placeholder="#{con.message}" rows="1"></textarea></div>
+        <form class="form--contact">
+            <div class="form-group form-group--50">
+                <input type="text" name="firstName" field="*{message.firstName}"
+                       th:placeholder="#{placeholder.firstname}"/></div>
+            <div class="form-group form-group--50">
+                <input type="text" name="lastName" field="*{message.lastName}"
+                       th:placeholder="#{placeholder.lastname}"/></div>
+
+            <div class="form-group">
+                <textarea name="message" th:placeholder="#{con.message}" rows="1"></textarea>
+            </div>
 
             <button class="btn" type="submit" th:text="#{con.send}">Wyślij</button>
         </form>
     </div>
     <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2019</span>
+        <span class="bottom-line--copy" th:text="#{app.footer}">Copyright &copy; 2019</span>
         <div class="bottom-line--icons">
             <a th:href="@{http://facebook.com}" class="btn btn--small"><img
                     th:src="@{images/icon-facebook.svg}"/></a>
