@@ -3,42 +3,34 @@ package pl.coderslab.charity.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
-import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.List;
 
 @Controller
 public class HomeController {
-    private UserRepository userRepository;
     private InstitutionRepository institutionRepository;
     private DonationRepository donationRepository;
 
     @Autowired
-    public HomeController(UserRepository userRepository, InstitutionRepository institutionRepository, DonationRepository donationRepository) {
-        this.userRepository = userRepository;
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository) {
         this.institutionRepository = institutionRepository;
         this.donationRepository = donationRepository;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String homeAction(Model model) {
         model.addAttribute("institutions", institutionRepository.findAll());
-        return "index";
+        return "user/index";
     }
 
-    @RequestMapping("/login")
-    public String showLoginForm(Model model) {
-        return "login";
-    }
-
-    @RequestMapping("/registration")
-    public String showRegistrationForm(Model model) {
-        return "registration";
+    @GetMapping("/403")
+    public String error403() {
+        return "user/403";
     }
 
     @ModelAttribute(name = "bags")
