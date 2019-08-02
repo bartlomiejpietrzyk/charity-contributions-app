@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="admin/elements/template/template"
+      lang="pl">
+<body>
+<div layout:fragment="top-bar">
+      <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                <a th:href="@{/logout}">Sign Out</a>
+            </span>
+</div>
+<div layout:fragment="fragmentOne">
+
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+    asdsad
+</div>
+</body>
+</html>
