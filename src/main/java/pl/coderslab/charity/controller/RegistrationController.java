@@ -30,7 +30,6 @@ public class RegistrationController {
     @PostMapping
     public String userRegistration(@ModelAttribute("user") @Valid User user,
                                    BindingResult result) {
-
         if (userService.findByEmail(user.getEmail()) != null) {
             return "redirect:/registration?exist";
         }
