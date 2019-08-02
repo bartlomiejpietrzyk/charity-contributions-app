@@ -22,20 +22,25 @@
         <h6 class="alert-info"
             th:if="${#fields.hasGlobalErrors()}"
             th:each="error : ${#fields.errors('global')}"></h6>
-        <div class="form-group">
-            <input type="text" name="firstName" th:placeholder="#{placeholder.firstname}"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+            <input type="text" name="firstName" th:min="2" th:required="true"
+                   th:placeholder="#{placeholder.firstname}"/>
         </div>
-        <div class="form-group">
-            <input type="text" name="lastName" th:placeholder="#{placeholder.lastname}"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+            <input type="text" name="lastName" th:min="2" th:required="true" th:placeholder="#{placeholder.lastname}"/>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
-            <input type="email" name="email" th:placeholder="#{placeholder.email}"/>
+            <input id="email" type="email" name="email" th:min="4" th:required="true"
+                   th:placeholder="#{placeholder.email}"/>
         </div>
         <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-            <input type="password" name="password" th:placeholder="#{placeholder.password}"/>
+            <input id="password" type="password" name="password" th:min="8" th:required="true"
+                   th:placeholder="#{placeholder.password}"/>
         </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">
-            <input type="password" name="passwordConfirm" th:placeholder="#{placeholder.password.conf}"/>
+        <div class="form-group">
+            <!--            th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">-->
+            <input id="passwordConf" type="password" name="passwordConfirm" th:min="8"
+                   th:placeholder="#{placeholder.password.conf}"/>
         </div>
 
         <div class="form-group form-group--buttons">
