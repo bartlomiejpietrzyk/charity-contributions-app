@@ -44,14 +44,14 @@ public class AdminAdministratorController {
     }
 
     @GetMapping("/add")
-    public String userRegistration(Model model) {
+    public String showAccountCreateForm(Model model) {
         model.addAttribute("administrator", new User());
         return "admin/administratorsAdd";
     }
 
     @PostMapping("/add")
-    public String adminRegistration(@ModelAttribute("user") @Valid User user,
-                                    BindingResult result) {
+    public String proceedShowAccountCreateForm(@ModelAttribute("administrator") @Valid User user,
+                                               BindingResult result) {
         if (userRegistrationService.findByEmail(user.getEmail()) != null) {
             return "redirect:/admin/administrators/add?exist";
         }
