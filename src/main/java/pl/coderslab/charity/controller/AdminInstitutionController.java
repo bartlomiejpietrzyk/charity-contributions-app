@@ -47,17 +47,18 @@ public class AdminInstitutionController {
     @GetMapping("/edit")
     public String showEditInstitutionForm(@RequestParam Long id, Model model) {
         model.addAttribute("institution", institutionRepository.getOne(id));
-        return "admin/institutionEdit";
+        return "admin/institutionsEdit";
     }
 
     @PostMapping("/edit")
     public String proceedEditInstitutionForm(@ModelAttribute("institution") @Valid Institution institution,
                                              BindingResult result) {
+
         if (result.hasErrors()) {
             return "redirect:/admin/institutions/edit?id=" + institution.getId();
         }
         institutionRepository.save(institution);
-        return "redirect:/admin/institutions/edit?success";
+        return "redirect:/admin/institutions/edit?id=" + institution.getId();
     }
 
     @RequestMapping("/delete")
