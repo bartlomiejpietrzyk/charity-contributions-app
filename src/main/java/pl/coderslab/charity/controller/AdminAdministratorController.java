@@ -51,12 +51,12 @@ public class AdminAdministratorController {
 
     @PostMapping("/add")
     public String adminRegistration(@ModelAttribute("user") @Valid User user,
-                                   BindingResult result) {
+                                    BindingResult result) {
         if (userRegistrationService.findByEmail(user.getEmail()) != null) {
             return "redirect:/admin/administrators/add?exist";
         }
         if (result.hasErrors()) {
-            return "redirect:/admin/administrators/add?failed";
+            return "redirect:/admin/administrators/add?addFailed";
         }
 
         userRegistrationService.saveAdmin(user);
@@ -74,10 +74,16 @@ public class AdminAdministratorController {
                                                BindingResult result) {
 
         if (result.hasErrors()) {
-            return "redirect:/admin/administrators/edit?id=" + user.getId() + "&?failed";
+            return "redirect:/admin/administrators/edit?id=" + user.getId() + "&failed";
         }
-        userRepository.save(user);
-        return "redirect:/admin/administrators?edited";
-        //TOOD UPDATE ADMIN
+        userRegistrationService.saveAdmin(user);
+        return "redirect:/admin/administrators/edit?id=" + user.getId() + "&success";
     }
+
+    @RequestMapping("/delete")
+    public String deleteAdministrator(@RequestParam Long id) {
+        userRepository.deleteById(id);
+        return "redirect:/admin/administrators?delete?id=" + id + "&success";
+    }
+
 }
