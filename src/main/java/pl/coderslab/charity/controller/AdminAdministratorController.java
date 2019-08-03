@@ -5,10 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
@@ -35,7 +32,7 @@ public class AdminAdministratorController {
 
     @GetMapping
     public String showAdministratorsList() {
-        return "admin/adminList";
+        return "admin/administratorsList";
     }
 
     @ModelAttribute("administratorList")
@@ -66,5 +63,21 @@ public class AdminAdministratorController {
         return "redirect:/admin/administrators?addSuccess";
     }
 
+    @GetMapping("/edit")
+    public String showAdministratorEditForm(@RequestParam Long id, Model model) {
+        model.addAttribute("administrator", userRepository.getOne(id));
+        return "admin/administratorsEdit";
+    }
 
+    @PostMapping("/edit")
+    public String proceedAdministratorEditForm(@ModelAttribute("administrator") @Valid User user,
+                                               BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "redirect:/admin/administrators/edit?id=" + user.getId() + "&?failed";
+        }
+        userRepository.save(user);
+        return "redirect:/admin/administrators?edited";
+        //TOOD UPDATE ADMIN
+    }
 }
