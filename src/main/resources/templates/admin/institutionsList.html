@@ -5,7 +5,7 @@
 <body>
 <div layout:fragment="top-bar">
     <div class="btn border-dark"><span th:text="#{page.institution.trust}"></span>
-        <a th:href="@{/admin/institution/}">
+        <a th:href="@{/admin/institutions/add}">
             <input type="submit" th:value="#{page.btn.add}"
                    class="btn btn-outline-dark"/></a>
     </div>
@@ -16,6 +16,12 @@
     <div class="card shadow mb-4">
 
         <div class="card-body">
+            <div th:if="${param.success}">
+                <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
+            </div>
+            <div th:if="${param.failed}">
+                <h4 class="alert alert-danger text-center" th:text="#{page.institution.delete.failed}"></h4>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
                        cellspacing="0">
@@ -34,13 +40,13 @@
                         <td th:text="${institution.name}"></td>
                         <td th:text="${institution.description}"></td>
                         <td>
-                            <a th:href="@{/admin/institution/edit(id=${institution.id})}">
+                            <a th:href="@{/admin/institutions/edit(id=${institution.id})}">
                                 <input type="hidden" name="id" th:value="${institution.id}">
                                 <input type="submit" th:value="#{page.btn.edit}"
                                        class="btn btn-outline-info"/></a>
 
-                            <a th:href="@{/admin/institution/delete(id=${institution.id})}"
-                               th:action="@{/api/admin/user/delete(id=${institution.id})}" method="post">
+                            <a th:href="@{/admin/institutions/delete(id=${institution.id})}"
+                               th:action="@{/admin/institutions/delete(id=${institution.id})}" method="post">
                                 <input type="submit" th:value="#{page.btn.delete}"
                                        class="btn btn-outline-danger"
                                        onclick="return confirm('Czy na pewno chcesz usunąć Zaufaną Instytucję?')"></a>
