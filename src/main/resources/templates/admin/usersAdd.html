@@ -39,7 +39,7 @@
                                 ponownie!</h4>
                         </div>
                     </div>
-                    <form th:action="@{/admin/administrators/add}" th:object="${administrator}" th:method="post">
+                    <form th:action="@{/admin/users/add}" th:object="${user}" th:method="post">
 
                         <h6 class="error-message btn-outline-danger text-white"
                             th:if="${#fields.hasGlobalErrors()}"
