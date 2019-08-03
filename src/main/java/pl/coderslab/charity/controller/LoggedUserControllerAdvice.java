@@ -11,8 +11,12 @@ import java.security.Principal;
 @ControllerAdvice
 public class LoggedUserControllerAdvice {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public LoggedUserControllerAdvice(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @ModelAttribute("loggedUser")
     public String currentUserName(Principal principal) {
