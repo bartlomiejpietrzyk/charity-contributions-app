@@ -11,12 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminPanelController {
 
     @GetMapping
-    public String showAdminPanel() {
+    public String showAdminPanelDashboard() {
         return "admin/index";
-    }
-
-    @GetMapping("/users")
-    public String showUsersPanel() {
-        return "admin/users";
     }
 }
