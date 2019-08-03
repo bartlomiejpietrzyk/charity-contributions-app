@@ -4,8 +4,8 @@
       lang="pl">
 <body>
 <div layout:fragment="top-bar">
-    <div class="btn border-dark"><span th:text="#{page.administrator.title}"></span>
-        <a th:href="@{/admin/institutions/add}">
+    <div class="btn border-dark"><span th:text="#{page.administrator.add.title}"></span>
+        <a th:href="@{/admin/administrators/add}">
             <input type="submit" th:value="#{page.btn.add}"
                    class="btn btn-outline-dark"/></a>
     </div>
@@ -13,8 +13,13 @@
 
 <div layout:fragment="fragmentOne">
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.administrator.list}">Blank Page</h1>
-    <div class="card shadow mb-4">
-
+    <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+        <div th:if="${param.addsuccess}">
+            <div class="text-center alert alert-success mt-4 ml-3 mr-3"><h3 class="text-success"
+                                                                            th:text="#{reg.success}">
+                Rejestracja zakończona pwodzeniem</h3>
+            </div>
+        </div>
         <div class="card-body">
             <div th:if="${param.success}">
                 <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
@@ -51,11 +56,12 @@
                                 <input type="submit" th:value="#{page.btn.edit}"
                                        class="btn btn-outline-info"/></a>
 
-                            <a th:href="@{/admin/adminisrators/delete(id=${admin.id})}"
+                            <a th:href="@{/admin/administrators/delete(id=${admin.id})}"
                                th:action="@{/admin/administrators/delete(id=${admin.id})}" method="post">
                                 <input type="submit" th:value="#{page.btn.delete}"
                                        class="btn btn-outline-danger"
-                                       onclick="return confirm('Czy na pewno chcesz usunąć Administratora?')"></a>
+                                       onclick="return confirm('Czy na pewno chcesz usunąć Administratora?')"/>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
