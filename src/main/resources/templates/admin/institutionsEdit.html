@@ -15,56 +15,69 @@
 </div>
 
 <div layout:fragment="fragmentOne">
+
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.list.title}">Blank Page</h1>
-    <div class="card shadow mb-4">
-        <div class="col-md-7">
-            <div class="card-body">
-                <div th:if="${param.success}">
-                    <h4 class="alert alert-success text-center" th:text="#{page.institution.form.add.success}"></h4>
-                </div>
-                <div th:if="${param.failed}">
-                    <h4 class="alert alert-danger text-center" th:text="#{page.institution.form.add.fail}"></h4>
-                </div>
-                <form th:action="@{/admin/institutions/edit(id=${institution.id})}" th:object="${institution}"
-                      th:method="post">
-                    <span th:text="#{page.list.id}"></span>: <span th:text="${institution.id}"></span>
-                    <h6 class="error-message btn-outline-danger text-white"
-                        th:if="${#fields.hasGlobalErrors()}"
-                        th:each="error : ${#fields.errors('global')}">
-                        <span class="btn-danger" th:text="${error}">Validation error</span></h6>
 
-                    <div class="form-group"
-                         th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
-                        <label for="name" class="control-label"
-                               th:text="#{page.list.name}">Name</label>
-                        <input id="name"
-                               class="form-control"
-                               th:field="*{name}"/>
+    <!--            </div>-->
+    <div th:if="${param.success}">
+        <h4 class="alert alert-success text-center" th:text="#{page.institution.form.add.success}"></h4>
+    </div>
+    <div th:if="${param.failed}">
+        <h4 class="alert alert-danger text-center" th:text="#{page.institution.form.add.fail}"></h4>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+        <div class="col">
+            <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+                <h4 class="card-header text-center"><span th:text="#{page.institution.edit.page}">Edit</span> <span
+                        th:text="${institution.name}"></span> <span
+                        th:text="#{page.institution.edit.page.by.id}"></span> <span
+                        th:text="${institution.id}"></span></h4>
+                <div class="card-body col-md-auto">
+                    <form th:action="@{/admin/institutions/edit(id=${institution.id})}"
+                          th:object="${institution}"
+                          th:method="post">
+
                         <h6 class="error-message btn-outline-danger text-white"
-                            th:each="error : ${#fields.errors('name')}">
+                            th:if="${#fields.hasGlobalErrors()}"
+                            th:each="error : ${#fields.errors('global')}">
                             <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                    </div>
+
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('name')}? 'has-error':''">
+                            <label for="name" class="control-label"
+                                   th:text="#{page.list.name}">Name</label>
+                            <input id="name"
+                                   class="form-control"
+                                   th:field="*{name}"/>
+                            <h6 class="error-message btn-outline-danger text-white"
+                                th:each="error : ${#fields.errors('name')}">
+                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                        </div>
 
 
-                    <div class="form-group"
-                         th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
-                        <label for="description" class="control-label"
-                               th:text="#{page.list.mission}"
-                               th:min="8">Name</label>
-                        <input id="description"
-                               class="form-control"
-                               th:field="*{description}"/>
-                        <h6 class="error-message btn-outline-danger text-white"
-                            th:each="error : ${#fields.errors('description')}">
-                            <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-danger" th:text="#{page.btn.edit}">
-                            Register
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-group"
+                             th:classappend="${#fields.hasErrors('description')}? 'has-error':''">
+                            <label for="description" class="control-label"
+                                   th:text="#{page.list.mission}"
+                                   th:min="8">Name</label>
+                            <input id="description"
+                                   class="form-control"
+                                   th:field="*{description}"/>
+                            <h6 class="error-message btn-outline-danger text-white"
+                                th:each="error : ${#fields.errors('description')}">
+                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
+                                    onclick="return confirm('Czy na pewno chcesz edytować ' + document.getElementById('name').value + '?')">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
