@@ -14,4 +14,9 @@ public class AdminPanelController {
     public String showAdminPanel() {
         return "admin/index";
     }
+
+    @GetMapping("/users")
+    public String showUsersPanel() {
+        return "admin/users";
+    }
 }
