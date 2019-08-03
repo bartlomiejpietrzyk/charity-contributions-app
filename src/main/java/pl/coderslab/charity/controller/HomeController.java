@@ -36,9 +36,9 @@ public class HomeController {
     @ModelAttribute(name = "bags")
     public Long showQuantityOfGivenBags() {
         List<Donation> collect = donationRepository.findAll();
-        Long sum = 0l;
-        for (int i = 0; i < collect.size(); i++) {
-            sum += collect.get(i).getQuantity();
+        Long sum = 0L;
+        for (Donation donation : collect) {
+            sum += donation.getQuantity();
         }
         return sum;
     }
