@@ -21,20 +21,20 @@
             <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
                 <h4 class="card-header text-center"><span th:text="#{page.administrator.add.prompt}">title</span></h4>
                 <div class="card-body col-md-auto">
-                    <div th:if="${param.addsuccess}">
-                        <div class="text-center alert alert-success mt-4 ml-3 mr-3"><h3 class="text-success"
-                                                                                        th:text="#{reg.success}">
-                            Rejestracja zakończona pwodzeniem</h3>
+                    <div th:if="${param.addSuccess}">
+                        <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                            <h3 class="text-success" th:text="#{page.administrator.add.success}"></h3>
                         </div>
                     </div>
-                    <div th:if="${param.addfailed}">
-                        <div class="text-center alert alert-danger mt-4 ml-3 mr-3"><h3 class="text-success"
-                                                                                       th:text="#{reg.failed}">
+                    <div th:if="${param.addFailed}">
+                        <div class="text-center alert alert-danger mt-4 ml-3 mr-3">
+                            <h3 class="text-danger" th:text="#{page.administrator.add.failed}">
                             Rejestracja zakończona niepowodzeniem</h3>
                         </div>
                     </div>
                     <div th:if="${param.exist}">
-                        <div class="text-center alert alert-warning mt-4 ml-3 mr-3"><h4 th:text="#{reg.exist}">
+                        <div class="text-center alert alert-warning mt-4 ml-3 mr-3">
+                            <h4 th:text="#{reg.exist}">
                             Użytkownik o podanym adresie e-mail istnieje! Spróbój
                             ponownie!</h4>
                         </div>
