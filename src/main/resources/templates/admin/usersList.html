@@ -5,13 +5,13 @@
 <body>
 <div layout:fragment="top-bar">
     <div class="btn border-dark"><span th:text="#{page.user.add.title}"></span>
-        <a th:href="@{/admin/administrators/add}">
+        <a th:href="@{/admin/users/add}">
             <input type="submit" th:value="#{page.btn.add}"
                    class="btn btn-outline-dark"/></a>
     </div>
-    <div class="btn border-dark"><span th:text="#{page.user.shortcut}"></span>
-        <a th:href="@{/users/}">
-            <input type="submit" th:value="#{page.user.link.admins}"
+    <div class="btn border-dark"><span th:text="#{page.administrator.shortcut}"></span>
+        <a th:href="@{/admin/administrators/}">
+            <input type="submit" th:value="#{page.administrator.link.admins}"
                    class="btn btn-outline-dark"/></a>
     </div>
 </div>
@@ -51,21 +51,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="admin : ${administratorList}">
-                    <td th:text="${admin.id}"></td>
-                    <td th:text="${admin.firstName}"></td>
-                    <td th:text="${admin.lastName}"></td>
-                    <td th:text="${admin.email}"></td>
-                    <td th:text="${admin.enabled}"></td>
-                    <td th:text="${admin.roles}"></td>
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.enabled}"></td>
+                    <td th:text="${user.roles}"></td>
                     <td>
-                        <a th:href="@{/admin/administrators/edit(id=${admin.id})}">
-                            <input type="hidden" name="id" th:value="${admin.id}">
+                        <a th:href="@{/admin/users/edit(id=${user.id})}">
+                            <input type="hidden" name="id" th:value="${user.id}">
                             <input type="submit" th:value="#{page.btn.edit}"
                                    class="btn btn-outline-info"/></a>
 
-                        <a th:href="@{/admin/administrators/delete(id=${admin.id})}"
-                           th:action="@{/admin/administrators/delete(id=${admin.id})}" method="post">
+                        <a th:href="@{/admin/users/delete(id=${user.id})}"
+                           th:action="@{/admin/users/delete(id=${user.id})}" method="post">
                             <input type="submit" th:value="#{page.btn.delete}"
                                    class="btn btn-outline-danger"
                                    onclick="return confirm('Czy na pewno chcesz usunąć Administratora?')"/>
