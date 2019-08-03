@@ -57,7 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**",
                         "/js/**",
                         "/images/**",
-                        "/img/**");
+                        "/img/**",
+                        "/scss/**",
+                        "/vendor/**");
     }
 
     @Bean

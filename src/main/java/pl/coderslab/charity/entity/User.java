@@ -2,31 +2,35 @@ package pl.coderslab.charity.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.coderslab.charity.validator.FieldMatch;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Getter
 @Setter
-@FieldMatch.List({
-        @FieldMatch(first = "password",
-                second = "confirmPassword",
-                message = "Hasła muszą być takie same!"),
-})
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Length(min = 2)
+    @NotEmpty
     private String firstName;
+    @Length(min = 2)
+    @NotEmpty
     private String lastName;
     @Email
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
-    private String passwordConfirm;
+    @NotNull
+    private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
