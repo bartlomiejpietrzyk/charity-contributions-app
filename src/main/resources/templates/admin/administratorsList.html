@@ -9,15 +9,19 @@
             <input type="submit" th:value="#{page.btn.add}"
                    class="btn btn-outline-dark"/></a>
     </div>
+    <div class="btn border-dark"><span th:text="#{page.administrator.link}"></span>
+        <a th:href="@{/users/}">
+            <input type="submit" th:value="#{page.administrator.link.users}"
+                   class="btn btn-outline-dark"/></a>
+    </div>
 </div>
 
 <div layout:fragment="fragmentOne">
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.administrator.list}">Blank Page</h1>
     <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
         <div th:if="${param.addsuccess}">
-            <div class="text-center alert alert-success mt-4 ml-3 mr-3"><h3 class="text-success"
-                                                                            th:text="#{reg.success}">
-                Rejestracja zakończona pwodzeniem</h3>
+            <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                <h3 class="text-success" th:text="#{reg.success}"></h3>
             </div>
         </div>
         <div class="card-body">
