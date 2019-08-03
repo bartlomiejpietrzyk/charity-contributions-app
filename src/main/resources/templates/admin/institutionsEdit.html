@@ -18,23 +18,23 @@
 
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.list.title}">Blank Page</h1>
 
-    <!--            </div>-->
-    <div th:if="${param.success}">
-        <h4 class="alert alert-success text-center" th:text="#{page.institution.form.add.success}"></h4>
-    </div>
-    <div th:if="${param.failed}">
-        <h4 class="alert alert-danger text-center" th:text="#{page.institution.form.add.fail}"></h4>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col"></div>
         </div>
         <div class="col">
             <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+                <div th:if="${param.success}">
+                    <h4 class="alert alert-success text-center" th:text="#{page.institution.edit.succes}"></h4>
+                </div>
+                <div th:if="${param.failed}">
+                    <h4 class="alert alert-danger text-center" th:text="#{page.institution.edit.fail}"></h4>
+                </div>
+
                 <h4 class="card-header text-center"><span th:text="#{page.institution.edit.page}">Edit</span> <span
-                        th:text="${institution.name}"></span> <span
-                        th:text="#{page.institution.edit.page.by.id}"></span> <span
-                        th:text="${institution.id}"></span></h4>
+                        th:text="${institution.name}"></span>
+                    <span th:text="#{page.institution.edit.page.by.id}"></span>
+                    <span th:text="${institution.id}"></span></h4>
                 <div class="card-body col-md-auto">
                     <form th:action="@{/admin/institutions/edit(id=${institution.id})}"
                           th:object="${institution}"
