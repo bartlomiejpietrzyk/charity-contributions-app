@@ -4,7 +4,7 @@
       lang="pl">
 <body>
 <div layout:fragment="top-bar">
-    <div class="btn border-dark"><span th:text="#{page.institution.trust}"></span>
+    <div class="btn border-dark"><span th:text="#{page.administrator.title}"></span>
         <a th:href="@{/admin/institutions/add}">
             <input type="submit" th:value="#{page.btn.add}"
                    class="btn btn-outline-dark"/></a>
@@ -12,7 +12,7 @@
 </div>
 
 <div layout:fragment="fragmentOne">
-    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.edit.title}">Blank Page</h1>
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.administrator.list}">Blank Page</h1>
     <div class="card shadow mb-4">
 
         <div class="card-body">
@@ -33,6 +33,7 @@
                         <th th:text="#{placeholder.lastname}">Lastname</th>
                         <th th:text="#{placeholder.email}">Email</th>
                         <th th:text="#{placeholder.enable}">Active</th>
+                        <th th:text="#{placeholder.roles}">Roles</th>
                         <th th:text="#{page.list.action}">Action</th>
                     </tr>
                     </thead>
@@ -42,7 +43,8 @@
                         <td th:text="${admin.firstName}"></td>
                         <td th:text="${admin.lastName}"></td>
                         <td th:text="${admin.email}"></td>
-                        <td th:text="${admin.enable}"></td>
+                        <td th:text="${admin.enabled}"></td>
+                        <td th:text="${admin.roles}"></td>
                         <td>
                             <a th:href="@{/admin/administrators/edit(id=${admin.id})}">
                                 <input type="hidden" name="id" th:value="${admin.id}">
