@@ -46,25 +46,24 @@ public class AdminAdministratorController {
                 .collect(Collectors.toList());
     }
 
-
-    @GetMapping("/createAdmin")
+    @GetMapping("/add")
     public String userRegistration(Model model) {
-        model.addAttribute("user", new User());
-        return "user/registration";
+        model.addAttribute("administrator", new User());
+        return "admin/administratorsAdd";
     }
 
-    @PostMapping
-    public String userRegistration(@ModelAttribute("user") @Valid User user,
+    @PostMapping("/add")
+    public String adminRegistration(@ModelAttribute("user") @Valid User user,
                                    BindingResult result) {
         if (userRegistrationService.findByEmail(user.getEmail()) != null) {
-            return "redirect:/registration?exist";
+            return "redirect:/admin/administrators/add?exist";
         }
         if (result.hasErrors()) {
-            return "redirect:/registration?failed";
+            return "redirect:/admin/administrators/add?failed";
         }
 
-        userRegistrationService.saveUser(user);
-        return "redirect:/registration?success";
+        userRegistrationService.saveAdmin(user);
+        return "redirect:/admin/administrators?addSuccess";
     }
 
 
