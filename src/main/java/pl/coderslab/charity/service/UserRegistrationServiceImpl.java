@@ -35,7 +35,13 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(1);
         Role userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void saveAdmin(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 }
