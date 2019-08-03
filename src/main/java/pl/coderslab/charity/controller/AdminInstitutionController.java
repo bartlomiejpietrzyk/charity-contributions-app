@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -56,14 +55,14 @@ public class AdminInstitutionController {
                                              BindingResult result) {
 
         if (result.hasErrors()) {
-            return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&?failed";
+            return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&failed";
         }
         institutionRepository.save(institution);
-        return "redirect:/admin/institutions?edited";
+        return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&success";
     }
 
     @RequestMapping("/delete")
-    public String deleteInstitution(@RequestParam Long id) throws EntityNotFoundException {
+    public String deleteInstitution(@RequestParam Long id) {
         institutionRepository.deleteById(id);
         return "redirect:/admin/institutions?deletesuccess";
     }
