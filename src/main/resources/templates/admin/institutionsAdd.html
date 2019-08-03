@@ -41,7 +41,9 @@
                                    th:text="#{page.list.name}">Name</label>
                             <input id="name"
                                    class="form-control"
-                                   th:field="*{name}"/>
+                                   th:type="text"
+                                   th:field="*{name}"
+                                   th:required="true"/>
                             <h6 class="error-message btn-outline-danger text-white"
                                 th:each="error : ${#fields.errors('name')}">
                                 <span class="btn-danger" th:text="${error}">Validation error</span></h6>
@@ -55,14 +57,16 @@
                                    th:min="8">Name</label>
                             <input id="description"
                                    class="form-control"
-                                   th:field="*{description}"/>
+                                   th:field="*{description}"
+                                   th:required="true"/>
                             <h6 class="error-message btn-outline-danger text-white"
                                 th:each="error : ${#fields.errors('description')}">
                                 <span class="btn-danger" th:text="${error}">Validation error</span></h6>
                         </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.add}">
+                            <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.add}"
+                                    onclick="return confirm('Czy na pewno chcesz stworzyć Instytucję: ' + document.getElementById('name').value + '?')">
                                 Register
                             </button>
                         </div>

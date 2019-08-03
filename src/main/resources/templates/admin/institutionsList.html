@@ -12,15 +12,15 @@
 </div>
 
 <div layout:fragment="fragmentOne">
-    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.edit.title}">Blank Page</h1>
-    <div class="card shadow mb-4">
-
-        <div class="card-body">
-            <div th:if="${param.success}">
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.list.title}">Blank Page</h1>
+    <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+        <!--        <h4 class="card-header">HEADER</h4>-->
+        <div class="card-body text-center">
+            <div th:if="${param.deletesuccess}">
                 <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
             </div>
-            <div th:if="${param.failed}">
-                <h4 class="alert alert-danger text-center" th:text="#{page.institution.delete.failed}"></h4>
+            <div th:if="${param.edited}">
+                <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
