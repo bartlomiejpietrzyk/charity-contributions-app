@@ -1,100 +1,95 @@
 <div xmlns:th="http://www.thymeleaf.org">
-
     <form th:action="@{/user/edit(id=${toEdit.id})}" th:model="${toEdit}"
           th:method="post">
         <div class="form-group" style="font-size: 2rem">
-            <!--                    <label for="firstName"><span  th:text="#{page.list.firstname}"></span></label>-->
             <table style="font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem" width="45%"
                    align="center"
             <thead>
             <!--              PARAM MESSAGES                 -->
-                <th colspan="2">
-                    <div th:if="${param.success}">
-                        <h3 class="text-success" th:text="#{page.user.edit.success}"></h3>
-                    </div>
-                    <div th:if="${param.failed}">
-                        <h3 class="text-danger" th:text="#{page.user.edit.failed}"></h3>
-                    </div>
-                </th>
-                </thead>
+            <th colspan="2" th:text="#{page.list.data.user}" style="padding-bottom: 15px"></th>
+            <th colspan="2">
+                <div th:if="${param.success}">
+                    <h3 class="text-success" th:text="#{page.user.edit.success}"></h3>
+                </div>
+                <div th:if="${param.failed}">
+                    <h3 class="text-danger" th:text="#{page.user.edit.failed}"></h3>
+                </div>
+            </th>
+            </thead>
             <!--                  PARAM MESSAGES                 -->
-                <tbody>
-                <tr>
-                    <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.firstName')}? 'has-error':''">
-                        <td><label for="firstName" class="control-label"
-                                   th:text="#{page.list.firstname}">First Name</label>
-                        </td>
+            <tbody>
+            <tr>
+                <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.firstName')}? 'has-error':''">
+                    <td><label for="firstName" class="control-label"
+                               th:text="#{page.list.firstname}">First Name</label>
+                    </td>
 
-                        <td><input id="firstName"
-                                   class="form-control"
-                                   th:field="${toEdit.firstName}"
-                                   th:required="true"/>
-                            <h6 th:each="error : ${#fields.errors('toEdit.firstName')}">
-                                <span class="btn--small" th:text="${error}">Validation error</span></h6>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.lastName')}? 'has-error':''">
-                        <td>
-                            <label for="firstName" class="control-label"
-                                   th:text="#{page.list.lastname}">Last Name</label>
-                        </td>
-                        <td><input id="lastName"
-                                   class="form-control"
-                                   th:field="${toEdit.lastName}"
-                                   th:required="true"/>
-                            <h6 th:each="error : ${#fields.errors('toEdit.lastName')}">
-                                <span class="btn--small" th:text="${error}">Validation error</span></h6>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.email')}? 'has-error':''">
-                        <td><label for="firstName" class="control-label"
-                                   th:text="#{page.list.email}">E-mail</label>
-                        </td>
-                        <td><input id="email"
-                                   class="form-control"
-                                   th:field="${toEdit.email}"
-                                   th:required="true"/>
-                            <h6 th:each="error : ${#fields.errors('toEdit.email')}">
-                                <span class="btn--small" th:text="${error}">Validation error</span></h6>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.password')}? 'has-error':''">
-
-                        <td><label for="password" class="control-label"
-                                   th:text="#{page.list.password}">Password</label>
-                        </td>
-                        <td style="padding-bottom: 15px">
-                            <input id="password"
-                                   type="password"
-                                   class="form-control"
-                                   th:field="${toEdit.password}"
-                                   th:required="true"/>
-                        </td>
-                        <h6 th:each="error : ${#fields.errors('toEdit.password')}">
+                    <td><input id="firstName"
+                               class="form-control"
+                               th:field="${toEdit.firstName}"
+                               th:required="true"/>
+                        <h6 th:each="error : ${#fields.errors('toEdit.firstName')}">
                             <span class="btn--small" th:text="${error}">Validation error</span></h6>
-                    </div>
-                </tr>
-                <th>
-                    <div class="form-group">
-                <td align="right" colspan="2" style="padding-top: 10px; border-top: 1px dashed black">
-                    <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
-                            onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElementById('email').value + '?')">
-                    </button>
-                    <a th:href="@{/user/profile}">
-                        <button type="button" class="btn large" th:text="#{page.btn.back}"/>
-                    </a>
-                </td>
-        </div>
-        </th>
-        </tbody>
-        </table>
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.lastName')}? 'has-error':''">
+                    <td>
+                        <label for="firstName" class="control-label"
+                               th:text="#{page.list.lastname}">Last Name</label>
+                    </td>
+                    <td><input id="lastName"
+                               class="form-control"
+                               th:field="${toEdit.lastName}"
+                               th:required="true"/>
+                        <h6 th:each="error : ${#fields.errors('toEdit.lastName')}">
+                            <span class="btn--small" th:text="${error}">Validation error</span></h6>
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.email')}? 'has-error':''">
+                    <td><label for="firstName" class="control-label"
+                               th:text="#{page.list.email}">E-mail</label>
+                    </td>
+                    <td><input id="email"
+                               class="form-control"
+                               th:field="${toEdit.email}"
+                               th:required="true"/>
+                        <h6 th:each="error : ${#fields.errors('toEdit.email')}">
+                            <span class="btn--small" th:text="${error}">Validation error</span></h6>
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.password')}? 'has-error':''">
 
+                    <td><label for="password" class="control-label"
+                               th:text="#{page.list.password}">Password</label>
+                    </td>
+                    <td style="padding-bottom: 15px">
+                        <input id="password"
+                               type="password"
+                               class="form-control"
+                               th:field="${toEdit.password}"
+                               th:required="true"/>
+                    </td>
+                    <h6 th:each="error : ${#fields.errors('toEdit.password')}">
+                        <span class="btn--small" th:text="${error}">Validation error</span></h6>
+                </div>
+            </tr>
+            <th>
+                <div class="form-group">
+            <td align="right" colspan="2" style="padding-top: 10px; border-top: 1px dashed black">
+                <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
+                        onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElementById('email').value + '?')">
+                </button>
+                <a th:href="@{/user/profile}">
+                    <button type="button" class="btn large" th:text="#{page.btn.back}"/>
+                </a>
+        </div>
+        </table>
     </form>
 </div>
 </div>
