@@ -27,7 +27,7 @@ public class GlobalDataControllerAdvice {
         this.donationRepository = donationRepository;
     }
 
-    @ModelAttribute("loggedUser")
+    @ModelAttribute("currentUserName")
     public String currentUserName(Principal principal) {
         if (principal == null) {
             return "";
@@ -35,6 +35,16 @@ public class GlobalDataControllerAdvice {
         User loggedUser = userRepository.findByEmail(principal.getName());
 
         return loggedUser.getFirstName() + " " + loggedUser.getLastName();
+    }
+
+    @ModelAttribute("currentUser")
+    public User currentUser(Principal principal) {
+        if (principal == null) {
+            User user = new User();
+            user.setFirstName("Dobroczyńco");
+            return user;
+        }
+        return userRepository.findByEmail(principal.getName());
     }
 
 
