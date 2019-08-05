@@ -8,14 +8,14 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li th:each="i : ${#numbers.sequence(0, institutions.size(), 2)}">
-                <div class="col" th:if="${i <= (institutions.size()-1)}">
-                    <div class="title" th:text="${institutions.get(i).getName()}"></div>
-                    <div class="subtitle" th:text="${institutions.get(i).getDescription()}"></div>
+            <li th:each="i : ${#numbers.sequence(0, trustedInstitutions.size(), 2)}">
+                <div class="col" th:if="${i <= (trustedInstitutions.size()-1)}">
+                    <div class="title" th:text="${trustedInstitutions.get(i).getName()}"></div>
+                    <div class="subtitle" th:text="${trustedInstitutions.get(i).getDescription()}"></div>
                 </div>
-                <div class="col" th:if="${(i+1) <= institutions.size() - 1}">
-                    <div class="title" th:text="${institutions.get(i + 1).getName()}"></div>
-                    <div class="subtitle" th:text="${institutions.get(i + 1).getDescription()}"></div>
+                <div class="col" th:if="${(i+1) <= trustedInstitutions.size() - 1}">
+                    <div class="title" th:text="${trustedInstitutions.get(i + 1).getName()}"></div>
+                    <div class="subtitle" th:text="${trustedInstitutions.get(i + 1).getDescription()}"></div>
                 </div>
             </li>
         </ul>
