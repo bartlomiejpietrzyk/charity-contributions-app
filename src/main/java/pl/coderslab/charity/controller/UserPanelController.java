@@ -5,12 +5,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
+import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
 
@@ -19,10 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserPanelController {
     private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public UserPanelController(UserRepository userRepository) {
+    public UserPanelController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -32,23 +32,22 @@ public class UserPanelController {
 
     @GetMapping("/profile")
     public String showUserProfileSite() {
-
         return "user/userProfile";
     }
 
     @GetMapping("/edit")
-    public String showUserEditForm(@ModelAttribute("currentUser") User user, Model model) {
-        model.addAttribute("user", userRepository.getOne(user.getId()));
+    public String showUserEditForm(@RequestParam Long id, Model model) {
+        model.addAttribute("toEdit", userRepository.getOne(id));
         return "user/userEdit";
     }
 
     @PostMapping("/edit")
-    public String proceedUserEditForm(@ModelAttribute("user") @Valid User user,
+    public String proceedUserEditForm(@ModelAttribute("toEdit") @Valid User user,
                                       BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/user/edit?id=" + user.getId() + "&failed";
         }
-        userRepository.save(user);
-        return "redirect:/user/edit?success";
+        userService.updateUser(user);
+        return "redirect:/user/edit?id=" + user.getId() + "&success";
     }
 }
