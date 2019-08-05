@@ -38,13 +38,13 @@ public class GlobalDataControllerAdvice {
     }
 
 
-    @ModelAttribute(name = "charityOrg")
+    @ModelAttribute(name = "charityOrgQuantity")
     public Long charityOrganisationsQuantity() {
         return institutionRepository
                 .count();
     }
 
-    @ModelAttribute(name = "bags")
+    @ModelAttribute(name = "givenBagsQuantity")
     public Long showQuantityOfGivenBags() {
         List<Donation> collect = donationRepository.findAll();
         Long sum = 0L;
@@ -54,7 +54,7 @@ public class GlobalDataControllerAdvice {
         return sum;
     }
 
-    @ModelAttribute("institutions")
+    @ModelAttribute("trustedInstitutions")
     public List<Institution> institutionsList() {
         return institutionRepository.findAll();
     }
