@@ -1,0 +1,24 @@
+<div style="font-size: 1.5rem" xmlns:th="http://www.thymeleaf.org">
+    <h2 style="margin-bottom: -13rem">Twoje dane:</h2>
+    <div class="slogan slogan--buttons">
+        <div class="slogan slogan--buttons btn btn-small" style="padding-right: 6rem">
+            <ul>
+                <ol><h2 th:text="#{page.list.firstname}"></h2>
+                    <h3 th:text="${currentUser.getFirstName()}"></h3></ol>
+            </ul>
+            <ul>
+                <ol><h2 th:text="${currentUser.getLastName()}"></h2></ol>
+                <ol><h3 th:text="#{page.list.lastname}"></h3></ol>
+            </ul>
+            <ul>
+                <ol><h2 th:text="#{page.list.email}"></h2>
+                    <h3 th:text="${currentUser.getEmail()}"></h3></ol>
+            </ul>
+        </div>
+    </div>
+    <div style="padding-right: 33rem" class="container--90 container slogan">
+        <a th:href="@{/user/edit}">
+            <h3 class="btn btn--large" th:text="#{page.btn.edit}">Edytuj</h3>
+        </a>
+    </div>
+</div>
