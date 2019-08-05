@@ -1,7 +1,8 @@
 <div class="slogan container container--90" xmlns:th="http://www.thymeleaf.org">
     <div class="slogan--item">
         <h1>
-            <span th:text="#{log.hello}">Zacznij pomagać!</span> <span th:text="${loggedUser}"></span> <br/>
+            <span th:text="#{log.hello}"><Witaj></Witaj></span> <span th:text="${currentUser.getFirstName()}"></span>
+            <br/>
             <span th:text="#{text.slogan.second}">Oddaj niechciane rzeczy w zaufane ręce</span>
         </h1>
     </div>
