@@ -13,7 +13,6 @@ import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @Secured("ROLE_ADMIN")
@@ -38,10 +37,7 @@ public class AdminUserController {
 
     @ModelAttribute("userList")
     public List<User> userList() {
-        return userRepository.findAll()
-                .stream()
-                .filter(user -> user.getRoles().contains(roleRepository.getOne(1)))
-                .collect(Collectors.toList());
+        return userRepository.findAll();
     }
 
     @GetMapping("/add")
