@@ -1,24 +1,39 @@
-<div style="font-size: 1.5rem" xmlns:th="http://www.thymeleaf.org">
-    <h2 style="margin-bottom: -13rem">Twoje dane:</h2>
-    <div class="slogan slogan--buttons">
-        <div class="slogan slogan--buttons btn btn-small" style="padding-right: 6rem">
-            <ul>
-                <ol><h2 th:text="#{page.list.firstname}"></h2>
-                    <h3 th:text="${currentUser.getFirstName()}"></h3></ol>
-            </ul>
-            <ul>
-                <ol><h2 th:text="#{page.list.lastname}"></h2></ol>
-                <ol><h3 th:text="${currentUser.getLastName()}"></h3></ol>
-            </ul>
-            <ul>
-                <ol><h2 th:text="#{page.list.email}"></h2>
-                    <h3 th:text="${currentUser.getEmail()}"></h3></ol>
-            </ul>
-        </div>
-    </div>
-    <div style="padding-right: 33rem" class="container--90 container slogan">
-        <a th:href="@{/user/edit}">
-            <h3 class="btn btn--large" th:text="#{page.btn.edit}">Edytuj</h3>
-        </a>
-    </div>
+<div xmlns:th="http://www.thymeleaf.org">
+    <table style="font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem" width="45%"
+           align="center">
+        <thead>
+        <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{page.list.data.user}"></th>
+        </thead>
+        <tr>
+            <td style="padding-top: 20px" width="30%">
+                <span th:text="#{page.list.firstname}">First Name</span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getFirstName()}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{page.list.lastname}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getLastName()}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{page.list.email}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getEmail()}"></span>
+            </td>
+        </tr>
+        <td colspan="2" align="right" style="padding-top: 15px">
+            <a th:href="@{/user/edit(id=${currentUser.id})}">
+                <input type="submit" th:value="#{page.btn.edit}"
+                       class="btn btn-outline-info"/></a>
+            </a>
+        </td>
+
+    </table>
 </div>
