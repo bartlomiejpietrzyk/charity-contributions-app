@@ -1,0 +1,90 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <form th:action="@{/user/edit(id=${toEdit.id})}" th:model="${toEdit}"
+          th:method="post">
+        <div class="form-group" style="font-size: 16px">
+            <!--                    <label for="firstName"><span  th:text="#{page.list.firstname}"></span></label>-->
+            <table style="border: 1px dashed black; padding: 20px;" width="45%" align="center">
+                <thead>
+                <th colspan="2">
+                    <div th:if="${param.success}">
+                        <h3 class="text-success" th:text="#{page.user.edit.success}"></h3>
+                    </div>
+                    <div th:if="${param.failed}">
+                        <h3 class="text-danger" th:text="#{page.user.edit.failed}"></h3>
+                    </div>
+                </th>
+                </thead>
+                <!--                                     PARAM MESSAGES                 -->
+                <tbody>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="firstName" class="control-label"
+                                   th:text="#{page.list.firstname}">First Name</label>
+                        </td>
+
+                        <td><input id="firstName"
+                                   class="form-control"
+                                   th:field="${toEdit.firstName}"
+                                   th:required="true"/>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td>
+
+                            <label for="firstName" class="control-label"
+                                   th:text="#{page.list.lastname}">Last Name</label>
+                        </td>
+                        <td><input id="lastName"
+                                   class="form-control"
+                                   th:field="${toEdit.lastName}"
+                                   th:required="true"/>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group" style="align: left;">
+                        <td><label for="firstName" class="control-label"
+                                   th:text="#{page.list.email}">E-mail</label>
+                        </td>
+                        <td><input id="email"
+                                   class="form-control"
+                                   th:field="${toEdit.email}"
+                                   th:required="true"/>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="firstName" class="control-label"
+                                   th:text="#{page.list.password}">Password</label>
+                        </td>
+                        <td style="padding-bottom: 15px">
+                            <input id="password"
+                                   type="password"
+                                   class="form-control"
+                                   th:field="${toEdit.password}"
+                                   th:required="true"/>
+                        </td>
+                    </div>
+                </tr>
+                <th>
+                    <div class="form-group">
+                <td align="right" colspan="2" style="padding-top: 10px; border-top: 1px dashed black">
+                    <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
+                            onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElementById('email').value + '?')">
+                    </button>
+                    <a th:href="@{/user/profile}">
+                        <button type="button" class="btn large" th:text="#{page.btn.back}"/>
+                    </a>
+                </td>
+        </div>
+        </th>
+        </tbody>
+        </table>
+
+    </form>
+</div>
+</div>
