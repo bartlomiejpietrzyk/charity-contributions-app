@@ -3,7 +3,8 @@
      xmlns:th="http://www.thymeleaf.org">
     <ul class="nav--actions">
         <div th:unless="${#authorization.expression('isAuthenticated()')}">
-            <div><span th:text="#{log.hello}"></span> <span th:text="${currentUser.getFirstName()}">Welcome, Guest</div>
+            <div><span th:text="#{log.hello}"></span> <span
+                    th:text="${currentUser.getFirstName()}">Welcome, Guest</span></div>
         </div>
         <li sec:authorize="isAuthenticated()" class="logged-user">
             <span th:text="#{logged.welcome}">Witaj</span> <span
@@ -13,7 +14,7 @@
                     Administratora</a></li>
                 <li><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profil</a></li>
                 <li><a th:href="@{/user/settings}" th:text="#{nav.settings}">Ustawienia</a></li>
-                <li><a th:href="@{/user/myDonation}" th:text="#{nav.myGatherings}">Moje zbiórki</a></li>
+                <li><a th:href="@{/user/donations}" th:text="#{nav.myGatherings}">Moje zbiórki</a></li>
                 <li><a th:href="@{/logout}" th:text="#{nav.logout}"
                        onclick="return confirm('Czy na pewno chcesz się wylogować')">Wyloguj</a></li>
             </ul>
