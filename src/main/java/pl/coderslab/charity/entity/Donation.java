@@ -1,6 +1,7 @@
 package pl.coderslab.charity.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class Donation {
     private String city;
     @NotEmpty
     private String zipCode;
+    @CreationTimestamp
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate donationCreated;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String time;
