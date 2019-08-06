@@ -40,10 +40,10 @@ public class AdminCategoryController {
     public String proceedCategoryAddForm(@ModelAttribute("category") Category category,
                                          BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/admin/categories/add?id=" + category.getId() + "?failed";
+            return "redirect:/admin/categories/add?id=" + category.getId() + "&failed";
         }
         categoryRepository.save(category);
-        return "redirect:/admin/categories/add?id=" + category.getId() + "?success";
+        return "redirect:/admin/categories/add?id=" + category.getId() + "&success";
     }
 
     @GetMapping("/edit")
@@ -56,11 +56,16 @@ public class AdminCategoryController {
     public String proceedCategoryEditForm(@ModelAttribute("category") Category category,
                                           BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/admin/categories/edit?id=" + category.getId() + "?failed";
+            return "redirect:/admin/categories/edit?id=" + category.getId() + "&failed";
         }
         categoryRepository.save(category);
-        return "redirect:/admin/categories/edit?id=" + category.getId() + "?success";
+        return "redirect:/admin/categories/edit?id=" + category.getId() + "&success";
     }
 
+    @RequestMapping("/delete")
+    public String deleteCategory(@RequestParam Long id) {
+        categoryRepository.deleteById(id);
+        return "redirect:/admin/categories?deletesuccess";
+    }
 
 }
