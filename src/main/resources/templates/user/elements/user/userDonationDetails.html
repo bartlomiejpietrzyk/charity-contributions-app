@@ -1,49 +1,69 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <table style="background-color: rgba(255, 255, 255, 0.7); font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem"
-           width="45%"
-           align="center">
-        <thead>
-        <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px"
-            th:text="#{page.list.donation.details}"></th>
-        </thead>
-        <tr>
-            <td style="padding-top: 20px" width="30%">
-                <span th:text="#{page.list.institution}">First Name</span>
-            </td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:text="${donation.getInstitution()}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span th:text="#{page.list.date.created.donation}"></span>
-            </td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:text="${donation.getDonationCreated()}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span th:text="#{page.list.date.picked.donation}"></span>
-            </td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:text="${donation.getDate()}"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <span th:text="#{page.list.status}"></span>
-            </td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:text="${donation.getStatus()}"></span>
-            </td>
-        </tr>
-        <td colspan="2" align="right" style="padding-top: 15px">
-            <a th:href="@{/user/donations/edit(id=${donation.id})}">
-                <input type="submit" th:value="#{page.btn.edit}"
-                       class="btn btn-outline-info"/></a>
-            </a>
-        </td>
+    <form th:action="@{/user/donations/details(id=${donation.id})}" th:object="${donation}"
+          th:method="post">
+        <table style="background-color: rgba(255, 255, 255, 0.7); font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem"
+               width="45%"
+               align="center">
+            <thead>
+            <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px">
+                <span th:text="#{page.list.donation.details}"></span>
 
-    </table>
+                <div th:if="${param.success}">
+                    <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                        <h3 class="text-success" th:text="#{page.list.status.positive}"></h3>
+                    </div>
+                </div>
+                <div th:if="${param.failed}">
+                    <div class="text-center alert alert-danger mt-4 ml-3 mr-3">
+                        <h3 class="text-success" th:text="#{page.list.status.negative}"></h3>
+                    </div>
+                </div>
+            </th>
+            </thead>
+            <tr>
+                <td style="padding-top: 20px" width="30%">
+                    <span th:text="#{page.list.institution}">First Name</span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                    <span th:text="${donation.getInstitution()}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span th:text="#{page.list.date.created.donation}"></span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                    <span th:text="${donation.getDonationCreated()}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span th:text="#{page.list.date.picked.donation}"></span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                    <span th:text="${donation.getDate()}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span th:text="#{page.list.status}"></span>
+                </td>
+                <td style="padding-top: 20px;">
+                    <select class="btn btn--small" th:field="${donation.status}">
+                        <option th:value="1" th:text="#{page.list.to.pick}"></option>
+                        <option th:value="2" th:text="#{page.list.picked}"></option>
+                    </select>
+                </td>
+            </tr>
+            <td colspan="2" align="right" style="padding-top: 15px">
+                <a th:href="@{/user/donations/details(id=${donation.id})}">
+                    <input type="submit" th:value="#{page.btn.edit}"
+                           class="btn btn-outline-info"/></a>
+                </a>
+                <a th:href="@{/user/donations}">
+                    <button type="button" class="btn large" th:text="#{page.btn.back}"/>
+                </a>
+            </td>
+
+        </table>
 </div>
