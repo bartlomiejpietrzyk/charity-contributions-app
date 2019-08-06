@@ -37,4 +37,7 @@ public class Donation {
             joinColumns = @JoinColumn(name = "donation_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private DonationStatus status;
 }
