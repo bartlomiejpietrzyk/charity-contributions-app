@@ -70,11 +70,7 @@
         </li>
 
 
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/institutions}">
-                <i class="fas fa-fw fa-building"></i>
-                <span th:text="#{admin.nav.institutions}">Institutions</span></a>
-        </li>
+
         <!-- Nav Item - Donations Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDonations"
@@ -92,7 +88,17 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/institutions}">
+                <i class="fas fa-fw fa-building"></i>
+                <span th:text="#{admin.nav.institutions}">Institutions</span></a>
+        </li>
 
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/categories}">
+                <i class="fas fa-fw fa-box"></i>
+                <span th:text="#{admin.nav.categories}">Institutions</span></a>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider">
 
