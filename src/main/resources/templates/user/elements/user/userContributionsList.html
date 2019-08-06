@@ -1,0 +1,34 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <table style="fill-opacity: 35% ;font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem; text-align: center"
+           width="65%"
+           align="center">
+        <thead>
+        <th colspan="5" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{don.page.title}"></th>
+        </thead>
+        <tr>
+            <td style="border-bottom: 1px dashed;" th:text="#{page.list.id}">ID</td>
+            <td style="border-bottom: 1px dashed;" th:text="#{page.list.for}">Dla</td>
+            <td style="border-bottom: 1px dashed;" th:text="#{page.list.quantity}">Ilość worków</td>
+            <td style="border-bottom: 1px dashed;" th:text="#{page.list.status}">Status</td>
+            <td style="border-bottom: 1px dashed;" th:text="#{page.list.action}">Akcje</td>
+        </tr>
+        <tr th:each="donation : ${donationsList}">
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%" th:text="${donation.getId()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
+                th:text="${donation.getInstitution()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
+                th:text="${donation.getQuantity()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
+                th:text="${donation.getStatus()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
+                th:text="${donation.getStatus()}"></td>
+        </tr>
+
+        <td colspan="4" align="center" style="padding-top: 15px; padding-bottom:15px">
+            <a th:href="@{/user/edit(id=${currentUser.id})}">
+                <input type="submit" th:value="#{page.btn.edit}"
+                       class="btn btn-outline-info"/></a>
+            </a>
+        </td>
+    </table>
+</div>
