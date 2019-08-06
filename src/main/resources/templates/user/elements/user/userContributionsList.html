@@ -1,5 +1,5 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <table style="fill-opacity: 35% ;font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem; text-align: center"
+    <table style="background-color: rgba(255, 255, 255, 0.7);font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem; text-align: center"
            width="65%"
            align="center">
         <thead>
@@ -19,7 +19,7 @@
             <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
                 th:text="${donation.getQuantity()}"></td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
-                th:text="${donation.getStatus()}"></td>
+                th:text="${donation.getStatus()}"><span>COSTAM</span></td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
                 th:text="${donation.getStatus()}"></td>
         </tr>
