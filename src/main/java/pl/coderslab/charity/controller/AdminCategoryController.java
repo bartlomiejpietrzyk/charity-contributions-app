@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import pl.coderslab.charity.repository.CategoryRepository;
 import java.util.List;
 
 @Controller
+@Secured("ROLE_ADMIN")
 @RequestMapping("/admin/categories")
 public class AdminCategoryController {
     private CategoryRepository categoryRepository;
