@@ -14,44 +14,46 @@
 <div layout:fragment="fragmentOne">
     <h1 class="h3 mb-4 text-gray-800" th:text="#{admin.nav.categories.list.title}">Blank Page</h1>
     <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
-        <!--        <h4 class="card-header">HEADER</h4>-->
         <div class="card-body text-center">
-            <div th:if="${param.deletesuccess}">
-                <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
-            </div>
-            <div th:if="${param.edited}">
-                <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
-                       cellspacing="0">
-                    <thead>
+            <div class="card-body col-md-auto">
 
-                    <tr class="alert-outline-dark">
-                        <th th:text="#{page.list.id}">#ID#</th>
-                        <th th:text="#{page.list.name}">Name</th>
-                        <th th:text="#{page.list.action}">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="category : ${categories}">
-                        <td th:text="${category.id}"></td>
-                        <td id="category" th:text="${category.name}"></td>
-                        <td>
-                            <a th:href="@{/admin/categories/edit(id=${category.id})}">
-                                <input type="hidden" name="id" th:value="${category.id}">
-                                <input type="submit" th:value="#{page.btn.edit}"
-                                       class="btn btn-outline-info"/></a>
+                <div th:if="${param.deletesuccess}">
+                    <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
+                </div>
+                <div th:if="${param.edited}">
+                    <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
 
-                            <a th:href="@{/admin/categories/delete(id=${category.id})}"
-                               th:action="@{/admin/categories/delete(id=${category.id})}" method="post">
-                                <input type="submit" th:value="#{page.btn.delete}"
-                                       class="btn btn-outline-danger"
-                                       onclick="return confirm('Czy na pewno chcesz usunąć tą kategorię?')"></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tr class="alert-outline-dark">
+                            <th th:text="#{page.list.id}">#ID#</th>
+                            <th th:text="#{page.list.name}">Name</th>
+                            <th th:text="#{page.list.action}">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${categories}">
+                            <td th:text="${category.id}"></td>
+                            <td id="category" th:text="${category.name}"></td>
+                            <td>
+                                <a th:href="@{/admin/categories/edit(id=${category.id})}">
+                                    <input type="hidden" name="id" th:value="${category.id}">
+                                    <input type="submit" th:value="#{page.btn.edit}"
+                                           class="btn btn-outline-info"/></a>
+
+                                <a th:href="@{/admin/categories/delete(id=${category.id})}"
+                                   th:action="@{/admin/categories/delete(id=${category.id})}" method="post">
+                                    <input type="submit" th:value="#{page.btn.delete}"
+                                           class="btn btn-outline-danger"
+                                           onclick="return confirm('Czy na pewno chcesz usunąć tą kategorię?')"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
