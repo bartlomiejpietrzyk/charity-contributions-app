@@ -33,6 +33,8 @@ public class Donation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate donationCreated;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate donationPicked;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String time;
     private String comment;
