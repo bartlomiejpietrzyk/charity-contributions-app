@@ -10,6 +10,12 @@
     <div th:if="${param.logout}">
         <h3 th:text="#{log.out.success}"></h3>
     </div>
+    <div th:if="${param.active}">
+        <h3 th:text="#{reg.activation}"></h3>
+    </div>
+    <div th:if="${param.failed}">
+        <h3 th:text="#{reg.activation}"></h3>
+    </div>
     <form th:action="@{/login}" method="post">
 
         <div class="form-group">
