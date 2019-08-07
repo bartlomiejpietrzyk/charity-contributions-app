@@ -3,32 +3,37 @@
            width="65%"
            align="center">
         <thead>
-        <th colspan="5" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{don.page.title}"></th>
+        <th colspan="6" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{don.page.title}"></th>
         </thead>
         <tr>
-            <td style="border-bottom: 1px dashed;" th:text="#{page.list.id}">ID</td>
-            <td style="border-bottom: 1px dashed;" th:text="#{page.list.for}">Dla</td>
-            <td style="border-bottom: 1px dashed;" th:text="#{page.list.quantity}">Ilość worków</td>
-            <td style="border-bottom: 1px dashed;" th:text="#{page.list.status}">Status</td>
-            <td style="border-bottom: 1px dashed;" th:text="#{page.list.action}">Akcje</td>
+            <td style="border-bottom: 1px dashed; width: 5%" th:text="#{page.list.id}">ID</td>
+            <td style="border-bottom: 1px dashed; width: 50%" th:text="#{page.list.for}">Dla</td>
+            <td style="border-bottom: 1px dashed; width: 5%" th:text="#{page.list.quantity}">Ilość worków</td>
+            <td style="border-bottom: 1px dashed; width: 10%" th:text="#{page.list.status}">Status</td>
+            <td style="border-bottom: 1px dashed; width: 20%" th:text="#{page.list.date.picked.donation}">Data
+                przekazania
+            </td>
+            <td style="border-bottom: 1px dashed; width: 10%" th:text="#{page.list.action}">Akcje</td>
         </tr>
         <tr th:each="donation : ${donationsList}">
-            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%" th:text="${donation.getId()}"></td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
-                th:text="${donation.getInstitution()}"></td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
-                th:text="${donation.getQuantity()}"></td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
-                th:text="${donation.getStatus()}"><span>COSTAM</span></td>
-            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%"
-                th:text="${donation.getStatus()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" th:text="${donation.getId()}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;"
+                th:text="${donation.institution}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;"
+                th:text="${donation.quantity}"></td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${donation.status}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:if="${donation.status.id == 2}" th:text="${donation.date}"></span>
+                <span th:unless="${donation.status.id == 2}" th:text="#{page.list.to.pick}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%">
+                <a th:href="@{/user/donations/details(id=${donation.id})}">
+                    <input type="button" th:value="#{page.btn.details}"
+                           class="btn btn--small"/></a>
+            </td>
         </tr>
-
-        <td colspan="4" align="center" style="padding-top: 15px; padding-bottom:15px">
-            <a th:href="@{/user/edit(id=${currentUser.id})}">
-                <input type="submit" th:value="#{page.btn.edit}"
-                       class="btn btn-outline-info"/></a>
-            </a>
-        </td>
+        </form>
     </table>
 </div>
