@@ -45,13 +45,21 @@
                 </td>
             </tr>
             <tr>
+                <td style="border-bottom: 1px dashed black">
+                    <span th:text="#{page.list.donation.categories.type}"</span>
+                </td>
+                <!--                <td style="border-bottom: 1px dashed black"  th:each="i : ${#numbers.sequence(0, donation.categories.size(), 2)}">-->
+                <!--                    <div th:text="${donation.get(i).getCategories()}"></div>-->
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <span th:text="#{page.list.status}"></span>
                 </td>
                 <td style="padding-top: 20px;">
                     <select class="btn btn--small" th:field="${donation.status}">
-                        <option th:value="1" th:text="#{page.list.to.pick}"></option>
-                        <option th:value="2" th:text="#{page.list.picked}"></option>
+                        <option th:each="status : ${donationStatusList}" th:value="${status.id}"
+                                th:text="${status.name}"></option>
                     </select>
                 </td>
             </tr>
