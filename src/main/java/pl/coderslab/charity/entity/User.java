@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,5 +36,4 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
 }
