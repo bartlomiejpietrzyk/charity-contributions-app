@@ -15,6 +15,7 @@ import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -25,6 +26,7 @@ public class UserPanelController {
     private UserService userService;
     private DonationRepository donationRepository;
     private DonationStatusRepository donationStatusRepository;
+
     @Autowired
     public UserPanelController(UserRepository userRepository, UserService userService, DonationRepository donationRepository, DonationStatusRepository donationStatusRepository) {
         this.userRepository = userRepository;
@@ -97,7 +99,14 @@ public class UserPanelController {
 
     @ModelAttribute("donationsList")
     public List<Donation> getDonationsList() {
-        return donationRepository.findAll();
+        List<Donation> sorted = donationRepository.findAll();
+        sorted.sort(
+                Comparator.comparing(Donation::getDate).reversed()
+                        .thenComparing((Donation donation) -> donation.getStatus().getId())
+                        .reversed()
+                        .thenComparing(Donation::getDonationCreated)
+                        .reversed());
+        return sorted;
     }
 
     @ModelAttribute("donationStatusList")
