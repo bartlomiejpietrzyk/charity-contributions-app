@@ -5,24 +5,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Donation;
+import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.CategoryRepository;
 import pl.coderslab.charity.repository.DonationRepository;
+import pl.coderslab.charity.repository.DonationStatusRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
-import pl.coderslab.charity.repository.UserRepository;
 
 
 @Controller
 @RequestMapping
 public class DonationController {
 
-    private UserRepository userRepository;
+    private DonationStatusRepository donationStatusRepository;
     private CategoryRepository categoryRepository;
     private DonationRepository donationRepository;
     private InstitutionRepository institutionRepository;
 
     @Autowired
-    public DonationController(UserRepository userRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
-        this.userRepository = userRepository;
+    public DonationController(DonationStatusRepository donationStatusRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
+        this.donationStatusRepository = donationStatusRepository;
         this.categoryRepository = categoryRepository;
         this.donationRepository = donationRepository;
         this.institutionRepository = institutionRepository;
@@ -37,7 +38,10 @@ public class DonationController {
     }
 
     @PostMapping("/form")
-    public String proceedForm(@ModelAttribute("donation") Donation donation) {
+    public String proceedForm(@ModelAttribute("donation") Donation donation,
+                              @ModelAttribute("currentUser") User user) {
+        donation.setUser(user);
+        donation.setStatus(donationStatusRepository.getOne(1L));
         donationRepository.save(donation);
         return "user/formConfirm";
     }
@@ -48,7 +52,6 @@ public class DonationController {
         return institutionRepository.getOne(id).getName();
     }
 
-    //todo categories in summary
     @GetMapping("/rest/category/getTitle/{id}")
     @ResponseBody
     public String getCategoryName(@PathVariable(name = "id") Long id) {
