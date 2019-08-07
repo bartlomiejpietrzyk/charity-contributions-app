@@ -40,4 +40,12 @@ public class UserService {
         existing.setStatus(donation.getStatus());
         donationRepository.save(existing);
     }
+
+    public void enableUser(String uuid) {
+        User user = userRepository.findOneByUuid(uuid);
+        user.setEnabled(1);
+        userRepository.save(user);
+    }
+
+
 }
