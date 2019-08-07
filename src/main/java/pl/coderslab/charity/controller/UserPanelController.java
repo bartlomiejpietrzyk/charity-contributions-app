@@ -96,9 +96,10 @@ public class UserPanelController {
         return "redirect:/user/donations/details?id=" + donation.getId() + "&success";
     }
 
-    @GetMapping("/user/{uuid}/enable")
-    public void enableUser(@PathVariable String uuid) {
+    @GetMapping("/{uuid}/enable")
+    public String enableUser(@PathVariable String uuid) {
         userService.enableUser(uuid);
+        return "redirect:/login?active";
     }
 
     @ModelAttribute("donationsList")
