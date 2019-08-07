@@ -81,7 +81,10 @@ public class AdminAdministratorController {
     }
 
     @RequestMapping("/delete")
-    public String deleteAdministrator(@RequestParam Long id) {
+    public String deleteAdministrator(@RequestParam Long id, @ModelAttribute("currentUser") User user) {
+        if (id == user.getId()) {
+            return "redirect:/admin/administrators?delete?id=" + id + "&failed";
+        }
         userRepository.deleteById(id);
         return "redirect:/admin/administrators?delete?id=" + id + "&success";
     }
