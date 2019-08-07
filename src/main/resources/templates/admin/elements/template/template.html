@@ -100,10 +100,24 @@
                 <span th:text="#{admin.nav.categories}">Categories</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/mail/send}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmail"
+               aria-expanded="true" aria-controls="collapseDonations">
                 <i class="fas fa-fw fa-at"></i>
-                <span th:text="#{page.list.email}">mail</span></a>
+                <span th:text="#{page.list.email}">email</span>
+            </a>
+            <div id="collapseEmail" class="collapse" aria-labelledby="headingEmail"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header" th:text="#{page.list.email}">Manage:</h6>
+                    <a class="collapse-item" th:href="@{/admin/mail/send}" th:text="#{page.email.simple}">simple</a>
+                    <a class="collapse-item" th:href="@{/admin/mail/sendTemplate}"
+                       th:text="#{page.email.temp}">temp</a>
+                    <a class="collapse-item" th:href="@{/admin/mail/sendAttachment}" th:text="#{page.email.attach}">attach</a>
+                </div>
+            </div>
         </li>
+
+
         <!-- Divider -->
         <hr class="sidebar-divider">
 
