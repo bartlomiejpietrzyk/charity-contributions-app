@@ -38,10 +38,18 @@
             </tr>
             <tr>
                 <td>
-                    <span th:text="#{page.list.date.picked.donation}"></span>
+                    <span th:text="#{page.list.date.pick.date.donation}"></span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
                     <span th:text="${donation.getDate()}"></span>
+                </td>
+            </tr>
+            <tr th:unless="${donation.getDonationPicked() == null}">
+                <td>
+                    <span th:text="#{page.list.date.picked.donation}"></span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                    <span th:text="${donation.getDonationPicked()}"></span>
                 </td>
             </tr>
             <tr>
