@@ -2,7 +2,7 @@
     <form th:action="@{/user/donations/details(id=${donation.id})}" th:object="${donation}"
           th:method="post">
         <table style="background-color: rgba(255, 255, 255, 0.7); font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem"
-               width="45%"
+               width="65%"
                align="center">
             <thead>
             <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px">
@@ -21,7 +21,7 @@
             </th>
             </thead>
             <tr>
-                <td style="padding-top: 20px" width="30%">
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{page.list.institution}">First Name</span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
@@ -48,8 +48,11 @@
                 <td style="border-bottom: 1px dashed black">
                     <span th:text="#{page.list.donation.categories.type}"</span>
                 </td>
-                <!--                <td style="border-bottom: 1px dashed black"  th:each="i : ${#numbers.sequence(0, donation.categories.size(), 2)}">-->
-                <!--                    <div th:text="${donation.get(i).getCategories()}"></div>-->
+                <td style="border-bottom: 1px dashed black">
+
+                    <span style="margin-right: 3px" class="btn btn--small"
+                          th:each="category : ${donation.categories}"
+                          th:text="${category}"></span>
                 </td>
             </tr>
             <tr>
