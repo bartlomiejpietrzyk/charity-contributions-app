@@ -86,8 +86,6 @@ public class UserPanelController {
     public String proceedUserDonationSingleUpdate(@ModelAttribute("donation") Donation donation,
                                                   BindingResult result) {
 
-        //todo data przekazania darow jezeli status.id == 1 to nie update daty
-
         if (result.hasErrors()) {
             return "redirect:/user/donations/details?id=" + donation.getId() + "&failed";
 
