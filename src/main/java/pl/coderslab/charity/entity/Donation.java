@@ -36,11 +36,11 @@ public class Donation {
     private LocalDate date;
     private String time;
     private String comment;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_donations",
             joinColumns = @JoinColumn(name = "donation_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "status")
     private DonationStatus status;
