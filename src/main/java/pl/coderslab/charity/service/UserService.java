@@ -35,7 +35,7 @@ public class UserService {
     public void updateUserDonation(Donation donation) {
         Donation existing = donationRepository.getOne(donation.getId());
         if (donation.getStatus().getId() == 2) {
-            existing.setDate(LocalDate.now());
+            existing.setDonationPicked(LocalDate.now());
         }
         existing.setStatus(donation.getStatus());
         donationRepository.save(existing);
