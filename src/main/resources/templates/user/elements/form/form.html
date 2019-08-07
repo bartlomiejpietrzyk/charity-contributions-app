@@ -204,7 +204,9 @@
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
+                    <input type="hidden" name="id" th:field="*{user}" th:value="${currentUser.id}">
                     <button type="submit" class="btn">Potwierdzam</button>
+
                 </div>
             </div>
         </form>
