@@ -7,26 +7,23 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.CategoryRepository;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.DonationStatusRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.service.DonationService;
 
 
 @Controller
 @RequestMapping
 public class DonationController {
 
-    private DonationStatusRepository donationStatusRepository;
     private CategoryRepository categoryRepository;
-    private DonationRepository donationRepository;
     private InstitutionRepository institutionRepository;
+    private DonationService donationService;
 
     @Autowired
-    public DonationController(DonationStatusRepository donationStatusRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
-        this.donationStatusRepository = donationStatusRepository;
+    public DonationController(CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationService donationService) {
         this.categoryRepository = categoryRepository;
-        this.donationRepository = donationRepository;
         this.institutionRepository = institutionRepository;
+        this.donationService = donationService;
     }
 
     @GetMapping("/form")
@@ -40,9 +37,7 @@ public class DonationController {
     @PostMapping("/form")
     public String proceedForm(@ModelAttribute("donation") Donation donation,
                               @ModelAttribute("currentUser") User user) {
-        donation.setUser(user);
-        donation.setStatus(donationStatusRepository.getOne(1L));
-        donationRepository.save(donation);
+        donationService.donationCreate(donation, user);
         return "user/formConfirm";
     }
 
