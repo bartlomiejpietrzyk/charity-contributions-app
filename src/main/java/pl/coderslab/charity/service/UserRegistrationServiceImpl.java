@@ -59,9 +59,4 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         userRepository.save(user);
     }
 
-    @Override
-    public void saveAdmin(UserRegistrationDto user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
 }

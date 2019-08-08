@@ -7,10 +7,11 @@ import pl.coderslab.charity.entity.User;
 import java.util.Collection;
 
 public class CurrentUser extends org.springframework.security.core.userdetails.User {
+    @Autowired
     private final User user;
+    @Autowired
     private final Boolean enabled;
 
-    @Autowired
     public CurrentUser(String username, String password, Collection<? extends GrantedAuthority> authorities, User user, Boolean enabled) {
         super(username, password, authorities);
         this.user = user;
