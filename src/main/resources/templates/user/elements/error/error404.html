@@ -1,0 +1,11 @@
+<div class="slogan container container--90" xmlns:th="http://www.thymeleaf.org">
+    <div class="slogan--item btn btn--large">
+        <a th:href="@{/login}">
+            <h1>
+                <span th:text="#{error.occured}">ERROR OCCURED!</span><br/>
+                <span th:text="#{error.404}">ERROR CODE: </span><br>
+                <span th:text="#{error.404.desc}">ERROR DESC:</span>
+            </h1>
+        </a>
+    </div>
+</div>
