@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     @NotEmpty
     private String password;
     @NotNull
-    private int enabled;
+    private Boolean enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
