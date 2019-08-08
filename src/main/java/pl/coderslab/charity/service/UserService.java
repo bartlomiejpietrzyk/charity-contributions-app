@@ -43,7 +43,7 @@ public class UserService {
 
     public void enableUser(String uuid) {
         User user = userRepository.findOneByUuid(uuid);
-        user.setEnabled(1);
+        user.setEnabled(true);
         userRepository.save(user);
     }
 
