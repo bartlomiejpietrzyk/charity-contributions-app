@@ -23,8 +23,6 @@ public class UserRegistrationDto {
     }
 
     @NotEmpty
-    private String uuid;
-    @NotEmpty
     @Length(min = 1)
     private String firstName;
     @NotEmpty
@@ -40,9 +38,7 @@ public class UserRegistrationDto {
     @Length(min = 8, max = 32)
     @NotEmpty
     public String passwordConfirm;
-    @NotEmpty
-    private String enabled;
-    @NotEmpty
+    private Boolean enabled;
     private Set<Role> roles;
 
 }

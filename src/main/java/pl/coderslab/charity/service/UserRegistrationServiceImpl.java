@@ -48,14 +48,19 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
     }
 
     @Override
-    public void saveUser(UserRegistrationDto user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnabled(String.valueOf(false));
+    public void saveUser(UserRegistrationDto registrationDto) {
+        User user = new User();
+        user.setFirstName(registrationDto.getFirstName());
+        user.setLastName(registrationDto.getFirstName());
+        user.setEmail(registrationDto.getEmail());
+        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        user.setEnabled(false);
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
         emailService.sendSimpleMessage(user.getEmail(), "Klinkij w link aktywacyjny by aktywowac konto:",
-                "To activate proceed: http://localhost:8080/user/" + user.getUuid() + "/enable");
+                "Hello " + user.getFirstName() + " " + user.getLastName()
+                        + "! Przejdź by aktywować konto: http://localhost:8080/" + user.getUuid() + "/enable");
 
     }
 
