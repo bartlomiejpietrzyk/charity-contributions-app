@@ -96,12 +96,6 @@ public class UserPanelController {
         return "redirect:/user/donations/details?id=" + donation.getId() + "&success";
     }
 
-    @GetMapping("/{uuid}/enable")
-    public String enableUser(@PathVariable String uuid) {
-        userService.enableUser(uuid);
-        return "redirect:/login?active";
-    }
-
     @ModelAttribute("donationsList")
     public List<Donation> getDonationsList() {
         List<Donation> sorted = donationRepository.findAll();

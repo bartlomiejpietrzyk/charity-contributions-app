@@ -4,25 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.dto.UserRegistrationDto;
-import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserRegistrationService;
+import pl.coderslab.charity.service.UserService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    private UserRepository userRepository;
+    private UserService userService;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
-    public RegistrationController(UserRepository userRepository, UserRegistrationService userRegistrationService) {
-        this.userRepository = userRepository;
+    public RegistrationController(UserService userService, UserRegistrationService userRegistrationService) {
+        this.userService = userService;
         this.userRegistrationService = userRegistrationService;
     }
 
@@ -49,4 +46,9 @@ public class RegistrationController {
         return "redirect:/registration?success";
     }
 
+    @GetMapping("/{uuid}/enable")
+    public String enableUser(@PathVariable String uuid) {
+        userService.enableUser(uuid);
+        return "redirect:/login?uuid=" + uuid + "&active";
+    }
 }
