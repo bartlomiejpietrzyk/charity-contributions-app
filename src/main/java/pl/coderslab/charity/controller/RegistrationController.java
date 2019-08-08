@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.dto.UserRegistrationDto;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserRegistrationService;
 
@@ -28,13 +28,16 @@ public class RegistrationController {
 
     @GetMapping
     public String userRegistration(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserRegistrationDto());
         return "user/registration";
     }
 
     @PostMapping
-    public String userRegistration(@ModelAttribute("user") @Valid User user,
+    public String userRegistration(@ModelAttribute("user") @Valid UserRegistrationDto user,
                                    BindingResult result) {
+//        if (user.password != user.passwordConfirm) {
+//            return "redirect:/registration?notMatch";
+//        }
         if (userRegistrationService.findByEmail(user.getEmail()) != null) {
             return "redirect:/registration?exist";
         }
