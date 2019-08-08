@@ -1,6 +1,7 @@
 package pl.coderslab.charity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,10 +27,13 @@ public class SpringDataUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(email);
         }
+        if (!user.getEnabled()) {
+            throw new DisabledException("Account not active!");
+        }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user.getRoles().forEach(r ->
                 grantedAuthorities.add(new SimpleGrantedAuthority(r.getName())));
         return new CurrentUser(user.getEmail(), user.getPassword(),
-                grantedAuthorities, user);
+                grantedAuthorities, user, user.getEnabled());
     }
 }

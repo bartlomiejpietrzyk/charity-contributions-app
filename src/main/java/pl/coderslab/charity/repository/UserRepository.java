@@ -2,6 +2,7 @@ package pl.coderslab.charity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.coderslab.charity.dto.UserRegistrationDto;
 import pl.coderslab.charity.entity.User;
 
 import java.util.List;
@@ -11,5 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     User findOneByUuid(String uuid);
+
     List<User> findAll();
+
+    void save(UserRegistrationDto userRegistrationDto);
 }
