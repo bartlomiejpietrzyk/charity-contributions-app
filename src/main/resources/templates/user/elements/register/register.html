@@ -37,10 +37,10 @@
             <input id="password" type="password" name="password" th:min="8" th:required="true"
                    th:placeholder="#{placeholder.password}"/>
         </div>
-        <div class="form-group">
-            <!--            th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">-->
-            <input id="passwordConf" type="password" name="passwordConfirm" th:min="8"
-                   th:placeholder="#{placeholder.password.conf}"/>
+        <div class="form-group"
+             th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">
+            <input id="passwordConfirm" type="password" name="passwordConfirm" th:min="8"
+                   th:placeholder="#{placeholder.password.conf}" th:required="true"/>
         </div>
 
         <div class="form-group form-group--buttons">
