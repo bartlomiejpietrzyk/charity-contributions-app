@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -22,6 +22,6 @@ public class PasswordToken {
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
+    private LocalDate usedDate;
 
-    private Date expiryDate;
 }
