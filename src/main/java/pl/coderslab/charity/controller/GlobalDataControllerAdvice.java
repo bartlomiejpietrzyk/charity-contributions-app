@@ -27,16 +27,6 @@ public class GlobalDataControllerAdvice {
         this.donationRepository = donationRepository;
     }
 
-    @ModelAttribute("currentUserName")
-    public String currentUserName(Principal principal) {
-        if (principal == null) {
-            return "";
-        }
-        User loggedUser = userRepository.findByEmail(principal.getName());
-
-        return new StringBuilder().append(loggedUser.getFirstName()).append(" ").append(loggedUser.getLastName()).toString();
-    }
-
     @ModelAttribute("currentUser")
     public User currentUser(Principal principal) {
         if (principal == null) {
