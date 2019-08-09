@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller;
+package pl.coderslab.charity.controller.admin;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +25,8 @@ public class MailController {
     @Autowired
     private EmailServiceImpl emailService;
 
-    //    public MailController(EmailServiceImpl emailService) {
-//        this.emailService = emailService;
-//    }
-//
-    private String attachmentPath;
+//    @Autowired
+//    private String attachmentPath;
 
     @Autowired
     public SimpleMailMessage template;
@@ -115,20 +112,20 @@ public class MailController {
         return "redirect:/admin/main/sendTemplate?success";
     }
 
-    @RequestMapping(value = "/sendAttachment", method = RequestMethod.POST)
-    public String createMailWithAttachment(Model model,
-                                           @ModelAttribute("mailObject") @Valid MailObject mailObject,
-                                           Errors errors) {
-        if (errors.hasErrors()) {
-            return "redirect:/admin/main/send?failed";
-        }
-        emailService.sendMessageWithAttachment(
-                mailObject.getTo(),
-                mailObject.getSubject(),
-                mailObject.getText(),
-                attachmentPath
-        );
+//    @RequestMapping(value = "/sendAttachment", method = RequestMethod.POST)
+//    public String createMailWithAttachment(Model model,
+//                                           @ModelAttribute("mailObject") @Valid MailObject mailObject,
+//                                           Errors errors) {
+//        if (errors.hasErrors()) {
+//            return "redirect:/admin/main/send?failed";
+//        }
+//        emailService.sendMessageWithAttachment(
+//                mailObject.getTo(),
+//                mailObject.getSubject(),
+//                mailObject.getText(),
+//                attachmentPath
+//        );
 
-        return "redirect:/admin/main/sendAttachment?success";
-    }
+//        return "redirect:/admin/main/sendAttachment?success";
+//    }
 }

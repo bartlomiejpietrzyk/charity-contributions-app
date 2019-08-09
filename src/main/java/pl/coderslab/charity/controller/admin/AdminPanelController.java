@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller;
+package pl.coderslab.charity.controller.admin;
 
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
