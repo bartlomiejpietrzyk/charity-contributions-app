@@ -14,6 +14,9 @@
         <div th:if="${param.sent}">
             <h3 th:text="#{reg.email.sent}"></h3>
         </div>
+        <div th:if="${param.notoken}">
+            <h3 th:text="#{pass.change.notoken}"></h3>
+        </div>
     </div>
     <form th:action="@{/lostPassword}" th:object="${user}" method="post">
         <h6 class="alert-info"

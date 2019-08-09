@@ -1,27 +1,31 @@
 <section class="login-page" xmlns:th="http://www.thymeleaf.org">
     <h2 th:text="#{reg.create.acc}">Załóż konto</h2>
-    <div th:if="${param.success}">
-        <div class="alert"><h3 class="text-success" th:text="#{reg.success}"> Rejestracja zakończona pwodzeniem</h3>
+    <div style="border-bottom: 1px dashed black; border-top: 1px dashed black">
+        <div th:if="${param.success}">
+            <div class="alert"><h3 class="text-success" th:text="#{reg.success}"> Rejestracja zakończona pwodzeniem</h3>
+            </div>
+        </div>
+        <div th:if="${param.failed}">
+            <div class="alert"><h3 class="text-success" th:text="#{reg.failed}"> Rejestracja zakończona
+                niepowodzeniem</h3>
+            </div>
+        </div>
+        <div th:if="${param.passFailed}">
+            <div class="alert"><h3 class="text-success">Hasło musi zawierać jedną dużą literę, jedną małą literę, jedną
+                cyfrę oraz znak specjalny.</h3>
+            </div>
+        </div>
+        <div th:if="${param.notMatch}">
+            <div class="alert"><h3 class="text-success">Hasła muszą być zgodne.</h3>
+            </div>
+        </div>
+        <div th:if="${param.exist}">
+            <div class="alert"><h3 th:text="#{reg.exist}"> Użytkownik o podanym adresie e-mail istnieje! Spróbój
+                ponownie!</h3>
+            </div>
         </div>
     </div>
-    <div th:if="${param.failed}">
-        <div class="alert"><h3 class="text-success" th:text="#{reg.failed}"> Rejestracja zakończona niepowodzeniem</h3>
-        </div>
-    </div>
-    <div th:if="${param.passFailed}">
-        <div class="alert"><h3 class="text-success">Hasło musi zawierać jedną dużą literę, jedną małą literę, jedną
-            cyfrę oraz znak specjalny.</h3>
-        </div>
-    </div>
-    <div th:if="${param.notMatch}">
-        <div class="alert"><h3 class="text-success">Hasła muszą być zgodne.</h3>
-        </div>
-    </div>
-    <div th:if="${param.exist}">
-        <div class="alert"><h3 th:text="#{reg.exist}"> Użytkownik o podanym adresie e-mail istnieje! Spróbój
-            ponownie!</h3>
-        </div>
-    </div>
+
     <form id="registrationForm" th:action="@{/registration}" th:object="${user}" th:method="post">
         <h6 class="alert-info"
             th:if="${#fields.hasGlobalErrors()}"

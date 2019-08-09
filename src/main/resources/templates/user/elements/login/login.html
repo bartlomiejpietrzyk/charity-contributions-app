@@ -1,23 +1,33 @@
 <section class="login-page" xmlns:th="http://www.thymeleaf.org">
     <h2 th:text="#{reg.login}">Zaloguj się</h2>
-    <div th:if="${param.success}">
-        <div class="alert"><span class="text-success" th:text="#{log.success}">Logowanie zakończone powodzeniem</span>
+    <div style="border-bottom: 1px dashed black; border-top: 1px dashed black">
+
+        <div th:if="${param.success}">
+            <div class="alert"><span class="text-success"
+                                     th:text="#{log.success}">Logowanie zakończone powodzeniem</span>
+            </div>
         </div>
-    </div>
-    <div th:if="${param.error}">
-        <h3 th:text="#{log.error}"></h3>
-    </div>
-    <div th:if="${param.logout}">
-        <h3 th:text="#{log.out.success}"></h3>
-    </div>
-    <div th:if="${param.active}">
-        <h3 th:text="#{reg.activation}"></h3>
-    </div>
-    <div th:if="${param.failed}">
-        <h3 th:text="#{reg.activation}"></h3>
-    </div>
-    <div th:if="${param.disabled}">
-        <h3 th:text="#{reg.disabled}"></h3>
+        <div th:if="${param.error}">
+            <h3 th:text="#{log.error}"></h3>
+        </div>
+        <div th:if="${param.logout}">
+            <h3 th:text="#{log.out.success}"></h3>
+        </div>
+        <div th:if="${param.active}">
+            <h3 th:text="#{reg.activation}"></h3>
+        </div>
+        <div th:if="${param.failed}">
+            <h3 th:text="#{reg.activation}"></h3>
+        </div>
+        <div th:if="${param.disabled}">
+            <h3 th:text="#{reg.disabled}"></h3>
+        </div>
+        <div th:if="${param.passChanged}">
+            <h3 th:text="#{pass.change.succ}"></h3>
+        </div>
+        <div th:if="${param.passError}">
+            <h3 th:text="#{pass.change.failed}"></h3>
+        </div>
     </div>
     <form th:action="@{/login}" method="post">
 
@@ -32,7 +42,8 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <a th:href="@{/registration}" class="btn btn--without-border" th:text="#{reg.create.acc}">Załóż konto</a>
+            <a th:href="@{/registration}" class="btn btn--without-border" th:text="#{reg.create.acc}">Załóż
+                konto</a>
             <button class="btn" type="submit" th:text="#{reg.login}">Zaloguj się</button>
         </div>
     </form>

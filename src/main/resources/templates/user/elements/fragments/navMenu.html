@@ -4,11 +4,11 @@
     <ul class="nav--actions">
         <div th:unless="${#authorization.expression('isAuthenticated()')}">
             <div><span th:text="#{log.hello}"></span> <span
-                    th:text="${currentUser.getFirstName()}">Welcome, Guest</span></div>
+                    th:text="#{log.guest}">Welcome, Guest</span></div>
         </div>
         <li sec:authorize="isAuthenticated()" class="logged-user">
-            <span th:text="#{logged.welcome}">Witaj</span> <span
-                th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></span>
+            <span th:text="#{logged.welcome}">Witaj</span>
+            <span th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></span>
             <ul class="dropdown">
                 <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" th:text="#{nav.admin}">Panel
                     Administratora</a></li>
