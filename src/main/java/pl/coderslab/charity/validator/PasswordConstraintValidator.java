@@ -40,9 +40,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
                 new UppercaseCharacterRule(1),
                 new DigitCharacterRule(1),
                 new SpecialCharacterRule(1),
-                new NumericalSequenceRule(1, false),
-                new AlphabeticalSequenceRule(1, false),
-                new QwertySequenceRule(1, false),
                 new WhitespaceRule()));
 
         RuleResult result = validator.validate(new PasswordData(password));
