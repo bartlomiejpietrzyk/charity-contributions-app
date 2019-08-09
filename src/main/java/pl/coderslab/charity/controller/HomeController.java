@@ -27,5 +27,14 @@ public class HomeController {
         return "user/403";
     }
 
+    @GetMapping("/404")
+    public String error404() {
+        return "user/404";
+    }
+
+    @GetMapping("/500")
+    public String error500() {
+        return "user/500";
+    }
 
 }

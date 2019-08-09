@@ -28,7 +28,6 @@ public class User extends BaseEntity {
     private String email;
     @NotEmpty
     private String password;
-    @NotEmpty
     private Boolean enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",

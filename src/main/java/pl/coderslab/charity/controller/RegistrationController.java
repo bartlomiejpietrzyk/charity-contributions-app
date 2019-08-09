@@ -32,9 +32,9 @@ public class RegistrationController {
     @PostMapping
     public String userRegistration(@ModelAttribute("user") @Valid UserRegistrationDto user,
                                    BindingResult result) {
-//        if (user.password != user.passwordConfirm) {
-//            return "redirect:/registration?notMatch";
-//        }
+        if (!user.password.equals(user.passwordConfirm)) {
+            return "redirect:/registration?notMatch";
+        }
         if (userRegistrationService.findByEmail(user.getEmail()) != null) {
             return "redirect:/registration?exist";
         }

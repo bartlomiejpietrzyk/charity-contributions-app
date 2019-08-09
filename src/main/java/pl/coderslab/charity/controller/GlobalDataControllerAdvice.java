@@ -34,7 +34,7 @@ public class GlobalDataControllerAdvice {
         }
         User loggedUser = userRepository.findByEmail(principal.getName());
 
-        return loggedUser.getFirstName() + " " + loggedUser.getLastName();
+        return new StringBuilder().append(loggedUser.getFirstName()).append(" ").append(loggedUser.getLastName()).toString();
     }
 
     @ModelAttribute("currentUser")
