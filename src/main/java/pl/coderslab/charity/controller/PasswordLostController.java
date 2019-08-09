@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.charity.dto.ChangePasswordDto;
+import pl.coderslab.charity.dto.UserChangePasswordDto;
 import pl.coderslab.charity.dto.UserLostPasswordDto;
 import pl.coderslab.charity.email.EmailServiceImpl;
 import pl.coderslab.charity.entity.User;
@@ -69,16 +69,14 @@ public class PasswordLostController {
         if (result != null) {
             return "redirect:/lostPassword?error";
         }
-        User one = userRepository.getOne(id);
-        model.addAttribute("reset", new ChangePasswordDto());
-        model.addAttribute("user", one);
+        model.addAttribute("reset", new UserChangePasswordDto(userRepository.getOne(id)));
         return "user/resetPassword";
     }
 
     @PostMapping("/resetPassword")
-    public String proceedPasswordResetSite(@ModelAttribute("user") User user,
-                                           @ModelAttribute("reset") @Valid ChangePasswordDto passwordDto) {
-        passwordLostService.changeUserPassword(user, passwordDto.getPassword());
+    public String proceedPasswordResetSite(@ModelAttribute("reset") @Valid UserChangePasswordDto passwordDto) {
+        User one = userRepository.getOne(Long.valueOf(passwordDto.getId()));
+        passwordLostService.changeUserPassword(one, passwordDto.getPassword());
         return "redirect:/login?passChanged";
     }
 }
