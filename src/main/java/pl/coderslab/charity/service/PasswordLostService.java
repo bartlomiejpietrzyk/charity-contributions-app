@@ -6,22 +6,29 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.charity.entity.PasswordToken;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.PasswordTokenRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @Service
 @Transactional
 public class PasswordLostService {
+    private UserRepository userRepository;
     private PasswordTokenRepository passwordTokenRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public PasswordLostService(PasswordTokenRepository passwordTokenRepository) {
+    public PasswordLostService(UserRepository userRepository, PasswordTokenRepository passwordTokenRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
         this.passwordTokenRepository = passwordTokenRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void createPasswordResetTokenForUser(User user, String token) {
@@ -34,7 +41,7 @@ public class PasswordLostService {
     public SimpleMailMessage constructResetTokenEmail(String contextPath, String token, User user) {
         String url = contextPath + "/resetPassword?id=" +
                 user.getId() + "&token=" + token;
-        String message = "Witaj " + user.getFirstName() + "!\nBy zresetować hasło kliknij w poniższy link!";
+        String message = "Witaj " + user.getFirstName() + "!\nBy zresetować hasło kliknij w poniższy link!\n";
         return constructEmail("Reset Password", message + " \r\n" + url, user);
     }
 
@@ -44,7 +51,7 @@ public class PasswordLostService {
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-        email.setFrom("email@email.com");
+        email.setFrom("test@email.com");
         return email;
     }
 
@@ -56,18 +63,23 @@ public class PasswordLostService {
             return "invalidToken";
         }
 
-//        Calendar cal = Calendar.getInstance();
-//        if ((passToken.getExpiryDate()
-//                .getTime() - cal.getTime()
-//                .getTime()) <= 0) {
-//            return "expired";
-//        }
-
         User user = passToken.getUser();
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 user, null, Arrays.asList(
                 new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
         SecurityContextHolder.getContext().setAuthentication(auth);
         return null;
+    }
+
+    public void changeUserPassword(User user, String password, String token) {
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+        useToken(token);
+    }
+
+    void useToken(String token) {
+        PasswordToken byToken = passwordTokenRepository.findByToken(token);
+        byToken.setUsedDate(LocalDate.now());
+        passwordTokenRepository.save(byToken);
     }
 }
