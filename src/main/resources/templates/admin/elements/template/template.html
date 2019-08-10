@@ -151,7 +151,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small btn border-dark"
-                                  th:text="${currentUserName}"></span>
+                                  th:text="#{log.hello} + ' ' + ${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></span>
                             <span class="fa fa-smile-wink">
                         </a>
                         <!-- Dropdown - User Information -->
