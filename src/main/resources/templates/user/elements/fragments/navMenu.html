@@ -2,17 +2,17 @@
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
      xmlns:th="http://www.thymeleaf.org">
     <ul class="nav--actions">
-        <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <div>
             <div>
                 <span th:text="#{log.hello}">Welcome, </span>
-                <span th:text="#{log.guest}">Guest</span></div>
+                <span th:unless="${#authorization.expression('isAuthenticated()')}" th:text="#{log.guest}">Guest</span>
+            </div>
         </div>
-        <li sec:authorize="isAuthenticated()" class="logged-user">
-            <span th:text="#{logged.welcome}">Witaj</span>
-            <span th:text="${currentUser}"></span>
+        <li sec:authorize="hasAnyRole('USER', 'ADMIN')" class="logged-user">
+            <span th:text="${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></span>
             <ul class="dropdown">
-                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" th:text="#{nav.admin}">Panel
-                    Administratora</a></li>
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}" th:text="#{nav.admin}">Panel Administratora</a></li>
                 <li><a th:href="@{/user/profile}" th:text="#{nav.profile}">Profil</a></li>
                 <li><a th:href="@{/user/settings}" th:text="#{nav.settings}">Ustawienia</a></li>
                 <li><a th:href="@{/user/donations}" th:text="#{nav.myGatherings}">Moje zbiórki</a></li>
@@ -21,7 +21,8 @@
             </ul>
         </li>
     </ul>
-    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+    <!--    <div th:unless="${#authorization.expression('isAuthenticated()')}">-->
+    <div th:if="${#authorization.getAuthentication()}">
         <ul>
             <li><a th:href="@{/login}" class="btn btn--small btn--without-border" th:text="#{nav.login}">Zaloguj</a>
             </li>
