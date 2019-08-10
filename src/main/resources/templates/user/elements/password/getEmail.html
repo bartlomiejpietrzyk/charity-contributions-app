@@ -17,8 +17,11 @@
         <div th:if="${param.notoken}">
             <h3 th:text="#{pass.change.notoken}"></h3>
         </div>
+        <div th:if="${param.usedtoken}">
+            <h3 th:text="#{pass.change.usedtoken}"></h3>
+        </div>
     </div>
-    <form th:action="@{/lostPassword}" th:object="${user}" method="post">
+    <form id="form" th:action="@{/lostPassword}" th:object="${user}" method="post">
         <h6 class="alert-info"
             th:if="${#fields.hasGlobalErrors()}"
             th:each="error : ${#fields.errors('global')}"></h6>

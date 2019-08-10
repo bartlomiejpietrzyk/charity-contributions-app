@@ -209,4 +209,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (form !== null) {
         new FormSteps(form);
     }
+
+    /**
+     * Disable all submit buttons while
+     * submitting, to avoid multiple actions.
+     */
+
+    $(function () {
+        $('#form').submit(function () {
+            $("input[type='submit']", this)
+                .val("Proszę czekać.")
+                .attr('disabled', 'disabled');
+            return true;
+        });
+    });
 });

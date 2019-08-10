@@ -1,4 +1,4 @@
-package pl.coderslab.charity.error;
+package pl.coderslab.charity.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

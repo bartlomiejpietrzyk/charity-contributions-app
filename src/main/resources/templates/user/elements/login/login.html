@@ -1,7 +1,6 @@
 <section class="login-page" xmlns:th="http://www.thymeleaf.org">
     <h2 th:text="#{reg.login}">Zaloguj się</h2>
     <div style="border-bottom: 1px dashed black; border-top: 1px dashed black">
-
         <div th:if="${param.success}">
             <div class="alert"><span class="text-success"
                                      th:text="#{log.success}">Logowanie zakończone powodzeniem</span>
@@ -29,7 +28,7 @@
             <h3 th:text="#{pass.change.failed}"></h3>
         </div>
     </div>
-    <form th:action="@{/login}" method="post">
+    <form id="form" th:action="@{/login}" method="post">
 
         <div class="form-group">
             <input type="email" name="username" th:placeholder="#{placeholder.email}"/>
