@@ -1,0 +1,13 @@
+<section class="login-page" xmlns:th="http://www.thymeleaf.org">
+    <div th:if="${param.success}">
+        <h2 th:text="#{pass.change.succ}"></h2>
+    </div>
+    <div th:if="${param.failed}">
+        <h2 th:text="#{pass.change.failed}"></h2>
+    </div>
+    <a th:href="@{/login}">
+        <div class="btn btn--small">
+            <span th:text="#{pass.back.to.login}"></span>
+        </div>
+    </a>
+</section>
