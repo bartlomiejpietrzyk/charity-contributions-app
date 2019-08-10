@@ -87,5 +87,4 @@ public class AdminUserController {
         userRepository.deleteById(id);
         return "redirect:/admin/users?delete?id=" + id + "&success";
     }
-
 }

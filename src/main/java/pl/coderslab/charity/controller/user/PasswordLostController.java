@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller;
+package pl.coderslab.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.dto.UserChangePasswordDto;
 import pl.coderslab.charity.dto.UserLostPasswordDto;
 import pl.coderslab.charity.email.EmailServiceImpl;
+import pl.coderslab.charity.entity.PasswordToken;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.PasswordTokenRepository;
 import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.PasswordLostService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.UUID;
 
@@ -66,17 +68,46 @@ public class PasswordLostController {
     public String showPasswordResetSite(@RequestParam Long id,
                                         @RequestParam String token, Model model) {
         String result = passwordLostService.validatePasswordResetToken(id, token);
+        PasswordToken byToken = passwordTokenRepository.findByToken(token);
+        if (byToken == null) {
+            return "redirect:/lostPassword?notoken";
+        } else if (byToken.getId() != null && byToken.getUsedDate() != null) {
+            return "redirect:/lostPassword?usedtoken";
+        }
         if (result != null) {
             return "redirect:/lostPassword?error";
         }
-        model.addAttribute("reset", new UserChangePasswordDto(userRepository.getOne(id)));
+
+        UserChangePasswordDto userChangePasswordDto = new UserChangePasswordDto(userRepository.getOne(id));
+        userChangePasswordDto.setToken(token);
+        model.addAttribute("reset", userChangePasswordDto);
         return "user/resetPassword";
     }
 
     @PostMapping("/resetPassword")
-    public String proceedPasswordResetSite(@ModelAttribute("reset") @Valid UserChangePasswordDto passwordDto) {
+    public String proceedPasswordResetSite(@ModelAttribute("reset") @Valid UserChangePasswordDto passwordDto,
+                                           HttpSession session,
+                                           BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/resetPassword?id=" + passwordDto.getId() + "&token=" + passwordDto.getToken() + "&failed";
+        }
+
         User one = userRepository.getOne(Long.valueOf(passwordDto.getId()));
-        passwordLostService.changeUserPassword(one, passwordDto.getPassword());
+        passwordLostService.changeUserPassword(one, passwordDto.getPassword(), passwordDto.getToken());
+        return "redirect:/savePassword?success";
+    }
+
+    @GetMapping("/savePassword")
+    public String savePasswordResetSite(Model model,
+                                        HttpSession session) {
+
+        model.addAttribute("msg", "Zmiana hasła przebiegła pomyślnie");
+        session.invalidate();
+        return "user/savePassword";
+    }
+
+    @PostMapping("/savePassword")
+    public String redirectPasswordResetSite() {
         return "redirect:/login?passChanged";
     }
 }

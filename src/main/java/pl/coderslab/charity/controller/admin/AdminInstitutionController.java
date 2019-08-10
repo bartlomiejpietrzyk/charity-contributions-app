@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Institution;
 import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,10 +18,12 @@ import java.util.List;
 @RequestMapping("/admin/institutions")
 public class AdminInstitutionController {
     private InstitutionRepository institutionRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdminInstitutionController(InstitutionRepository institutionRepository) {
+    public AdminInstitutionController(InstitutionRepository institutionRepository, UserRepository userRepository) {
         this.institutionRepository = institutionRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping

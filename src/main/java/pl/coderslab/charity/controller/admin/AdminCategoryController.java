@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Category;
 import pl.coderslab.charity.repository.CategoryRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ import java.util.List;
 @RequestMapping("/admin/categories")
 public class AdminCategoryController {
     private CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdminCategoryController(CategoryRepository categoryRepository) {
+    public AdminCategoryController(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute("categories")
@@ -69,5 +72,4 @@ public class AdminCategoryController {
         categoryRepository.deleteById(id);
         return "redirect:/admin/categories?deletesuccess";
     }
-
 }

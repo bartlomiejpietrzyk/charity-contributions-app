@@ -13,6 +13,7 @@ import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -82,11 +83,14 @@ public class AdminAdministratorController {
 
     @RequestMapping("/delete")
     public String deleteAdministrator(@RequestParam Long id, @ModelAttribute("currentUser") User user) {
-        if (id == user.getId()) {
+        List<User> adminList = userRepository.findAll()
+                .stream()
+                .filter(u -> u.getRoles().contains(roleRepository.getOne(2)))
+                .collect(Collectors.toList());
+        if (adminList.size() == 1 || Objects.equals(id, user.getId())) {
             return "redirect:/admin/administrators?delete?id=" + id + "&failed";
         }
         userRepository.deleteById(id);
         return "redirect:/admin/administrators?delete?id=" + id + "&success";
     }
-
 }

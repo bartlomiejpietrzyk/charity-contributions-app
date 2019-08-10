@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin")
 public class AdminPanelController {
-
     @GetMapping
     public String showAdminPanelDashboard() {
         return "admin/index";

@@ -1,16 +1,14 @@
-package pl.coderslab.charity.controller;
+package pl.coderslab.charity.controller.advice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
-import java.security.Principal;
 import java.util.List;
 
 @ControllerAdvice
@@ -26,17 +24,6 @@ public class GlobalDataControllerAdvice {
         this.institutionRepository = institutionRepository;
         this.donationRepository = donationRepository;
     }
-
-    @ModelAttribute("currentUser")
-    public User currentUser(Principal principal) {
-        if (principal == null) {
-            User user = new User();
-            user.setFirstName("Dobroczyńco");
-            return user;
-        }
-        return userRepository.findByEmail(principal.getName());
-    }
-
 
     @ModelAttribute(name = "charityOrgQuantity")
     public Long charityOrganisationsQuantity() {

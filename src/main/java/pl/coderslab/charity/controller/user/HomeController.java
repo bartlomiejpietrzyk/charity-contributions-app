@@ -3,18 +3,15 @@ package pl.coderslab.charity.controller.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
+import pl.coderslab.charity.repository.UserRepository;
 
 @Controller
 public class HomeController {
-    private InstitutionRepository institutionRepository;
-    private DonationRepository donationRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository) {
-        this.institutionRepository = institutionRepository;
-        this.donationRepository = donationRepository;
+    public HomeController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
@@ -36,5 +33,4 @@ public class HomeController {
     public String error500() {
         return "user/500";
     }
-
 }
