@@ -66,7 +66,9 @@ public class PasswordLostController {
 
     @GetMapping("/resetPassword")
     public String showPasswordResetSite(@RequestParam Long id,
-                                        @RequestParam String token, Model model) {
+                                        @RequestParam String token, Model model,
+                                        HttpSession session) {
+        session.invalidate();
         PasswordToken byToken = passwordTokenRepository.findByToken(token);
         if (byToken == null) {
             return "redirect:/lostPassword?notoken";

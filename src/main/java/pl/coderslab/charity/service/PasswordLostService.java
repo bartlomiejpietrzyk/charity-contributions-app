@@ -71,9 +71,10 @@ public class PasswordLostService {
         return null;
     }
 
-    public void changeUserPassword(User user, String password, String token) {
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
+    public void changeUserLostPassword(String id, String password, String token) {
+        User existing = userRepository.getOne(Long.valueOf(id));
+        existing.setPassword(passwordEncoder.encode(password));
+        userRepository.save(existing);
         useToken(token);
     }
 
