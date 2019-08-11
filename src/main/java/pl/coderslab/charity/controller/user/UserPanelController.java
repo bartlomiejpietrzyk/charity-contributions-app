@@ -150,8 +150,8 @@ public class UserPanelController {
     }
 
     @ModelAttribute("donationsList")
-    public List<Donation> getDonationsList() {
-        List<Donation> sorted = donationRepository.findAll();
+    public List<Donation> getDonationsList(@ModelAttribute("currentUser") User user) {
+        List<Donation> sorted = donationRepository.findAllByUser(user);
         sorted.sort(
                 Comparator.comparing(Donation::getDate).reversed()
                         .thenComparing((Donation donation) -> donation.getStatus().getId())
