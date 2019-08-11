@@ -30,6 +30,10 @@
             </td>
         </tr>
         <td colspan="2" align="right" style="padding-top: 15px">
+            <a th:href="@{/user/changePassword(id=${currentUser.id})}">
+                <input type="submit" th:value="#{page.btn.edit.pass}"
+                       class="btn btn-outline-info"/></a>
+            </a>
             <a th:href="@{/user/edit(id=${currentUser.id})}">
                 <input type="submit" th:value="#{page.btn.edit}"
                        class="btn btn-outline-info"/></a>

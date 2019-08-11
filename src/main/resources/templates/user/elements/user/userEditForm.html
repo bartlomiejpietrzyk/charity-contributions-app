@@ -7,13 +7,16 @@
                    align="center">
                 <thead>
                 <!--              PARAM MESSAGES                 -->
-                <th colspan="2" th:text="#{page.list.data.user}" style="padding-bottom: 15px"></th>
-                <th colspan="2">
+                <th colspan="" style="padding-bottom: 15px">
+                    <span th:text="#{page.list.data.user}"></span>
                     <div th:if="${param.success}">
                         <h3 class="text-success" th:text="#{page.user.edit.success}"></h3>
                     </div>
                     <div th:if="${param.failed}">
                         <h3 class="text-danger" th:text="#{page.user.edit.failed}"></h3>
+                    </div>
+                    <div th:if="${param.invalid}">
+                        <h3 class="text-danger" th:text="#{pass.invalid}"></h3>
                     </div>
                 </th>
                 </thead>
@@ -65,11 +68,12 @@
                 </tr>
                 <tr>
                     <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.password')}? 'has-error':''">
-
-                        <td><label for="password" class="control-label"
+                        <td>
+                            <label for="password" class="control-label"
                                    th:text="#{page.list.password}">Password</label>
                         </td>
                         <td style="font-size: 12px; padding-bottom: 15px">
+
                             <input id="password"
                                    type="password"
                                    class="form-control"
@@ -81,26 +85,12 @@
                     </div>
                 </tr>
                 <tr>
-                    <div class="form-group" th:classappend="${#fields.hasErrors('toEdit.password')}? 'has-error':''">
-
-                        <td>
-                            <label for="password" class="control-label"
-                                   th:text="#{page.list.password}">Password</label>
-                        </td>
-                        <td style="font-size: 12px; padding-bottom: 15px">
-                            <input id="passwordConfirm"
-                                   type="password"
-                                   class="form-control"
-                                   th:field="${toEdit.passwordConfirm}"
-                                   th:required="true"/>
-                        </td>
-                        <h6 th:each="error : ${#fields.errors('toEdit.passwordConfirm')}">
-                            <span class="btn--small" th:text="${error}">Validation error</span></h6>
-                    </div>
+                    <td style="border-bottom: 1px dashed black; font-size: 14px" align="center" colspan="3"
+                        th:text="#{pass.confirm.to.save}"></td>
                 </tr>
                 <th>
                     <div class="form-group">
-                <td align="right" colspan="2" style="padding-top: 10px; border-top: 1px dashed black">
+                <td align="right" style="padding-top: 10px">
                     <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
                             onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElementById('firstName').value + '?')">
                     </button>
