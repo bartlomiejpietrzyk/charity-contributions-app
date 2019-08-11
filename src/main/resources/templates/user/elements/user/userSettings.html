@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <table style="background-color: rgba(255, 255, 255, 0.7); font-size: 2rem; border: 1px dashed black; padding: 20px; margin-top: 5rem"
+           width="45%"
+           align="center">
+        <thead>
+        <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{page.list.data.user}"></th>
+        </thead>
+        <tr>
+            <td style="padding-top: 20px" width="30%">
+                <span th:text="#{page.list.firstname}">First Name</span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getFirstName()}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{page.list.lastname}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getLastName()}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{page.list.email}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${currentUser.getEmail()}"></span>
+            </td>
+        </tr>
+        <td colspan="2" align="right" style="padding-top: 15px">
+            <a th:href="@{/user/changePassword(id=${currentUser.id})}">
+                <input type="submit" th:value="#{page.btn.edit.pass}"
+                       class="btn btn-outline-info"/></a>
+            </a>
+            <a th:href="@{/user/edit(id=${currentUser.id})}">
+                <input type="submit" th:value="#{page.btn.edit}"
+                       class="btn btn-outline-info"/></a>
+            </a>
+            <a th:href="@{/user/profile}">
+                <input type="submit" th:value="#{page.btn.back}"
+                       class="btn btn-outline-info"/></a>
+            </a>
+        </td>
+
+    </table>
+</div>
