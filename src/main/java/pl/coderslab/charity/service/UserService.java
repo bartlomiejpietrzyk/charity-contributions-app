@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.charity.dto.UserChangePasswordDto;
 import pl.coderslab.charity.dto.UserEditDto;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.User;
@@ -52,11 +53,14 @@ public class UserService {
         one.setFirstName(user.getFirstName());
         one.setLastName(user.getLastName());
         one.setEmail(user.getEmail());
-        if (passwordEncoder.matches(user.getPassword(), one.getPassword())) {
-            userRepository.save(one);
-        }
+        userRepository.save(one);
     }
 
+    public void changePassword(UserChangePasswordDto passwordDto) {
+        User one = userRepository.getOne(Long.valueOf(passwordDto.getId()));
+        one.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
+        userRepository.save(one);
+    }
     public boolean passwordMatches(UserEditDto user) {
         User existing = userRepository.getOne(Long.valueOf(user.getId()));
         return passwordEncoder.matches(user.getPassword(), existing.getPassword());
