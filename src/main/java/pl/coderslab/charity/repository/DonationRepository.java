@@ -3,6 +3,7 @@ package pl.coderslab.charity.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.coderslab.charity.entity.Donation;
+import pl.coderslab.charity.entity.User;
 
 import java.util.List;
 
@@ -10,6 +11,10 @@ import java.util.List;
 public interface DonationRepository extends JpaRepository<Donation, Long> {
     @Override
     List<Donation> findAll();
+
+    List<Donation> findAllByUser(User user);
+
+    Long countAllByUser(User user);
 
     @Override
     Donation getOne(Long aLong);
@@ -22,4 +27,5 @@ public interface DonationRepository extends JpaRepository<Donation, Long> {
 
     @Override
     void delete(Donation donation);
+
 }
