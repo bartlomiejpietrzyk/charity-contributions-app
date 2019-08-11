@@ -27,12 +27,6 @@ public class UserService {
         this.donationRepository = donationRepository;
     }
 
-    public void updateUser(User user) {
-        user.setEnabled(userRepository.getOne(user.getId()).getEnabled());
-        user.setRoles(user.getRoles());
-        userRepository.save(user);
-    }
-
     public void updateUserDonation(Donation donation) {
         Donation existing = donationRepository.getOne(donation.getId());
         if (donation.getStatus().getId() == 2) {
@@ -61,6 +55,7 @@ public class UserService {
         one.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
         userRepository.save(one);
     }
+
     public boolean passwordMatches(UserEditDto user) {
         User existing = userRepository.getOne(Long.valueOf(user.getId()));
         return passwordEncoder.matches(user.getPassword(), existing.getPassword());
