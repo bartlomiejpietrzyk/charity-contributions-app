@@ -21,12 +21,6 @@ import javax.validation.constraints.NotEmpty;
 public class UserChangeLostPasswordDto {
     @NotEmpty
     private String id;
-    @NotEmpty
-    @Length(min = 1)
-    private String firstName;
-    @NotEmpty
-    @Length(min = 1)
-    public String lastName;
     @Email
     @NotEmpty
     public String email;
@@ -46,8 +40,6 @@ public class UserChangeLostPasswordDto {
 
     public UserChangeLostPasswordDto(User that) {
         this.id = String.valueOf(that.getId());
-        this.firstName = that.getFirstName();
-        this.lastName = that.getLastName();
         this.email = that.getEmail();
         this.password = that.getPassword();
         this.token = getToken();

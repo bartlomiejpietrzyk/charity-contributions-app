@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.charity.dto.UserChangePasswordDto;
+import pl.coderslab.charity.dto.UserChangeLostPasswordDto;
 import pl.coderslab.charity.dto.UserLostPasswordDto;
 import pl.coderslab.charity.email.EmailServiceImpl;
 import pl.coderslab.charity.entity.PasswordToken;
@@ -67,33 +67,30 @@ public class PasswordLostController {
     @GetMapping("/resetPassword")
     public String showPasswordResetSite(@RequestParam Long id,
                                         @RequestParam String token, Model model) {
-        String result = passwordLostService.validatePasswordResetToken(id, token);
         PasswordToken byToken = passwordTokenRepository.findByToken(token);
         if (byToken == null) {
             return "redirect:/lostPassword?notoken";
         } else if (byToken.getId() != null && byToken.getUsedDate() != null) {
             return "redirect:/lostPassword?usedtoken";
         }
-        if (result != null) {
+        if (passwordLostService.validatePasswordResetToken(id, token) != null) {
             return "redirect:/lostPassword?error";
         }
 
-        UserChangePasswordDto userChangePasswordDto = new UserChangePasswordDto(userRepository.getOne(id));
-        userChangePasswordDto.setToken(token);
-        model.addAttribute("reset", userChangePasswordDto);
+        UserChangeLostPasswordDto userChangeLostPasswordDto = new UserChangeLostPasswordDto(userRepository.getOne(id));
+        userChangeLostPasswordDto.setToken(token);
+        model.addAttribute("reset", userChangeLostPasswordDto);
         return "user/resetPassword";
     }
 
     @PostMapping("/resetPassword")
-    public String proceedPasswordResetSite(@ModelAttribute("reset") @Valid UserChangePasswordDto passwordDto,
-                                           HttpSession session,
+    public String proceedPasswordResetSite(@ModelAttribute("reset") @Valid UserChangeLostPasswordDto passwordDto,
                                            BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/resetPassword?id=" + passwordDto.getId() + "&token=" + passwordDto.getToken() + "&failed";
         }
 
-        User one = userRepository.getOne(Long.valueOf(passwordDto.getId()));
-        passwordLostService.changeUserPassword(one, passwordDto.getPassword(), passwordDto.getToken());
+        passwordLostService.changeUserLostPassword(passwordDto.getId(), passwordDto.getPassword(), passwordDto.getToken());
         return "redirect:/savePassword?success";
     }
 
