@@ -1,4 +1,9 @@
 <div xmlns:th="http://www.thymeleaf.org">
+    <script>
+        window.onload = function () {
+            document.getElementById("toSave").style.display = "none";
+        };
+    </script>
     <form id="form" th:action="@{/user/edit(id=${toEdit.id})}" th:model="${toEdit}"
           th:method="post">
         <div class="form-group" style="font-size: 2rem">
@@ -78,9 +83,10 @@
                                    type="password"
                                    class="form-control"
                                    th:field="${toEdit.password}"
-                                   th:required="true"/><br>
-                            <span th:text="#{pass.confirm.to.save}"></span>
-
+                                   th:required="true"
+                                   onmouseout="document.getElementById('toSave').style.display = 'none';"
+                                   onmouseover="document.getElementById('toSave').style.display = 'block';">
+                            <span id="toSave" th:text="#{pass.confirm.to.save}"></span>
                         </td>
                         <h6 th:each="error : ${#fields.errors('toEdit.password')}">
                             <span class="btn--small" th:text="${error}">Validation error</span></h6>
@@ -94,9 +100,9 @@
                     <div class="form-group">
                 <td align="right" style="padding-top: 10px">
                     <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
-                            onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElementById('firstName').value + '?')">
+                            onclick="return confirm('Czy na pewno chcesz edytować swój profil ' + document.getElemenId('firstName').value + '?')">
                     </button>
-                    <a th:href="@{/user/profile}">
+                    <a th:href="@{/user/settings}">
                         <button type="button" class="btn large" th:text="#{page.btn.back}"/>
                     </a>
                 </td>

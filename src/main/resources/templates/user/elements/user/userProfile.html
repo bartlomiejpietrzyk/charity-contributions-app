@@ -3,7 +3,10 @@
            width="45%"
            align="center">
         <thead>
-        <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{page.list.data.user}"></th>
+        <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px">
+            <span th:text="#{page.list.data.user}"></span>
+            <span th:text="${currentUser.getFirstName()}"></span>
+        </th>
         </thead>
         <tr>
             <td style="padding-top: 20px" width="30%">
@@ -29,13 +32,52 @@
                 <span th:text="${currentUser.getEmail()}"></span>
             </td>
         </tr>
+        <tr>
+            <td>
+                <span th:text="#{text.donation.count}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userDonationCount}"></span>
+            </td>
+        <tr>
+            <td>
+                <span th:text="#{page.list.donation.quantity}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userDonationCountGiven}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{text.given.bags}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userDonationCountBags}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{text.nogiven.bags}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userToDonationCountBags}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{text.supported.inst}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userDonationInstitutions}"></span>
+            </td>
+        </tr>
         <td colspan="2" align="right" style="padding-top: 15px">
-            <a th:href="@{/user/changePassword(id=${currentUser.id})}">
-                <input type="submit" th:value="#{page.btn.edit.pass}"
+            <a th:href="@{/user/settings}">
+                <input type="submit" th:value="#{nav.settings}"
                        class="btn btn-outline-info"/></a>
             </a>
-            <a th:href="@{/user/edit(id=${currentUser.id})}">
-                <input type="submit" th:value="#{page.btn.edit}"
+            <a th:href="@{/user/donations}">
+                <input type="submit" th:value="#{page.btn.my.donations}"
                        class="btn btn-outline-info"/></a>
             </a>
         </td>
