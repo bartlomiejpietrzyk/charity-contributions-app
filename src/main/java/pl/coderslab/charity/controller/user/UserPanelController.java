@@ -6,9 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.dto.UserChangePasswordDto;
+import pl.coderslab.charity.dto.UserEditDto;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.DonationStatus;
-import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.DonationStatusRepository;
 import pl.coderslab.charity.repository.UserRepository;
@@ -47,18 +48,39 @@ public class UserPanelController {
 
     @GetMapping("/edit")
     public String showUserEditForm(@RequestParam Long id, Model model) {
-        model.addAttribute("toEdit", userRepository.getOne(id));
+        model.addAttribute("toEdit", new UserEditDto(userRepository.getOne(id)));
         return "user/userEdit";
     }
 
     @PostMapping("/edit")
-    public String proceedUserEditForm(@ModelAttribute("toEdit") @Valid User user,
+    public String proceedUserEditForm(@ModelAttribute("toEdit") @Valid UserEditDto user,
                                       BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/user/edit?id=" + user.getId() + "&failed";
         }
+        if (!userService.passwordMatches(user)) {
+            return "redirect:/user/edit?id=" + user.getId() + "&invalid";
+        }
         userService.updateUser(user);
         return "redirect:/user/edit?id=" + user.getId() + "&success";
+    }
+
+    @GetMapping("/changePassword")
+    public String showUserPasswordForm(@RequestParam("id") String id, Model model) {
+        UserChangePasswordDto passwordDto = new UserChangePasswordDto();
+        passwordDto.setId(id);
+        model.addAttribute("password", passwordDto);
+        return "user/changePassword";
+    }
+
+    @PostMapping("/changePassword")
+    public String proceedUserPasswordForm(@ModelAttribute("password") @Valid UserChangePasswordDto passwordDto,
+                                          BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/user/changePassword?id=" + passwordDto.getId() + "&failed";
+        }
+        userService.changePassword(passwordDto);
+        return "redirect:/user/changePassword?id=" + passwordDto.getId() + "&success";
     }
 
     @GetMapping("/donations")
