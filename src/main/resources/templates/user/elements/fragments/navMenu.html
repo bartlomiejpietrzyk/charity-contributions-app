@@ -21,8 +21,7 @@
             </ul>
         </li>
     </ul>
-    <!--    <div th:unless="${#authorization.expression('isAuthenticated()')}">-->
-    <div th:if="${#authorization.getAuthentication()}">
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
         <ul>
             <li><a th:href="@{/login}" class="btn btn--small btn--without-border" th:text="#{nav.login}">Zaloguj</a>
             </li>
