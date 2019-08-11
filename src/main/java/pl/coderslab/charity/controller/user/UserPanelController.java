@@ -10,6 +10,7 @@ import pl.coderslab.charity.dto.UserChangePasswordDto;
 import pl.coderslab.charity.dto.UserEditDto;
 import pl.coderslab.charity.entity.Donation;
 import pl.coderslab.charity.entity.DonationStatus;
+import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.DonationRepository;
 import pl.coderslab.charity.repository.DonationStatusRepository;
 import pl.coderslab.charity.repository.UserRepository;
@@ -18,6 +19,7 @@ import pl.coderslab.charity.service.UserService;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Secured("ROLE_USER")
@@ -42,8 +44,37 @@ public class UserPanelController {
     }
 
     @GetMapping("/profile")
-    public String showUserProfileSite() {
+    public String showUserProfileSite(@ModelAttribute("currentUser") User user,
+                                      Model model) {
+        model.addAttribute("userDonationCount", donationRepository.countAllByUser(user));
+        model.addAttribute("userDonationCountGiven", donationRepository
+                .findAllByUser(user)
+                .stream()
+                .filter(donation -> donation.getStatus().getId() == 1)
+                .count());
+        model.addAttribute("userDonationCountToGive", donationRepository
+                .findAllByUser(user)
+                .stream()
+                .filter(donation -> donation.getStatus().getId() == 2)
+                .count());
+        model.addAttribute("userDonationCountBags", donationRepository.findAllByUser(user)
+                .stream()
+                .filter(donation -> donation.getStatus().getId() == 2)
+                .map(Donation::getQuantity)
+                .mapToLong(Long::longValue).sum());
+        model.addAttribute("userToDonationCountBags", donationRepository.findAllByUser(user)
+                .stream()
+                .filter(donation -> donation.getStatus().getId() == 1)
+                .map(Donation::getQuantity)
+                .mapToLong(Long::longValue).sum());
+        model.addAttribute("userDonationInstitutions", donationRepository.findAllByUser(user)
+                .stream().map(Donation::getInstitution).collect(Collectors.toSet()).size());
         return "user/userProfile";
+    }
+
+    @GetMapping("/settings")
+    public String showUserSettingsSite() {
+        return "user/userSettings";
     }
 
     @GetMapping("/edit")
