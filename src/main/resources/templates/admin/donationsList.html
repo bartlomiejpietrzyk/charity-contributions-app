@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="admin/elements/template/template"
+      lang="pl">
+<body>
+<div layout:fragment="top-bar">
+    <div class="btn border-dark"><span th:text="#{page.list.donation.archive}"></span>
+        <a th:href="@{/admin/donations/archive}">
+            <input type="submit" th:value="#{page.btn.go}"
+                   class="btn btn-outline-dark"/></a>
+    </div>
+</div>
+
+<div layout:fragment="fragmentOne">
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.list.donations}">Blank Page</h1>
+    <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+        <!--                <h4 class="card-header">HEADER</h4>-->
+        <div class="card-body text-center">
+            <div th:if="${param.deletesuccess}">
+                <h4 class="alert alert-success text-center" th:text="#{page.donation.delete.success}"></h4>
+            </div>
+            <div th:if="${param.edited}">
+                <h4 class="alert alert-success text-center" th:text="#{page.donation.delete.success}"></h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
+                       cellspacing="0">
+                    <thead>
+
+                    <tr class="alert-outline-dark">
+                        <th th:text="#{page.list.id}">#ID#</th>
+                        <th th:text="#{page.list.from}">Name</th>
+                        <th th:text="#{page.list.for}">Mission</th>
+                        <th th:text="#{page.list.quantity}">Quantity</th>
+                        <th th:text="#{page.list.status}">Status</th>
+                        <th th:text="#{page.list.action}">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="donation : ${donationList}">
+                        <td th:text="${donation.id}"></td>
+                        <td th:text="${donation.user.firstName + ' ' + donation.user.lastName}"></td>
+                        <td th:text="${donation.institution.name}"></td>
+                        <td th:text="${donation.quantity}"></td>
+                        <td th:text="${donation.status}"></td>
+                        <td>
+                            <a th:href="@{/admin/donations/edit(id=${donation.id})}">
+                                <input type="hidden" name="id" th:value="${donation.id}">
+                                <input type="submit" th:value="#{page.btn.edit}"
+                                       class="btn btn-outline-info"/></a>
+                            <a th:href="@{/admin/donations/delete(id=${donation.id})}"
+                               th:action="@{/admin/donations/delete(id=${donation.id})}" method="post">
+                                <input type="submit" th:value="#{page.btn.delete}"
+                                       class="btn btn-outline-danger"
+                                       onclick="return confirm('Czy na pewno chcesz usunąć datek?')"></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
