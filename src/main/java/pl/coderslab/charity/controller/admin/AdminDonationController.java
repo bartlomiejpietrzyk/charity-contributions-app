@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.repository.DonationRepository;
+import pl.coderslab.charity.repository.*;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -15,10 +15,18 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin/donations")
 public class AdminDonationController {
     private DonationRepository donationRepository;
+    private InstitutionRepository institutionRepository;
+    private CategoryRepository categoryRepository;
+    private DonationStatusRepository donationStatusRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public AdminDonationController(DonationRepository donationRepository) {
+    public AdminDonationController(DonationRepository donationRepository, InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationStatusRepository donationStatusRepository, UserRepository userRepository) {
         this.donationRepository = donationRepository;
+        this.institutionRepository = institutionRepository;
+        this.categoryRepository = categoryRepository;
+        this.donationStatusRepository = donationStatusRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -36,13 +44,17 @@ public class AdminDonationController {
     @GetMapping("/edit")
     public String showEditDonationForm(@RequestParam Long id, Model model) {
         model.addAttribute("donation", donationRepository.getOne(id));
-        return "admin/donationEdit";
+        model.addAttribute("institutions", institutionRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("statusList", donationStatusRepository.findAll());
+        model.addAttribute("userList", userRepository.findAll());
+        return "admin/donationsEdit";
     }
 
     @PostMapping("/edit")
     public String proceedEditInstitutionForm(@ModelAttribute("donation") @Valid Donation donation,
+                                             Model model,
                                              BindingResult result) {
-
         if (result.hasErrors()) {
             return "redirect:/admin/donations/edit?id=" + donation.getId() + "&failed";
         }
@@ -53,13 +65,13 @@ public class AdminDonationController {
     @RequestMapping("/delete")
     public String deleteDonation(@RequestParam Long id) {
         donationRepository.deleteById(id);
-        return "redirect:/admin/donationss?deletesuccess";
+        return "redirect:/admin/donations?deletesuccess";
     }
 
 
     @GetMapping("/archive")
     public String showDonationArchiveList(Model model) {
-        model.addAttribute("archived", donationRepository
+        model.addAttribute("archivedList", donationRepository
                 .findAll()
                 .stream()
                 .filter(donation -> donation.getStatus().getId() == 2)
