@@ -10,7 +10,7 @@ import pl.coderslab.charity.repository.UserRepository;
 
 @Controller
 public class LoginController {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public LoginController(UserRepository userRepository) {

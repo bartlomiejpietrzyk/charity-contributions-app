@@ -24,10 +24,10 @@ import java.util.UUID;
 
 @Controller
 public class PasswordLostController {
-    private UserRepository userRepository;
-    private PasswordLostService passwordLostService;
-    private PasswordTokenRepository passwordTokenRepository;
-    private EmailServiceImpl emailService;
+    private final UserRepository userRepository;
+    private final PasswordLostService passwordLostService;
+    private final PasswordTokenRepository passwordTokenRepository;
+    private final EmailServiceImpl emailService;
 
     @Autowired
     public PasswordLostController(UserRepository userRepository, PasswordLostService passwordLostService, PasswordTokenRepository passwordTokenRepository, EmailServiceImpl emailService) {
@@ -68,7 +68,6 @@ public class PasswordLostController {
     public String showPasswordResetSite(@RequestParam Long id,
                                         @RequestParam String token, Model model,
                                         HttpSession session) {
-        session.invalidate();
         PasswordToken byToken = passwordTokenRepository.findByToken(token);
         if (byToken == null) {
             return "redirect:/lostPassword?notoken";
@@ -78,7 +77,7 @@ public class PasswordLostController {
         if (passwordLostService.validatePasswordResetToken(id, token) != null) {
             return "redirect:/lostPassword?error";
         }
-
+        session.invalidate();
         UserChangeLostPasswordDto userChangeLostPasswordDto = new UserChangeLostPasswordDto(userRepository.getOne(id));
         userChangeLostPasswordDto.setToken(token);
         model.addAttribute("reset", userChangeLostPasswordDto);
@@ -100,7 +99,6 @@ public class PasswordLostController {
     public String savePasswordResetSite(Model model,
                                         HttpSession session) {
 
-        model.addAttribute("msg", "Zmiana hasła przebiegła pomyślnie");
         session.invalidate();
         return "user/savePassword";
     }

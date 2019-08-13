@@ -7,7 +7,7 @@ import pl.coderslab.charity.repository.UserRepository;
 
 @Controller
 public class HomeController {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public HomeController(UserRepository userRepository) {

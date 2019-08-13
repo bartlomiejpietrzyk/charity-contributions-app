@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 @Secured("ROLE_USER")
 @RequestMapping("/user")
 public class UserPanelController {
-    private UserRepository userRepository;
-    private UserService userService;
-    private DonationRepository donationRepository;
-    private DonationStatusRepository donationStatusRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final DonationRepository donationRepository;
+    private final DonationStatusRepository donationStatusRepository;
 
     @Autowired
     public UserPanelController(UserRepository userRepository, UserService userService, DonationRepository donationRepository, DonationStatusRepository donationStatusRepository) {

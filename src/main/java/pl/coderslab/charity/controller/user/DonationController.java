@@ -15,10 +15,10 @@ import pl.coderslab.charity.service.DonationService;
 @Controller
 @RequestMapping
 public class DonationController {
-    private UserRepository userRepository;
-    private CategoryRepository categoryRepository;
-    private InstitutionRepository institutionRepository;
-    private DonationService donationService;
+    private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final InstitutionRepository institutionRepository;
+    private final DonationService donationService;
 
     @Autowired
     public DonationController(UserRepository userRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationService donationService) {
