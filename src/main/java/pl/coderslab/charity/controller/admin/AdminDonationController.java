@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin/donations")
 public class AdminDonationController {
-    private DonationRepository donationRepository;
-    private InstitutionRepository institutionRepository;
-    private CategoryRepository categoryRepository;
-    private DonationStatusRepository donationStatusRepository;
-    private UserRepository userRepository;
+    private final DonationRepository donationRepository;
+    private final InstitutionRepository institutionRepository;
+    private final CategoryRepository categoryRepository;
+    private final DonationStatusRepository donationStatusRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AdminDonationController(DonationRepository donationRepository, InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationStatusRepository donationStatusRepository, UserRepository userRepository) {

@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/administrators")
 public class AdminAdministratorController {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired

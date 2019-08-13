@@ -16,8 +16,8 @@ import java.util.List;
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/categories")
 public class AdminCategoryController {
-    private CategoryRepository categoryRepository;
-    private UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AdminCategoryController(CategoryRepository categoryRepository, UserRepository userRepository) {

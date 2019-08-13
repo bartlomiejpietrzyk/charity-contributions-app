@@ -17,8 +17,8 @@ import java.util.List;
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/institutions")
 public class AdminInstitutionController {
-    private InstitutionRepository institutionRepository;
-    private UserRepository userRepository;
+    private final InstitutionRepository institutionRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AdminInstitutionController(InstitutionRepository institutionRepository, UserRepository userRepository) {
@@ -62,12 +62,6 @@ public class AdminInstitutionController {
         }
         institutionRepository.save(institution);
         return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&success";
-    }
-
-    @RequestMapping("/delete")
-    public String deleteInstitution(@RequestParam Long id) {
-        institutionRepository.deleteById(id);
-        return "redirect:/admin/institutions?deletesuccess";
     }
 
     @ModelAttribute("institutionList")

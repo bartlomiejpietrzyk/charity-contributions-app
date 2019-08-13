@@ -18,8 +18,8 @@ import java.util.List;
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/users")
 public class AdminUserController {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
