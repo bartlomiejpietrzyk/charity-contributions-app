@@ -15,6 +15,9 @@
           rel="stylesheet">
     <!-- Custom styles for this template-->
     <link id="mainCss" th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+    <!-- Custom styles for tables page -->
+    <link th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
@@ -68,25 +71,10 @@
                 </div>
             </div>
         </li>
-
-
-
-        <!-- Nav Item - Donations Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDonations"
-               aria-expanded="true" aria-controls="collapseDonations">
-                <i class="fas fa-fw fa-building"></i>
-                <span th:text="#{admin.nav.donations}">Donations</span>
-            </a>
-            <div id="collapseDonations" class="collapse" aria-labelledby="headingDonations"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header" th:text="#{admin.nav.divider}">Manage:</h6>
-                    <a class="collapse-item" th:href="@{/admin/donations}" th:text="#{admin.nav.donations.list}">Donations</a>
-                    <a class="collapse-item" th:href="@{/admin/donations/archive}"
-                       th:text="#{admin.nav.donations.archive}">Archive</a>
-                </div>
-            </div>
+            <a class="nav-link" th:href="@{/admin/donations}">
+                <i class="fas fa-fw fa-boxes"></i>
+                <span th:text="#{admin.nav.donations}">Donations</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/institutions}">
@@ -100,23 +88,10 @@
                 <span th:text="#{admin.nav.categories}">Categories</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmail"
-               aria-expanded="true" aria-controls="collapseDonations">
+            <a class="nav-link" th:href="@{/admin/mail/send}">
                 <i class="fas fa-fw fa-at"></i>
-                <span th:text="#{page.list.email}">email</span>
-            </a>
-            <div id="collapseEmail" class="collapse" aria-labelledby="headingEmail"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header" th:text="#{page.list.email}">Manage:</h6>
-                    <a class="collapse-item" th:href="@{/admin/mail/send}" th:text="#{page.email.simple}">simple</a>
-                    <a class="collapse-item" th:href="@{/admin/mail/sendTemplate}"
-                       th:text="#{page.email.temp}">temp</a>
-                    <a class="collapse-item" th:href="@{/admin/mail/sendAttachment}" th:text="#{page.email.attach}">attach</a>
-                </div>
-            </div>
+                <span th:text="#{page.list.email}">Categories</span></a>
         </li>
-
 
         <!-- Divider -->
         <hr class="sidebar-divider">
@@ -152,22 +127,18 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small btn border-dark"
                                   th:text="#{log.hello} + ' ' + ${currentUser.getFirstName()} + ' ' + ${currentUser.getLastName()}"></span>
-                            <span class="fa fa-smile-wink">
+                            <span class="fa fa-smile-wink"></span>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" th:href="@{/user/profile}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
+                                <span th:text="#{nav.profile}">Profile</span>
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" th:href="@{/user/settings}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
+                                <span th:text="#{nav.settings}">Settings</span>
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" th:href="@{/logout}"
@@ -225,5 +196,8 @@
 <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 <!-- Custom scripts for all pages-->
 <script th:src="@{/js/sb-admin-2.min.js}"></script>
+<!-- Page level plugins -->
+<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
 </body>
 </html>

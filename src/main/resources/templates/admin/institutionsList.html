@@ -15,45 +15,52 @@
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.institution.list.title}">Blank Page</h1>
     <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
         <!--        <h4 class="card-header">HEADER</h4>-->
-        <div class="card-body text-center">
+        <div class="text-center">
             <div th:if="${param.deletesuccess}">
                 <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
             </div>
             <div th:if="${param.edited}">
                 <h4 class="alert alert-success text-center" th:text="#{page.institution.delete.success}"></h4>
             </div>
-            <div class="table-responsive">
-                <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
-                       cellspacing="0">
-                    <thead>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.admins.list}"></h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
+                               cellspacing="0">
+                            <thead>
 
-                    <tr class="alert-outline-dark">
-                        <th th:text="#{page.list.id}">#ID#</th>
-                        <th th:text="#{page.list.name}">Name</th>
-                        <th th:text="#{page.list.mission}">Mission</th>
-                        <th th:text="#{page.list.action}">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="institution : ${institutionList}">
-                        <td th:text="${institution.id}"></td>
-                        <td th:text="${institution.name}"></td>
-                        <td th:text="${institution.description}"></td>
-                        <td>
-                            <a th:href="@{/admin/institutions/edit(id=${institution.id})}">
-                                <input type="hidden" name="id" th:value="${institution.id}">
-                                <input type="submit" th:value="#{page.btn.edit}"
-                                       class="btn btn-outline-info"/></a>
+                            <tr class="alert-outline-dark">
+                                <th th:text="#{page.list.id}">#ID#</th>
+                                <th th:text="#{page.list.name}">Name</th>
+                                <th th:text="#{page.list.mission}">Mission</th>
+                                <th th:text="#{page.list.action}">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="institution : ${institutionList}">
+                                <td th:text="${institution.id}"></td>
+                                <td th:text="${institution.name}"></td>
+                                <td th:text="${institution.description}"></td>
+                                <td>
+                                    <a th:href="@{/admin/institutions/edit(id=${institution.id})}">
+                                        <input type="hidden" name="id" th:value="${institution.id}">
+                                        <input type="submit" th:value="#{page.btn.edit}"
+                                               class="btn btn-outline-info"/></a>
 
-                            <a th:href="@{/admin/institutions/delete(id=${institution.id})}"
-                               th:action="@{/admin/institutions/delete(id=${institution.id})}" method="post">
-                                <input type="submit" th:value="#{page.btn.delete}"
-                                       class="btn btn-outline-danger"
-                                       onclick="return confirm('Czy na pewno chcesz usunąć Zaufaną Instytucję?')"></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    <a th:href="@{/admin/institutions/delete(id=${institution.id})}"
+                                       th:action="@{/admin/institutions/delete(id=${institution.id})}" method="post">
+                                        <input type="submit" th:value="#{page.btn.delete}"
+                                               class="btn btn-outline-danger"
+                                               onclick="return confirm('Czy na pewno chcesz usunąć Zaufaną Instytucję?')"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

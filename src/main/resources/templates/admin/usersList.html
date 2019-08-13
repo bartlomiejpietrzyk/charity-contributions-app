@@ -35,48 +35,55 @@
         <div th:if="${param.failed}">
             <h4 class="alert alert-danger text-center" th:text="#{page.user.delete.failed}"></h4>
         </div>
-        <div class="table-responsive">
-            <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
-                   cellspacing="0">
-                <thead>
 
-                <tr class="alert-outline-dark">
-                    <th th:text="#{page.list.id}">#ID#</th>
-                    <th th:text="#{placeholder.firstname}">Firstname</th>
-                    <th th:text="#{placeholder.lastname}">Lastname</th>
-                    <th th:text="#{placeholder.email}">Email</th>
-                    <th th:text="#{placeholder.enable}">Active</th>
-                    <th th:text="#{placeholder.roles}">Roles</th>
-                    <th th:text="#{page.list.action}">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${userList}">
-                    <td th:text="${user.id}"></td>
-                    <td th:text="${user.firstName}"></td>
-                    <td th:text="${user.lastName}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.enabled}"></td>
-                    <td th:text="${user.roles}"></td>
-                    <td>
-                        <a th:href="@{/admin/users/edit(id=${user.id})}">
-                            <input type="hidden" name="id" th:value="${user.id}">
-                            <input type="submit" th:value="#{page.btn.edit}"
-                                   class="btn btn-outline-info"/></a>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.users.list}"></h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
 
-                        <a th:href="@{/admin/users/delete(id=${user.id})}"
-                           th:action="@{/admin/users/delete(id=${user.id})}" method="post">
-                            <input type="submit" th:value="#{page.btn.delete}"
-                                   class="btn btn-outline-danger"
-                                   onclick="return confirm('Czy na pewno chcesz usunąć Administratora?')"/>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        <tr>
+                            <th class="th-sm" th:text="#{page.list.id}">#ID#</th>
+                            <th class="th-sm" th:text="#{placeholder.firstname}">Firstname</th>
+                            <th class="th-sm" th:text="#{placeholder.lastname}">Lastname</th>
+                            <th class="th-sm" th:text="#{placeholder.email}">Email</th>
+                            <th class="th-sm" th:text="#{placeholder.enable}">Active</th>
+                            <th class="th-sm" th:text="#{placeholder.roles}">Roles</th>
+                            <th class="th-sm" th:text="#{page.list.action}">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${userList}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.enabled}"></td>
+                            <td th:text="${user.roles}"></td>
+                            <td>
+                                <a th:href="@{/admin/users/edit(id=${user.id})}">
+                                    <input type="hidden" name="id" th:value="${user.id}">
+                                    <input type="submit" th:value="#{page.btn.edit}"
+                                           class="btn btn-outline-info"/></a>
+
+                                <a th:href="@{/admin/users/delete(id=${user.id})}"
+                                   th:action="@{/admin/users/delete(id=${user.id})}" method="post">
+                                    <input type="submit" th:value="#{page.btn.delete}"
+                                           class="btn btn-outline-danger"
+                                           onclick="return confirm('Czy na pewno chcesz usunąć Administratora?')"/>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
