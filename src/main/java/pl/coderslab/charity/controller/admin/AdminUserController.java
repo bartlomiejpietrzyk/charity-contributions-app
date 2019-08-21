@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @Secured("ROLE_ADMIN")
@@ -31,13 +31,10 @@ public class AdminUserController {
     }
 
     @GetMapping
-    public String showUsersList() {
+    public String showUsersList(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("userList", userRepository
+                .findAll(new PageRequest(page, 10)));
         return "admin/usersList";
-    }
-
-    @ModelAttribute("userList")
-    public List<User> userList() {
-        return userRepository.findAll();
     }
 
     @GetMapping("/add")
