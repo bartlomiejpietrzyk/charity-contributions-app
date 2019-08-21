@@ -24,7 +24,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.admins.list}"></h6>
+                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.institutions}"></h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -54,12 +54,19 @@
                                        th:action="@{/admin/institutions/delete(id=${institution.id})}" method="post">
                                         <input type="submit" th:value="#{page.btn.delete}"
                                                class="btn btn-outline-danger"
-                                               onclick="return confirm('Czy na pewno chcesz usunąć Zaufaną Instytucję?')"></a>
+                                               onclick="return confirm('Czy na pewno chcesz usunąć Zaufaną Instytucję?')">
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
+                    <ul class="nav nav-item" style="margin-left: 5px">
+                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, institutionList.totalPages-1)}">
+                            <a th:href="@{/admin/institutions(page=${i})}" th:text="${i+1}" class="nav-link"
+                               th:classappend="${currentPage}==${i} ? 'active' : ''"></a></li>
+
+                    </ul>
                 </div>
             </div>
         </div>
