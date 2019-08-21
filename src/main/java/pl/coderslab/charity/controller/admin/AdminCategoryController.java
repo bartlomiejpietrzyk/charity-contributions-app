@@ -27,7 +27,8 @@ public class AdminCategoryController {
     @GetMapping
     public String showCategoriesList(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("categories", categoryRepository
-                .findAll(new PageRequest(page, 2)));
+                .findAll(new PageRequest(page, 10)));
+        model.addAttribute("currentPage", page);
         return "admin/categoriesList";
     }
 

@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @Secured("ROLE_ADMIN")
@@ -27,7 +27,9 @@ public class AdminInstitutionController {
     }
 
     @GetMapping
-    public String showInstitutionsPanel() {
+    public String showInstitutionsPanel(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("institutionList", institutionRepository
+                .findAll(new PageRequest(page, 10)));
         return "admin/institutionsList";
     }
 
@@ -62,10 +64,5 @@ public class AdminInstitutionController {
         }
         institutionRepository.save(institution);
         return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&success";
-    }
-
-    @ModelAttribute("institutionList")
-    public List<Institution> institutionList() {
-        return institutionRepository.findAll();
     }
 }
