@@ -78,6 +78,7 @@ public class AdminDonationController {
                 .stream()
                 .filter(donation -> donation.getStatus().getId() == 2)
                 .collect(Collectors.toList()));
+        model.addAttribute("currentPage", page);
         return "admin/donationsListArchive";
     }
 }

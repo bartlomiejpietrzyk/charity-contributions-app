@@ -30,6 +30,7 @@ public class AdminInstitutionController {
     public String showInstitutionsPanel(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("institutionList", institutionRepository
                 .findAll(new PageRequest(page, 10)));
+        model.addAttribute("currentPage", page);
         return "admin/institutionsList";
     }
 
@@ -64,5 +65,11 @@ public class AdminInstitutionController {
         }
         institutionRepository.save(institution);
         return "redirect:/admin/institutions/edit?id=" + institution.getId() + "&success";
+    }
+
+    @RequestMapping("/delete")
+    public String deleteCategory(@RequestParam Long id) {
+        institutionRepository.deleteById(id);
+        return "redirect:/admin/institutions?deletesuccess";
     }
 }

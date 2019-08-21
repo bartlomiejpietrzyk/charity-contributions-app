@@ -8,16 +8,33 @@ import pl.coderslab.charity.repository.UserRepository;
 @Controller
 public class HomeController {
     private final UserRepository userRepository;
+//    private final MessageService messageService;
 
     @Autowired
-    public HomeController(UserRepository userRepository) {
+    public HomeController(UserRepository userRepository) {//, MessageService messageService) {
         this.userRepository = userRepository;
+//        this.messageService = messageService;
     }
 
     @GetMapping("/")
     public String homeAction() {
         return "user/index";
     }
+
+
+//    @ModelAttribute("contactMessage")
+//    public UserContactDto message() {
+//        return new UserContactDto();
+//    }
+//
+//    @PostMapping("/sendMessage")
+//    public String sendContactMessage(@ModelAttribute("contactMessage") UserContactDto message, BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "/?error";
+//        }
+//        messageService.sendMessage(message);
+//        return "/?messageSent";
+//    }
 
     @GetMapping("/403")
     public String error403() {
@@ -29,8 +46,8 @@ public class HomeController {
         return "user/404";
     }
 
-    @GetMapping("/500")
-    public String error500() {
-        return "user/500";
-    }
+//    @GetMapping("/500")
+//    public String error500() {
+//        return "user/500";
+//    }
 }
