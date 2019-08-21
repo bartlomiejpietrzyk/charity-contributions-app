@@ -33,9 +33,9 @@
                             <thead>
 
                             <tr class="alert-outline-dark">
-                                <th th:text="#{page.list.id}">#ID#</th>
+                                <th width="5%" th:text="#{page.list.id}">#ID#</th>
                                 <th th:text="#{page.list.name}">Name</th>
-                                <th th:text="#{page.list.action}">Action</th>
+                                <th width="20%" th:text="#{page.list.action}">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -56,8 +56,16 @@
                                 </td>
                             </tr>
                             </tbody>
+
                         </table>
+
                     </div>
+                    <ul class="nav nav-item" style="margin-left: 5px">
+                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, categories.totalPages-1)}">
+                            <a th:href="@{/admin/categories(page=${i})}" th:text="${i+1}" class="nav-link"
+                               th:classappend="${currentPage}==${i} ? 'active' : ''"></a></li>
+
+                    </ul>
                 </div>
             </div>
         </div>
