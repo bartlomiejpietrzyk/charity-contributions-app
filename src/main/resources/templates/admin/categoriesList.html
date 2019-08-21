@@ -16,12 +16,12 @@
     <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
         <div class="text-center">
 
-                <div th:if="${param.deletesuccess}">
-                    <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
-                </div>
-                <div th:if="${param.edited}">
-                    <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
-                </div>
+            <div th:if="${param.deletesuccess}">
+                <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
+            </div>
+            <div th:if="${param.edited}">
+                <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
+            </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.categories}"></h6>
@@ -60,6 +60,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 </body>
