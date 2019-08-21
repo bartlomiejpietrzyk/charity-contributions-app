@@ -16,9 +16,9 @@ import java.time.LocalDate;
 @Service
 @Transactional
 public class UserService {
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private DonationRepository donationRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final DonationRepository donationRepository;
 
     @Autowired
     public UserService(UserRepository userRepository, DonationRepository donationRepository, PasswordEncoder passwordEncoder) {

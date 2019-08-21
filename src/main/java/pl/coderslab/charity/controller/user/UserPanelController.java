@@ -25,10 +25,10 @@ import java.util.stream.Collectors;
 @Secured("ROLE_USER")
 @RequestMapping("/user")
 public class UserPanelController {
-    private UserRepository userRepository;
-    private UserService userService;
-    private DonationRepository donationRepository;
-    private DonationStatusRepository donationStatusRepository;
+    private final UserRepository userRepository;
+    private final UserService userService;
+    private final DonationRepository donationRepository;
+    private final DonationStatusRepository donationStatusRepository;
 
     @Autowired
     public UserPanelController(UserRepository userRepository, UserService userService, DonationRepository donationRepository, DonationStatusRepository donationStatusRepository) {
@@ -66,9 +66,14 @@ public class UserPanelController {
                 .stream()
                 .filter(donation -> donation.getStatus().getId() == 1)
                 .map(Donation::getQuantity)
-                .mapToLong(Long::longValue).sum());
-        model.addAttribute("userDonationInstitutions", donationRepository.findAllByUser(user)
-                .stream().map(Donation::getInstitution).collect(Collectors.toSet()).size());
+                .mapToLong(Long::longValue)
+                .sum());
+        model.addAttribute("userDonationInstitutions", donationRepository
+                .findAllByUser(user)
+                .stream()
+                .map(Donation::getInstitution)
+                .collect(Collectors.toSet())
+                .size());
         return "user/userProfile";
     }
 
@@ -115,9 +120,32 @@ public class UserPanelController {
     }
 
     @GetMapping("/donations")
-    public String showDonationsList() {
+    public String showDonationsList(Model model,
+                                    @ModelAttribute("currentUser") User user,
+                                    @RequestParam(defaultValue = "0") int page) {
+        List<Donation> sorted = donationRepository.findAllByUser(user);
+        sorted.sort(
+                Comparator.comparing(Donation::getDate).reversed()
+                        .thenComparing((Donation donation) -> donation.getStatus().getId())
+                        .reversed()
+                        .thenComparing(Donation::getDonationCreated)
+                        .reversed());
+        model.addAttribute("donationsList", sorted);
+        model.addAttribute("currentPage", page);
         return "user/userDonations";
     }
+//
+//    @ModelAttribute("donationsList")
+//    public List<Donation> getDonationsList(@ModelAttribute("currentUser") User user) {
+//        List<Donation> sorted = donationRepository.findAllByUser(user);
+//        sorted.sort(
+//                Comparator.comparing(Donation::getDate).reversed()
+//                        .thenComparing((Donation donation) -> donation.getStatus().getId())
+//                        .reversed()
+//                        .thenComparing(Donation::getDonationCreated)
+//                        .reversed());
+//        return sorted;
+//    }
 
     @PostMapping("/donations")
     public String proceedDonationList(@ModelAttribute("donation") Donation donation,
@@ -149,16 +177,10 @@ public class UserPanelController {
         return "redirect:/user/donations/details?id=" + donation.getId() + "&success";
     }
 
-    @ModelAttribute("donationsList")
-    public List<Donation> getDonationsList(@ModelAttribute("currentUser") User user) {
-        List<Donation> sorted = donationRepository.findAllByUser(user);
-        sorted.sort(
-                Comparator.comparing(Donation::getDate).reversed()
-                        .thenComparing((Donation donation) -> donation.getStatus().getId())
-                        .reversed()
-                        .thenComparing(Donation::getDonationCreated)
-                        .reversed());
-        return sorted;
+    @GetMapping("/{uuid}/enable")
+    public String enableUser(@PathVariable String uuid) {
+        userService.enableUser(uuid);
+        return "redirect:/login?uuid=" + uuid + "&active";
     }
 
     @ModelAttribute("donationStatusList")

@@ -6,13 +6,17 @@ import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class UUIDgenerator {
 
     @Column(unique = true)
     private String uuid = UUID.randomUUID().toString();
 
     public String getUuid() {
         return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
@@ -23,10 +27,10 @@ public abstract class BaseEntity {
     @Override
     public final boolean equals(Object obj) {
 
-        if (!(obj instanceof BaseEntity)) {
+        if (!(obj instanceof UUIDgenerator)) {
             return false;
         }
-        BaseEntity that = (BaseEntity) obj;
+        UUIDgenerator that = (UUIDgenerator) obj;
         return Objects.equals(this.uuid, that.uuid);
     }
 }

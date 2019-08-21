@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +12,13 @@ import pl.coderslab.charity.repository.InstitutionRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/institutions")
 public class AdminInstitutionController {
-    private InstitutionRepository institutionRepository;
-    private UserRepository userRepository;
+    private final InstitutionRepository institutionRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AdminInstitutionController(InstitutionRepository institutionRepository, UserRepository userRepository) {
@@ -27,7 +27,10 @@ public class AdminInstitutionController {
     }
 
     @GetMapping
-    public String showInstitutionsPanel() {
+    public String showInstitutionsPanel(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("institutionList", institutionRepository
+                .findAll(new PageRequest(page, 10)));
+        model.addAttribute("currentPage", page);
         return "admin/institutionsList";
     }
 
@@ -65,13 +68,8 @@ public class AdminInstitutionController {
     }
 
     @RequestMapping("/delete")
-    public String deleteInstitution(@RequestParam Long id) {
+    public String deleteCategory(@RequestParam Long id) {
         institutionRepository.deleteById(id);
         return "redirect:/admin/institutions?deletesuccess";
-    }
-
-    @ModelAttribute("institutionList")
-    public List<Institution> institutionList() {
-        return institutionRepository.findAll();
     }
 }

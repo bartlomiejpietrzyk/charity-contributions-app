@@ -11,8 +11,8 @@ import pl.coderslab.charity.repository.DonationStatusRepository;
 @Service
 @Transactional
 public class DonationService {
-    private DonationStatusRepository donationStatusRepository;
-    private DonationRepository donationRepository;
+    private final DonationStatusRepository donationStatusRepository;
+    private final DonationRepository donationRepository;
 
     @Autowired
     public DonationService(DonationStatusRepository donationStatusRepository, DonationRepository donationRepository) {

@@ -9,23 +9,6 @@ import java.util.List;
 
 @Repository
 public interface DonationRepository extends JpaRepository<Donation, Long> {
-    @Override
-    List<Donation> findAll();
-
     List<Donation> findAllByUser(User user);
-
     Long countAllByUser(User user);
-
-    @Override
-    Donation getOne(Long aLong);
-
-    @Override
-    <S extends Donation> S save(S s);
-
-    @Override
-    long count();
-
-    @Override
-    void delete(Donation donation);
-
 }

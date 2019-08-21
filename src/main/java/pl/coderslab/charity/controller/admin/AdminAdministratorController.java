@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +14,14 @@ import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/administrators")
 public class AdminAdministratorController {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
@@ -32,16 +32,14 @@ public class AdminAdministratorController {
     }
 
     @GetMapping
-    public String showAdministratorsList() {
-        return "admin/administratorsList";
-    }
-
-    @ModelAttribute("administratorList")
-    public List<User> administratorList() {
-        return userRepository.findAll()
+    public String showAdministratorsList(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("administratorList", userRepository
+                .findAll(new PageRequest(page, 10))
                 .stream()
                 .filter(user -> user.getRoles().contains(roleRepository.getOne(2)))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        model.addAttribute("currentPage", page);
+        return "admin/administratorsList";
     }
 
     @GetMapping("/add")
@@ -87,10 +85,10 @@ public class AdminAdministratorController {
                 .stream()
                 .filter(u -> u.getRoles().contains(roleRepository.getOne(2)))
                 .collect(Collectors.toList());
-        if (adminList.size() == 1 || Objects.equals(id, user.getId())) {
-            return "redirect:/admin/administrators?delete?id=" + id + "&failed";
+        if (adminList.size() <= 1 || userRepository.getOne(id).equals(user)) {
+            return "redirect:/admin/administrators?deletefailed";
         }
         userRepository.deleteById(id);
-        return "redirect:/admin/administrators?delete?id=" + id + "&success";
+        return "redirect:/admin/administrators?deletesuccess";
     }
 }

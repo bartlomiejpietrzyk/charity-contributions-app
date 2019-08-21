@@ -20,9 +20,9 @@ import java.util.Arrays;
 @Service
 @Transactional
 public class PasswordLostService {
-    private UserRepository userRepository;
-    private PasswordTokenRepository passwordTokenRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordTokenRepository passwordTokenRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public PasswordLostService(UserRepository userRepository, PasswordTokenRepository passwordTokenRepository, PasswordEncoder passwordEncoder) {
@@ -45,13 +45,12 @@ public class PasswordLostService {
         return constructEmail("Reset Password", message + " \r\n" + url, user);
     }
 
-    private SimpleMailMessage constructEmail(String subject, String body,
-                                             User user) {
+    public SimpleMailMessage constructEmail(String subject, String body,
+                                            User user) {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-        email.setFrom("test@email.com");
         return email;
     }
 

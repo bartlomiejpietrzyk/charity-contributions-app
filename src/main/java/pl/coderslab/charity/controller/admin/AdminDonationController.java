@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +15,11 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin/donations")
 public class AdminDonationController {
-    private DonationRepository donationRepository;
-    private InstitutionRepository institutionRepository;
-    private CategoryRepository categoryRepository;
-    private DonationStatusRepository donationStatusRepository;
-    private UserRepository userRepository;
+    private final DonationRepository donationRepository;
+    private final InstitutionRepository institutionRepository;
+    private final CategoryRepository categoryRepository;
+    private final DonationStatusRepository donationStatusRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public AdminDonationController(DonationRepository donationRepository, InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationStatusRepository donationStatusRepository, UserRepository userRepository) {
@@ -30,8 +31,10 @@ public class AdminDonationController {
     }
 
     @GetMapping
-    public String showDonationList(Model model) {
-        model.addAttribute("donationList", donationRepository.findAll());
+    public String showDonationList(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("donationList", donationRepository
+                .findAll(new PageRequest(page, 10)));
+        model.addAttribute("currentPage", page);
         return "admin/donationsList";
     }
 
@@ -53,7 +56,6 @@ public class AdminDonationController {
 
     @PostMapping("/edit")
     public String proceedEditInstitutionForm(@ModelAttribute("donation") @Valid Donation donation,
-                                             Model model,
                                              BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/admin/donations/edit?id=" + donation.getId() + "&failed";
@@ -70,12 +72,13 @@ public class AdminDonationController {
 
 
     @GetMapping("/archive")
-    public String showDonationArchiveList(Model model) {
+    public String showDonationArchiveList(Model model, @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("archivedList", donationRepository
-                .findAll()
+                .findAll(new PageRequest(page, 10))
                 .stream()
                 .filter(donation -> donation.getStatus().getId() == 2)
                 .collect(Collectors.toList()));
+        model.addAttribute("currentPage", page);
         return "admin/donationsListArchive";
     }
 }

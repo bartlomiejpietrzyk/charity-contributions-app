@@ -1,6 +1,7 @@
 package pl.coderslab.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +13,13 @@ import pl.coderslab.charity.repository.UserRepository;
 import pl.coderslab.charity.service.UserRegistrationService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @Secured("ROLE_ADMIN")
 @RequestMapping("/admin/users")
 public class AdminUserController {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
@@ -31,13 +31,11 @@ public class AdminUserController {
     }
 
     @GetMapping
-    public String showUsersList() {
+    public String showUsersList(Model model, @RequestParam(defaultValue = "0") int page) {
+        model.addAttribute("userList", userRepository
+                .findAll(new PageRequest(page, 10)));
+        model.addAttribute("currentPage", page);
         return "admin/usersList";
-    }
-
-    @ModelAttribute("userList")
-    public List<User> userList() {
-        return userRepository.findAll();
     }
 
     @GetMapping("/add")
@@ -79,12 +77,13 @@ public class AdminUserController {
     }
 
     @RequestMapping("/delete")
-    public String deleteAdministrator(@RequestParam Long id,
-                                      @ModelAttribute("currentUser") User user) {
-        if (id == user.getId()) {
-            return "redirect:/admin/users?delete?id=" + id + "&failed";
+    public String deleteUser(@RequestParam Long id,
+                             @ModelAttribute("currentUser") User user,
+                             BindingResult result) {
+        if (result.hasErrors() || userRepository.getOne(id).equals(user)) {
+            return "redirect:/admin/users?delete?failed";
         }
         userRepository.deleteById(id);
-        return "redirect:/admin/users?delete?id=" + id + "&success";
+        return "redirect:/admin/users?delete?success";
     }
 }

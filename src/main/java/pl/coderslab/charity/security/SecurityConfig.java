@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.coderslab.charity.handler.CustomAuthenticationSuccessHandler;
 import pl.coderslab.charity.service.SpringDataUserDetailsService;
 
 @Configuration
@@ -18,11 +18,11 @@ import pl.coderslab.charity.service.SpringDataUserDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AccessDeniedHandler accessDeniedHandler;
-    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
     public SecurityConfig(AccessDeniedHandler accessDeniedHandler,
-                          AuthenticationSuccessHandler authenticationSuccessHandler) {
+                          CustomAuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.accessDeniedHandler = accessDeniedHandler;
     }
@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/registration**", "/lostPassword**", "/resetPassword**", "/savePassword**", "/user/*/enable",
-                        "/403", "/404", "/500").permitAll()
+                        "/sendMessage", "/403", "/404", "/500").permitAll()
                 .antMatchers("/user**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
