@@ -13,20 +13,19 @@
 
 <div layout:fragment="fragmentOne">
     <h1 class="h3 mb-4 text-gray-800" th:text="#{admin.nav.categories.list.title}">Blank Page</h1>
-    <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+    <div class="card bg-white border-dark shadow pl-1 pr-1 ml-3 mr-3">
         <div class="text-center">
-
-            <div th:if="${param.deletesuccess}">
-                <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
-            </div>
-            <div th:if="${param.edited}">
-                <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
-            </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.categories}"></h6>
                 </div>
                 <div class="card-body">
+                    <div th:if="${param.deletesuccess}">
+                        <h4 class="alert alert-success text-center" th:text="#{page.category.delete.success}"></h4>
+                    </div>
+                    <div th:if="${param.edited}">
+                        <h4 class="alert alert-success text-center" th:text="#{page.category.edit.success}"></h4>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
                                cellspacing="0">
@@ -63,7 +62,7 @@
                     <ul class="nav nav-item" style="margin-left: 5px">
                         <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, categories.totalPages-1)}">
                             <a th:href="@{/admin/categories(page=${i})}" th:text="${i+1}" class="nav-link"
-                               th:classappend="${currentPage}==${i} ? 'active' : ''"></a></li>
+                               th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a></li>
 
                     </ul>
                 </div>

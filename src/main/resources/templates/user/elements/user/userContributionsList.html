@@ -3,7 +3,12 @@
            width="65%"
            align="center">
         <thead>
-        <th colspan="6" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{don.page.title}"></th>
+        <th colspan="5" style="border-bottom: 1px dashed; padding-bottom: 20px">
+            <span th:text="#{don.page.title}"></span>
+        </th>
+        <th style="border-bottom: 1px dashed; padding: 5px">
+            <a th:href="@{/user/profile}"><span class="btn btnsmall" th:text="#{page.btn.back}"></span></a>
+        </th>
         </thead>
         <tr>
             <td style="border-bottom: 1px dashed; width: 5%" th:text="#{page.list.id}">ID</td>

@@ -17,10 +17,11 @@
         </div>
     </div>
 
-    <div class="form--steps-container">
+    <div id="formSteps" class="form--steps-container">
         <div class="form--steps-counter">
             Krok <span>1</span>/4
         </div>
+
         <form th:action="@{/form}" th:method="post" th:object="${donation}">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
@@ -28,14 +29,16 @@
 
                 <div class="form-group form-group--checkbox" th:each="category : ${categoriesList}">
                     <label>
-                        <input id="checkedCategories" type="checkbox" name="categories" th:value="${category.id}"/>
+                        <input id="checked" th:field="*{categories}" th:checked="${category != 0}" type="checkbox"
+                               name="categories" th:value="${category.id}" required/>
                         <span class="checkbox"></span>
                         <span class="description" th:text="${category.name}"></span>
                     </label>
                 </div>
                 <p th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}" class="error"></p>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn next-step"><span th:text="#{form.continue}">Dalej</span></button>
+                    <button id="checkboxButton" type="button" class="btn next-step"><span th:text="#{form.continue}">Dalej</span>
+                    </button>
                 </div>
             </div>
 
@@ -96,7 +99,7 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.street}">Ulica</span>
-                                <input id="street" type="text" name="street" th:value="*{street}"/>
+                                <input id="street" type="text" name="street" th:field="*{street}" value=""/>
                                 <p th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="error"></p>
                             </label>
 
@@ -205,8 +208,7 @@
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <input type="hidden" name="id" th:field="*{user}" th:value="${currentUser.id}">
-                    <button type="submit" class="btn">Potwierdzam</button>
-
+                    <button th:if="${#checkbox == checked}" type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
         </form>

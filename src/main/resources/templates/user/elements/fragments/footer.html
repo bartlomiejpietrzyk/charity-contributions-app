@@ -1,21 +1,31 @@
-<footer xmlns:th="http://www.thymeleaf.org">
+<footer
+        xmlns:th="http://www.thymeleaf.org">>
     <div id="contact" class="contact">
         <h2 th:text="#{con.contact.us}">Skontaktuj się z nami</h2>
         <h3 th:text="#{con.form}">Formularz kontaktowy</h3>
 
-        <form class="form--contact">
+        <form th:action="@{/sendMessage}" th:object="${contactMessage}" method="post" class="form--contact">
             <div class="form-group form-group--50">
-                <input type="text" name="contactFirstName" field="*{message.firstName}"
-                       th:placeholder="#{placeholder.firstname}"/></div>
+                <input type="text" name="contactFirstName"
+                       th:placeholder="#{placeholder.firstname}"
+                       th:unless="${#authorization.expression('isAuthenticated()')}"
+                       th:value="${currentUser.firstName}"/></div>
             <div class="form-group form-group--50">
-                <input type="text" name="contactLastName" field="*{message.lastName}"
-                       th:placeholder="#{placeholder.lastname}"/></div>
-
-            <div class="form-group">
-                <textarea name="message" th:placeholder="#{con.message}" rows="1"></textarea>
+                <input type="text" name="contactLastName"
+                       th:placeholder="#{placeholder.lastname}"
+                       th:unless="${#authorization.expression('isAuthenticated()')}"
+                       th:value="${currentUser.lastName}"/></div>
+            <div class="form-group form-group--inline">
+                <input type="email" name="contactEmail"
+                       th:placeholder="#{placeholder.email}"
+                       th:unless="${#authorization.expression('isAuthenticated()')}" th:value="${currentUser.email}"/>
             </div>
-
-            <button class="btn" type="submit" th:text="#{con.send}">Wyślij</button>
+            <div class="form-group">
+                <textarea name="contactMessage" th:placeholder="#{con.message}" rows="1"></textarea>
+            </div>
+            <input th:unless="${#authorization.expression('isAuthenticated()')}"
+                   th:value="${currentUser.id}" type="hidden">
+            <button class="btn btn--without-border" type="submit" th:text="#{con.send}">Wyślij</button>
         </form>
     </div>
     <div class="bottom-line">

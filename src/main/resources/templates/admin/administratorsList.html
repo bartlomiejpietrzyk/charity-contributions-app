@@ -18,28 +18,28 @@
 
 <div layout:fragment="fragmentOne">
     <h1 class="h3 mb-4 text-gray-800" th:text="#{page.administrator.list}">Blank Page</h1>
-    <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
-        <div th:if="${param.addSuccess}">
-            <div class="text-center alert alert-success mt-4 ml-3 mr-3">
-                <h3 class="text-success" th:text="#{page.administrator.add.success}"></h3>
-            </div>
-        </div>
-        <div th:if="${param.addFailed}">
-            <div class="text-center alert alert-success mt-4 ml-3 mr-3">
-                <h3 class="text-danger" th:text="#{page.administrator.add.failed}"></h3>
-            </div>
-        </div>
-        <div th:if="${param.success}">
-            <h4 class="alert alert-success text-center" th:text="#{page.administrator.delete.success}"></h4>
-        </div>
-        <div th:if="${param.failed}">
-            <h4 class="alert alert-danger text-center" th:text="#{page.administrator.delete.failed}"></h4>
-        </div>
+    <div class="card bg-white border-dark shadow pr-1 pl-1 mb-3 ml-3 mr-3">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.admins.list}"></h6>
             </div>
             <div class="card-body">
+                <div th:if="${param.addSuccess}">
+                    <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                        <h3 class="text-success" th:text="#{page.administrator.add.success}"></h3>
+                    </div>
+                </div>
+                <div th:if="${param.addFailed}">
+                    <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                        <h3 class="text-danger" th:text="#{page.administrator.add.failed}"></h3>
+                    </div>
+                </div>
+                <div th:if="${param.success}">
+                    <h4 class="alert alert-success text-center" th:text="#{page.administrator.delete.success}"></h4>
+                </div>
+                <div th:if="${param.failed}">
+                    <h4 class="alert alert-danger text-center" th:text="#{page.administrator.delete.failed}"></h4>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
                            cellspacing="0">
@@ -56,7 +56,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="admin : ${administratorList}">
+                        <tr th:each="admin : ${adminList}">
                             <td th:text="${admin.id}"></td>
                             <td th:text="${admin.firstName}"></td>
                             <td th:text="${admin.lastName}"></td>
@@ -80,6 +80,12 @@
                         </tbody>
                     </table>
                 </div>
+                <ul class="nav nav-item" style="margin-left: 5px">
+                    <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, adminList.totalPages-1)}">
+                        <a th:href="@{/admin/administrators(page=${i})}" th:text="${i+1}" class="nav-link"
+                           th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
