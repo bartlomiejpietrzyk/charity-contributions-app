@@ -1,6 +1,11 @@
 <div class="slogan container container--90" xmlns:th="http://www.thymeleaf.org">
     <div class="slogan--item">
         <h1>
+            <div th:if="${param.messageSent}">
+                <div>
+                    <h1 th:text="#{con.message.sent}"></h1>
+                </div>
+            </div>
             <span th:text="#{text.slogan.first}">Zacznij pomagać!</span><br/>
             <span th:text="#{text.slogan.second}">Oddaj niechciane rzeczy w zaufane ręce</span>
         </h1>
