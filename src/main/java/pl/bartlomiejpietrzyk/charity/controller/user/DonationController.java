@@ -1,28 +1,27 @@
-package pl.coderslab.charity.controller.user;
+package pl.bartlomiejpietrzyk.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.repository.CategoryRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
-import pl.coderslab.charity.repository.UserRepository;
-import pl.coderslab.charity.service.DonationService;
+import pl.bartlomiejpietrzyk.charity.entity.Donation;
+import pl.bartlomiejpietrzyk.charity.entity.User;
+import pl.bartlomiejpietrzyk.charity.repository.CategoryRepository;
+import pl.bartlomiejpietrzyk.charity.repository.InstitutionRepository;
+import pl.bartlomiejpietrzyk.charity.service.DonationService;
 
 
 @Controller
 @RequestMapping
 public class DonationController {
-    private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final InstitutionRepository institutionRepository;
     private final DonationService donationService;
 
     @Autowired
-    public DonationController(UserRepository userRepository, CategoryRepository categoryRepository, InstitutionRepository institutionRepository, DonationService donationService) {
-        this.userRepository = userRepository;
+    public DonationController(CategoryRepository categoryRepository,
+                              InstitutionRepository institutionRepository,
+                              DonationService donationService) {
         this.categoryRepository = categoryRepository;
         this.institutionRepository = institutionRepository;
         this.donationService = donationService;
