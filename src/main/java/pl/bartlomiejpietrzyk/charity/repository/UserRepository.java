@@ -1,8 +1,10 @@
-package pl.coderslab.charity.repository;
+package pl.bartlomiejpietrzyk.charity.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.coderslab.charity.entity.User;
+import pl.bartlomiejpietrzyk.charity.entity.Role;
+import pl.bartlomiejpietrzyk.charity.entity.User;
 
 import java.util.List;
 
@@ -14,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAll();
 
+    List<User> findUsersByRolesEquals(Role role, Pageable pageable);
 }
