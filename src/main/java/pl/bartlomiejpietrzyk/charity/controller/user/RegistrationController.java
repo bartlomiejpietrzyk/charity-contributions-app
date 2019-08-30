@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller.user;
+package pl.bartlomiejpietrzyk.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.charity.dto.UserRegistrationDto;
-import pl.coderslab.charity.service.UserRegistrationService;
-import pl.coderslab.charity.service.UserService;
+import pl.bartlomiejpietrzyk.charity.dto.UserRegistrationDto;
+import pl.bartlomiejpietrzyk.charity.service.UserRegistrationService;
+import pl.bartlomiejpietrzyk.charity.service.UserService;
 
 import javax.validation.Valid;
 

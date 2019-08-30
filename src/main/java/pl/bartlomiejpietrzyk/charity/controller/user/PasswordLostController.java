@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller.user;
+package pl.bartlomiejpietrzyk.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.coderslab.charity.dto.UserChangeLostPasswordDto;
-import pl.coderslab.charity.dto.UserLostPasswordDto;
-import pl.coderslab.charity.email.EmailServiceImpl;
-import pl.coderslab.charity.entity.PasswordToken;
-import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.repository.PasswordTokenRepository;
-import pl.coderslab.charity.repository.UserRepository;
-import pl.coderslab.charity.service.PasswordLostService;
+import pl.bartlomiejpietrzyk.charity.dto.UserChangeLostPasswordDto;
+import pl.bartlomiejpietrzyk.charity.dto.UserLostPasswordDto;
+import pl.bartlomiejpietrzyk.charity.email.EmailServiceImpl;
+import pl.bartlomiejpietrzyk.charity.entity.PasswordToken;
+import pl.bartlomiejpietrzyk.charity.entity.User;
+import pl.bartlomiejpietrzyk.charity.repository.PasswordTokenRepository;
+import pl.bartlomiejpietrzyk.charity.repository.UserRepository;
+import pl.bartlomiejpietrzyk.charity.service.PasswordLostService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;

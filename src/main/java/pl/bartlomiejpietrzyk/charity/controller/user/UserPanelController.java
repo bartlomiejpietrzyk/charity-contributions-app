@@ -1,4 +1,4 @@
-package pl.coderslab.charity.controller.user;
+package pl.bartlomiejpietrzyk.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -6,15 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.dto.UserChangePasswordDto;
-import pl.coderslab.charity.dto.UserEditDto;
-import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.entity.DonationStatus;
-import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.DonationStatusRepository;
-import pl.coderslab.charity.repository.UserRepository;
-import pl.coderslab.charity.service.UserService;
+import pl.bartlomiejpietrzyk.charity.dto.UserChangePasswordDto;
+import pl.bartlomiejpietrzyk.charity.dto.UserEditDto;
+import pl.bartlomiejpietrzyk.charity.entity.Donation;
+import pl.bartlomiejpietrzyk.charity.entity.DonationStatus;
+import pl.bartlomiejpietrzyk.charity.entity.User;
+import pl.bartlomiejpietrzyk.charity.repository.DonationRepository;
+import pl.bartlomiejpietrzyk.charity.repository.DonationStatusRepository;
+import pl.bartlomiejpietrzyk.charity.repository.UserRepository;
+import pl.bartlomiejpietrzyk.charity.service.UserService;
 
 import javax.validation.Valid;
 import java.util.Comparator;
