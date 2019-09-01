@@ -28,7 +28,8 @@ public class ContactMessageController {
     }
 
     @PostMapping("/sendMessage")
-    public String contactMessageForm(@ModelAttribute("contactMessage") UserContactDto userContactDto, BindingResult result) {
+    public String contactMessageForm(@ModelAttribute("contactMessage") UserContactDto userContactDto,
+                                     BindingResult result) {
         if (result.hasErrors()) {
             return "redirect:/?messageNotSend";
         }
