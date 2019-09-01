@@ -11,4 +11,5 @@ public class UserContactDto {
     private String contactLastName;
     private String contactEmail;
     private String contactMessage;
+    private String contactTitle;
 }
