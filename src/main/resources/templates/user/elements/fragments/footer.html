@@ -6,25 +6,32 @@
 
         <form th:action="@{/sendMessage}" th:object="${contactMessage}" method="post" class="form--contact">
             <div class="form-group form-group--50">
-                <input type="text" name="contactFirstName"
+                <input type="text" name="contactFirstName" minlength="3"
                        th:placeholder="#{placeholder.firstname}"
-                       th:unless="${#authorization.expression('isAuthenticated()')}"
-                       th:value="${currentUser.firstName}"/></div>
+                       th:unless="${#authorization.expression('isAuthenticated()')}"/></div>
             <div class="form-group form-group--50">
-                <input type="text" name="contactLastName"
+                <input type="text" name="contactLastName" minlength="3"
                        th:placeholder="#{placeholder.lastname}"
-                       th:unless="${#authorization.expression('isAuthenticated()')}"
-                       th:value="${currentUser.lastName}"/></div>
+                       th:unless="${#authorization.expression('isAuthenticated()')}"/></div>
             <div class="form-group form-group--inline">
                 <input type="email" name="contactEmail"
                        th:placeholder="#{placeholder.email}"
-                       th:unless="${#authorization.expression('isAuthenticated()')}" th:value="${currentUser.email}"/>
+                       th:unless="${#authorization.expression('isAuthenticated()')}"/>
+            </div>
+            <div class="form-group form-group--inline">
+                <input type="text" name="contactTitle" minlength="6"
+                       th:placeholder="#{page.email.title}">
             </div>
             <div class="form-group">
-                <textarea name="contactMessage" th:placeholder="#{con.message}" rows="1"></textarea>
+                <textarea name="contactMessage" th:placeholder="#{con.message}" rows="1" minlength="25"
+                          maxlength="255"></textarea>
             </div>
-            <input th:unless="${#authorization.expression('isAuthenticated()')}"
-                   th:value="${currentUser.id}" type="hidden">
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                <input th:value="${currentUser.id}" name="userId" type="hidden">
+                <input th:value="${currentUser.firstName}" name="contactFirstName" type="hidden">
+                <input th:value="${currentUser.lastName}" name="contactLastName" type="hidden">
+                <input th:value="${currentUser.email}" name="contactEmail" type="hidden">
+            </div>
             <button class="btn btn--without-border" type="submit" th:text="#{con.send}">Wyślij</button>
         </form>
     </div>
