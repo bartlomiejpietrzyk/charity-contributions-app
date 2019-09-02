@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface DonationStatusRepository extends JpaRepository<DonationStatus, Long> {
     List<DonationStatus> findAll();
+
+    DonationStatus findByName(String name);
 }
