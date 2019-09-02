@@ -2,11 +2,11 @@ package pl.bartlomiejpietrzyk.charity.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,7 +21,8 @@ public class Donation {
     private List<Category> categories;
     @ManyToOne
     private Institution institution;
-    @NotNull
+    @NotEmpty
+    @Length(min = 9, max = 9)
     private String mobile;
     @NotEmpty
     private String street;
@@ -37,6 +38,7 @@ public class Donation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String time;
+    @Length(max = 255)
     private String comment;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_donations",
