@@ -1,6 +1,7 @@
 package pl.bartlomiejpietrzyk.charity.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,8 +16,13 @@ import java.io.File;
 @Component
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
     public JavaMailSender emailSender;
+
+    @Autowired
+    public EmailServiceImpl(@Qualifier("getJavaMailSender")
+                                    JavaMailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     public void sendSimpleMessage(String to, String subject, String text) {
         try {

@@ -1,6 +1,8 @@
 package pl.bartlomiejpietrzyk.charity.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,27 +49,14 @@ public class UserPanelController {
     public String showUserProfileSite(@ModelAttribute("currentUser") User user,
                                       Model model) {
         model.addAttribute("userDonationCount", donationRepository.countAllByUser(user));
-        model.addAttribute("userDonationCountGiven", donationRepository
-                .findAllByUser(user)
-                .stream()
-                .filter(donation -> donation.getStatus().getId() == 1)
-                .count());
-        model.addAttribute("userDonationCountToGive", donationRepository
-                .findAllByUser(user)
-                .stream()
-                .filter(donation -> donation.getStatus().getId() == 2)
-                .count());
-        model.addAttribute("userDonationCountBags", donationRepository.findAllByUser(user)
-                .stream()
-                .filter(donation -> donation.getStatus().getId() == 2)
-                .map(Donation::getQuantity)
-                .mapToLong(Long::longValue).sum());
-        model.addAttribute("userToDonationCountBags", donationRepository.findAllByUser(user)
-                .stream()
-                .filter(donation -> donation.getStatus().getId() == 1)
-                .map(Donation::getQuantity)
-                .mapToLong(Long::longValue)
-                .sum());
+        model.addAttribute("userDonationCountGiven",
+                donationRepository.countUserDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
+        model.addAttribute("userDonationCountToGive",
+                donationRepository.countUserDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
+        model.addAttribute("userDonationCountBags",
+                donationRepository.countUserQuantityDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
+        model.addAttribute("userToDonationCountBags",
+                donationRepository.countUserQuantityDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
         model.addAttribute("userDonationInstitutions", donationRepository
                 .findAllByUser(user)
                 .stream()
@@ -123,29 +112,20 @@ public class UserPanelController {
     public String showDonationsList(Model model,
                                     @ModelAttribute("currentUser") User user,
                                     @RequestParam(defaultValue = "0") int page) {
-        List<Donation> sorted = donationRepository.findAllByUser(user);
-        sorted.sort(
-                Comparator.comparing(Donation::getDate).reversed()
-                        .thenComparing((Donation donation) -> donation.getStatus().getId())
-                        .reversed()
-                        .thenComparing(Donation::getDonationCreated)
-                        .reversed());
+        Page<Donation> sorted = donationRepository.findAllByUser(user, new PageRequest(page, 5));
+        sorted
+                .stream()
+                .sorted(
+                        Comparator.comparing(Donation::getDate).reversed()
+                                .thenComparing((Donation donation) -> donation.getStatus().getId())
+                                .reversed()
+                                .thenComparing(Donation::getDonationCreated)
+                                .reversed())
+                .collect(Collectors.toList());
         model.addAttribute("donationsList", sorted);
         model.addAttribute("currentPage", page);
         return "user/userDonations";
     }
-//
-//    @ModelAttribute("donationsList")
-//    public List<Donation> getDonationsList(@ModelAttribute("currentUser") User user) {
-//        List<Donation> sorted = donationRepository.findAllByUser(user);
-//        sorted.sort(
-//                Comparator.comparing(Donation::getDate).reversed()
-//                        .thenComparing((Donation donation) -> donation.getStatus().getId())
-//                        .reversed()
-//                        .thenComparing(Donation::getDonationCreated)
-//                        .reversed());
-//        return sorted;
-//    }
 
     @PostMapping("/donations")
     public String proceedDonationList(@ModelAttribute("donation") Donation donation,
