@@ -50,16 +50,22 @@ public class UserPanelController {
                                       Model model) {
         model.addAttribute("userDonationCount", donationRepository.countAllByUser(user));
         model.addAttribute("userDonationCountGiven",
-                donationRepository.countUserDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
+                donationRepository
+                        .countUserDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
         model.addAttribute("userDonationCountToGive",
-                donationRepository.countUserDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
+                donationRepository
+                        .countUserDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
         model.addAttribute("userDonationCountBags",
-                donationRepository.countUserQuantityDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
+                donationRepository
+                        .countUserQuantityDonationsByStatusNameEqualsAndUserId("Odebrane", user.getId()));
         model.addAttribute("userToDonationCountBags",
-                donationRepository.countUserQuantityDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
+                donationRepository
+                        .countUserQuantityDonationsByStatusNameEqualsAndUserId("Nieodebrane", user.getId()));
         model.addAttribute("userDonationInstitutions", donationRepository
                 .findAllByUser(user)
                 .stream()
+                .filter(donation -> donation.getStatus()
+                        .equals(donationStatusRepository.findByName("Odebrane")))
                 .map(Donation::getInstitution)
                 .collect(Collectors.toSet())
                 .size());
