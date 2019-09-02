@@ -1,6 +1,7 @@
 package pl.bartlomiejpietrzyk.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class AdminAdministratorController {
     public String showAdministratorsList(Model model,
                                          @RequestParam(defaultValue = "0") int page) {
         Role role = roleRepository.findByName("ROLE_ADMIN");
-        List<User> usersByRolesEquals = userRepository
+        Page<User> usersByRolesEquals = userRepository
                 .findUsersByRolesEquals(role, new PageRequest(page, 10));
         model.addAttribute("adminList", usersByRolesEquals);
         model.addAttribute("currentPage", page);
