@@ -29,6 +29,7 @@ public class MessageService {
         message.setContactFirstName(contactDto.getContactFirstName());
         message.setContactLastName(contactDto.getContactLastName());
         message.setContactEmail(contactDto.getContactEmail());
+        message.setContactTitle(contactDto.getContactTitle());
         message.setContactMessage(contactDto.getContactMessage());
         return messageRepository.save(message);
     }
