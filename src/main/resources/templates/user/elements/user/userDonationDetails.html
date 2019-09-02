@@ -53,7 +53,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="border-bottom: 1px dashed black">
+                <td>
                     <span th:text="#{admin.nav.categories}"</span>
                 </td>
                 <td style="border-bottom: 1px dashed black">
@@ -61,6 +61,16 @@
                     <span style="margin-right: 3px" class="btn btn--small"
                           th:each="category : ${donation.categories}"
                           th:text="${category}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px dashed black">
+                    <span th:text="#{form.count.bags}"</span>
+                </td>
+                <td style="border-bottom: 1px dashed black">
+
+                    <span style="margin-right: 3px"
+                          th:text="${donation.quantity}"></span>
                 </td>
             </tr>
             <tr>
