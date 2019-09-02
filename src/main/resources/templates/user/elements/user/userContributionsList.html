@@ -30,8 +30,8 @@
                 <span th:text="${donation.status}"></span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:if="${donation.status.id == 2}" th:text="${donation.date}"></span>
-                <span th:unless="${donation.status.id == 2}" th:text="#{page.list.to.pick}"></span>
+                <span th:if="${donation.status.name == 'Odebrane'}" th:text="${donation.date}"></span>
+                <span th:unless="${donation.status.name == 'Nieodebrane'}" th:text="#{page.list.to.pick}"></span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%">
                 <a th:href="@{/user/donations/details(id=${donation.id})}">
