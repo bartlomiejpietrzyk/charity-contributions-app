@@ -464,7 +464,6 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$step.parentElement.hidden = this.currentStep >= 5;
 
 
-            this.$form.querySelector('#categoryProceed').innerText = this.$checkboxbuttons.value;
             this.$form.querySelector('#quantityProceed').innerText = getBagsQuantity(this.$bagQuantity.value);
             this.$form.querySelector('#institutionProceed').innerText = getInstitutionDonate(this.$radiobuttons);
             this.$form.querySelector('#streetProceed').innerText = this.$street.value;
@@ -495,7 +494,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function getMobileNumber(mobile) {
                 if (mobile.length == 9)
-                    return mobile.substr(0, 3) + ' ' + mobile.substr(3, 3) + ' ' + mobile.substr(6, 3)
+                    return mobile.substr(0, 3) + '-' + mobile.substr(3, 3) + '-' + mobile.substr(6, 3)
                 else
                     return mobile;
             }
