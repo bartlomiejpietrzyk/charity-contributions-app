@@ -4,6 +4,12 @@
       lang="pl">
 <body>
 <div layout:fragment="top-bar">
+    <div class="btn border-dark"><span th:text="#{page.list.messages}"></span>
+        <a th:href="@{/admin/messages}">
+            <input type="submit" th:value="#{page.btn.go}"
+
+                   class="btn btn-outline-dark"/></a>
+    </div>
 </div>
 
 <div layout:fragment="fragmentOne">

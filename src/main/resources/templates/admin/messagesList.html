@@ -4,8 +4,8 @@
       lang="pl">
 <body>
 <div layout:fragment="top-bar">
-    <div class="btn border-dark"><span th:text="#{page.list.message.archive}"></span>
-        <a th:href="@{/admin/messages/archive}">
+    <div class="btn border-dark"><span th:text="#{page.email.page}"></span>
+        <a th:href="@{/admin/mail/send}">
             <input type="submit" th:value="#{page.btn.go}"
 
                    class="btn btn-outline-dark"/></a>
@@ -19,7 +19,7 @@
         <div class="text-center">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.messages}"></h6>
+                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{page.list.messages}"></h6>
                 </div>
                 <div class="card-body">
                     <div th:if="${param.deletesuccess}">
@@ -67,11 +67,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <!--                    <ul class="nav nav-item" style="margin-left: 5px">-->
-                    <!--                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, messages.totalPages-1)}">-->
-                    <!--                            <a th:href="@{/admin/messages(page=${i})}" th:text="${i+1}" class="nav-link"-->
-                    <!--                               th:classappend="${currentPage}==${i} ? 'active disabled' : ''"></a></li>-->
-                    <!--                    </ul>-->
+                    <ul class="nav nav-item" style="margin-left: 5px">
+                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, messages.totalPages-1)}">
+                            <a th:href="@{/admin/messages(page=${i})}" th:text="${i+1}" class="nav-link"
+                               th:classappend="${currentPage}==${i} ? 'active disabled' : ''"></a></li>
+                    </ul>
                 </div>
             </div>
         </div>
