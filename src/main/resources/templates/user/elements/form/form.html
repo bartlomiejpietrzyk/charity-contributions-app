@@ -17,10 +17,11 @@
         </div>
     </div>
 
-    <div class="form--steps-container">
+    <div id="formSteps" class="form--steps-container">
         <div class="form--steps-counter">
             Krok <span>1</span>/4
         </div>
+
         <form th:action="@{/form}" th:method="post" th:object="${donation}">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
@@ -28,14 +29,18 @@
 
                 <div class="form-group form-group--checkbox" th:each="category : ${categoriesList}">
                     <label>
-                        <input id="checkedCategories" type="checkbox" name="categories" th:value="${category.id}"/>
+                        <input id="checked"
+                               name="categories"
+                               th:value="${category.id}"
+                               type="checkbox"/>
                         <span class="checkbox"></span>
                         <span class="description" th:text="${category.name}"></span>
                     </label>
                 </div>
                 <p th:if="${#fields.hasErrors('categories')}" th:errors="*{categories}" class="error"></p>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn next-step"><span th:text="#{form.continue}">Dalej</span></button>
+                    <button id="checkboxButton" type="button" class="btn next-step"><span th:text="#{form.continue}">Dalej</span>
+                    </button>
                 </div>
             </div>
 
@@ -68,7 +73,10 @@
                         <input id="institutionCheck" type="radio" name="institution" th:value="${institution.id}"/>
                         <span class="checkbox radio"></span>
                         <span class="description">
-                  <div class="title" th:text="${institution.getName()}">Fundacja “Bez domu”</div>
+                            <div class="title">
+                                <span id="institution-name"
+                                      th:text="${institution.getName()}">Fundacja “Bez domu”</span>
+                            </div>
                   <div class="subtitle" th:text="${institution.getDescription()}">
                     Cel i misja: Pomoc dla osób nie posiadających miejsca
                     zamieszkania
@@ -96,7 +104,8 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.street}">Ulica</span>
-                                <input id="street" type="text" name="street" th:value="*{street}"/>
+                                <input id="street" type="text" name="street" th:field="*{street}" value=""
+                                       placeholder="Ulica" minlength="3" required/>
                                 <p th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="error"></p>
                             </label>
 
@@ -105,7 +114,8 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.city}">Miasto</span>
-                                <input id="city" type="text" name="city" th:value="*{city}"/>
+                                <input id="city" type="text" name="city" th:value="*{city}"
+                                       placeholder="Miasto" minlength="2" required/>
                                 <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="error"></p>
                             </label>
                         </div>
@@ -113,7 +123,8 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.post.code}">Kod pocztowy</span>
-                                <input id="zipCode" type="text" name="zipCode" th:value="*{zipCode}"/>
+                                <input id="zipCode" type="text" name="zipCode" th:value="*{zipCode}"
+                                       placeholder="__-___" minlength="6" maxlength="6" required/>
                                 <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="error"></p>
                             </label>
                         </div>
@@ -121,7 +132,8 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.mobile}">Numer telefonu</span>
-                                <input id="mobile" type="phone" name="mobile" th:value="*{mobile}"/>
+                                <input id="mobile" type="phone" name="mobile" th:field="*{mobile}"
+                                       placeholder="123456789" minlength="9" maxlength="9"/>
                                 <p th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}" class="error"></p>
                             </label>
                         </div>
@@ -144,7 +156,8 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 <span th:text="#{form.for.courier}">Uwagi dla kuriera</span>
-                                <textarea id="comment" name="comment" rows="5" th:value="*{comment}"></textarea>
+                                <textarea id="comment" name="comment" rows="5" th:value="*{comment}"
+                                          th:placeholder="#{page.list.message}"></textarea>
                                 <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error"></p>
                             </label>
                         </div>
@@ -156,7 +169,6 @@
                     </button>
                 </div>
             </div>
-            <!---->
             <!-- STEP 5 -->
             <div data-step="5">
                 <h3 th:text="#{form.summary}">Podsumowanie Twojej darowizny</h3>
@@ -164,12 +176,10 @@
                     <div class="form-section">
                         <h4>Oddajesz:</h4>
                         <ul>
-                            <li id="addCat">
+                            <li>
                                 <span class="icon icon-bag"></span>
                                 <span th:text="#{form.you.give}"></span>&nbsp;
                                 <span class="summary--text" id="quantityProceed"></span>
-                                <span class="summary--text" id="bagForm">&nbsp; worków</span>
-                                <!--                                <span class="summary&#45;&#45;text" id="categoryProceed"> </span>-->
                             </li>
 
                             <li>
@@ -205,8 +215,7 @@
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <input type="hidden" name="id" th:field="*{user}" th:value="${currentUser.id}">
-                    <button type="submit" class="btn">Potwierdzam</button>
-
+                    <button th:if="${#checkbox == checked}" type="submit" class="btn">Potwierdzam</button>
                 </div>
             </div>
         </form>

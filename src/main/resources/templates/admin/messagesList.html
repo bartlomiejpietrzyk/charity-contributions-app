@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="admin/elements/template/template"
+      lang="pl">
+<body>
+<div layout:fragment="top-bar">
+    <div class="btn border-dark"><span th:text="#{page.email.page}"></span>
+        <a th:href="@{/admin/mail/send}">
+            <input type="submit" th:value="#{page.btn.go}"
+
+                   class="btn btn-outline-dark"/></a>
+    </div>
+</div>
+
+<div layout:fragment="fragmentOne">
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.list.messages}">Blank Page</h1>
+    <div class="card bg-white border-dark shadow pr-1 pl-1 mb-3 ml-3 mr-3">
+        <!--                <h4 class="card-header">HEADER</h4>-->
+        <div class="text-center">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary" th:text="#{page.list.messages}"></h6>
+                </div>
+                <div class="card-body">
+                    <div th:if="${param.deletesuccess}">
+                        <h4 class="alert alert-success text-center" th:text="#{page.list.message.delete.success}"></h4>
+                    </div>
+                    <div th:if="${param.edited}">
+                        <h4 class="alert alert-success text-center" th:text="#{page.list.message.edit.success}"></h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
+                               cellspacing="0">
+                            <thead>
+
+                            <tr class="alert-outline-dark">
+                                <th th:text="#{page.list.id}">#ID#</th>
+                                <th th:text="#{page.list.from}">Name</th>
+                                <th th:text="#{page.list.email}">Email</th>
+                                <th th:text="#{page.list.message}">Message</th>
+                                <th th:text="#{page.list.action}">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="message : ${messages}">
+                                <td th:text="${message.id}"></td>
+                                <td th:text="${message.contactFirstName + ' ' + message.contactLastName}"></td>
+                                <td th:text="${message.contactEmail}"></td>
+                                <td>
+                                    <span th:if="${message.contactMessage == null}"
+                                          th:text="#{text.empty.message}"></span>
+                                    <span th:unless="${message.contactMessage == null}"
+                                          th:text="${#strings.abbreviate(message.contactMessage,40)}"></span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/admin/messages/details(id=${message.id})}">
+                                        <input type="hidden" name="id" th:value="${message.id}">
+                                        <input type="submit" th:value="#{page.btn.details}"
+                                               class="btn btn-outline-info"/></a>
+                                    <a th:href="@{/admin/messages/delete(id=${message.id})}"
+                                       th:action="@{/admin/messages/delete(id=${message.id})}" method="post">
+                                        <input type="submit" th:value="#{page.btn.delete}"
+                                               class="btn btn-outline-danger"
+                                               onclick="return confirm('Czy na pewno chcesz usunąć datek?')"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-item" style="margin-left: 5px">
+                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, messages.totalPages-1)}">
+                            <a th:href="@{/admin/messages(page=${i})}" th:text="${i+1}" class="nav-link"
+                               th:classappend="${currentPage}==${i} ? 'active disabled' : ''"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

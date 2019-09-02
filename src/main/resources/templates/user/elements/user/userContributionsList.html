@@ -3,7 +3,12 @@
            width="65%"
            align="center">
         <thead>
-        <th colspan="6" style="border-bottom: 1px dashed; padding-bottom: 20px" th:text="#{don.page.title}"></th>
+        <th colspan="5" style="border-bottom: 1px dashed; padding-bottom: 20px">
+            <span th:text="#{don.page.title}"></span>
+        </th>
+        <th style="border-bottom: 1px dashed; padding: 5px">
+            <a th:href="@{/user/profile}"><span class="btn btnsmall" th:text="#{page.btn.back}"></span></a>
+        </th>
         </thead>
         <tr>
             <td style="border-bottom: 1px dashed; width: 5%" th:text="#{page.list.id}">ID</td>
@@ -25,8 +30,8 @@
                 <span th:text="${donation.status}"></span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                <span th:if="${donation.status.id == 2}" th:text="${donation.date}"></span>
-                <span th:unless="${donation.status.id == 2}" th:text="#{page.list.to.pick}"></span>
+                <span th:if="${donation.status.name == 'Odebrane'}" th:text="${donation.date}"></span>
+                <span th:unless="${donation.status.name == 'Nieodebrane'}" th:text="#{page.list.to.pick}"></span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;" width="30%">
                 <a th:href="@{/user/donations/details(id=${donation.id})}">
@@ -35,5 +40,12 @@
             </td>
         </tr>
         </form>
+        <th style="display: flex; margin-top: 5px">
+            <li style="list-style-type: none; margin-left: 2px"
+                th:each="i : ${#numbers.sequence(0, donationsList.totalPages-1)}">
+                <a class="btn btn--small" th:href="@{/user/donations(page=${i})}" th:text="${i+1}"
+                   th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a>
+            </li>
+        </th>
     </table>
 </div>

@@ -10,12 +10,12 @@
 
                 <div th:if="${param.success}">
                     <div class="text-center alert alert-success mt-4 ml-3 mr-3">
-                        <h3 class="text-success" th:text="#{page.list.status.positive}"></h3>
+                        <h3 class="text-success" th:text="#{page.list.donation.status.positive}"></h3>
                     </div>
                 </div>
                 <div th:if="${param.failed}">
                     <div class="text-center alert alert-danger mt-4 ml-3 mr-3">
-                        <h3 class="text-success" th:text="#{page.list.status.negative}"></h3>
+                        <h3 class="text-success" th:text="#{page.list.donation.status.negative}"></h3>
                     </div>
                 </div>
             </th>
@@ -53,14 +53,24 @@
                 </td>
             </tr>
             <tr>
-                <td style="border-bottom: 1px dashed black">
-                    <span th:text="#{page.list.donation.categories.type}"</span>
+                <td>
+                    <span th:text="#{admin.nav.categories}"</span>
                 </td>
                 <td style="border-bottom: 1px dashed black">
 
                     <span style="margin-right: 3px" class="btn btn--small"
                           th:each="category : ${donation.categories}"
                           th:text="${category}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px dashed black">
+                    <span th:text="#{form.count.bags}"</span>
+                </td>
+                <td style="border-bottom: 1px dashed black">
+
+                    <span style="margin-right: 3px"
+                          th:text="${donation.quantity}"></span>
                 </td>
             </tr>
             <tr>
@@ -83,6 +93,6 @@
                     <button type="button" class="btn large" th:text="#{page.btn.back}"/>
                 </a>
             </td>
-
         </table>
+    </form>
 </div>

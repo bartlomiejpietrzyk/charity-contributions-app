@@ -66,8 +66,33 @@
             <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header" th:text="#{admin.nav.divider}">Manage users:</h6>
-                    <a class="collapse-item" th:href="@{/admin/users}" th:text="#{admin.nav.users.list}"></a>
-                    <a class="collapse-item" th:href="@{/admin/administrators}" th:text="#{admin.nav.admins.list}"></a>
+                    <a class="collapse-item" th:href="@{/admin/users}">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span th:text="#{admin.nav.users.list}"></span>
+                    </a>
+                    <a class="collapse-item" th:href="@{/admin/administrators}">
+                        <i class="fas fa-fw fa-user-astronaut"></i>
+                        <span th:text="#{admin.nav.admins.list}"></span></a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMessages"
+               aria-expanded="true" aria-controls="collapseMessages">
+                <i class="fas fa-fw fa-mail-bulk"></i>
+                <span th:text="#{page.list.messages}">Manage</span>
+            </a>
+            <div id="collapseMessages" class="collapse" aria-labelledby="headingMessages"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header" th:text="#{admin.nav.divider}">Manage messages:</h6>
+                    <a class="collapse-item" th:href="@{/admin/messages}">
+                        <i class="fas fa-fw fa-inbox"></i>
+                        <span th:text="#{page.list.messages}"></span>
+                    </a>
+                    <a class="collapse-item" th:href="@{/admin/mail/send}">
+                        <i class="fas fa-fw fa-at"></i>
+                        <span th:text="#{page.email.page}"></span></a>
                 </div>
             </div>
         </li>
@@ -87,11 +112,7 @@
                 <i class="fas fa-fw fa-box"></i>
                 <span th:text="#{admin.nav.categories}">Categories</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/admin/mail/send}">
-                <i class="fas fa-fw fa-at"></i>
-                <span th:text="#{page.list.email}">Categories</span></a>
-        </li>
+
 
         <!-- Divider -->
         <hr class="sidebar-divider">

@@ -1,0 +1,125 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="admin/elements/template/template"
+      lang="pl">
+<body>
+<div layout:fragment="top-bar">
+</div>
+
+<div layout:fragment="fragmentOne">
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.email.send}">Blank Page</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+        <div class="col">
+            <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" th:text="#{page.email.page}"></h6>
+                    </div>
+                    <div>
+                        <div class="align-items-center">
+                            <div>
+                                <table class="text-center" width="100%">
+                                    <tr class="card-header">
+                                        <th width="10%" th:text="#{page.list.firstname}">First</th>
+                                        <td><span th:text="${message.contactFirstName}"></span></td>
+                                    </tr>
+                                    <tr class="card-header">
+                                        <th th:text="#{page.list.lastname}">Last</th>
+                                        <td><span th:text="${message.contactLastName}"></span></td>
+                                    </tr>
+                                    <tr class="card-header">
+                                        <th th:text="#{page.list.email}">Email</th>
+                                        <td><span th:text="${message.contactEmail}"></span></td>
+                                    </tr>
+                                    <tbody class="card-header">
+                                    <th colspan="2" class="card-header-pills border-bottom">Message</th>
+                                    </tr>
+                                    <td colspan="2"><span class="card-title" th:text="${message.contactMessage}"></span>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/admin/messages/details}" th:object="${answer}" th:method="post">
+
+                        <div class="card-body col-md-auto">
+                            <div th:if="${param.success}">
+                                <h4 class="alert alert-success text-center"
+                                    th:text="#{page.email.send.success}"></h4>
+                            </div>
+                            <div th:if="${param.failed}">
+                                <h4 class="alert alert-danger text-center"
+                                    th:text="#{page.email.send.failed}"></h4>
+                            </div>
+
+
+                            <h6 class="error-message btn-outline-danger text-white"
+                                th:if="${#fields.hasGlobalErrors()}"
+                                th:each="error : ${#fields.errors('global')}">
+                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('to')}? 'has-error':''">
+                                <label for="to" class="control-label"
+                                       th:text="#{page.email.to}">Name</label>
+                                <input id="to"
+                                       class="form-control"
+                                       th:type="text"
+                                       name="to"
+                                       readonly="true"
+                                       th:value="${message.contactEmail}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('to')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('subject')}? 'has-error':''">
+                                <label for="subject" class="control-label"
+                                       th:text="#{page.email.title}">Title</label>
+                                <input id="subject"
+                                       class="form-control"
+                                       th:type="text"
+                                       th:field="*{subject}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('subject')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('text')}? 'has-error':''">
+                                <label for="text" class="control-label"
+                                       th:text="#{page.email.text}">Message</label>
+                                <textarea id="text"
+                                          class="form-control"
+                                          th:type="textarea"
+                                          th:field="*{text}"
+                                          th:required="true">
+                            </textarea>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('text')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-dark"
+                                        th:text="#{page.email.send}"
+                                        onclick="return confirm('Czy na pewno chcesz wysłać e-mail?')">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

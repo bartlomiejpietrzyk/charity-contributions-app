@@ -6,10 +6,11 @@
         <th colspan="2" style="border-bottom: 1px dashed; padding-bottom: 20px">
             <span th:text="#{page.list.data.user}"></span>
             <span th:text="${currentUser.getFirstName()}"></span>
+            <span th:text="${currentUser.getLastName()}"></span>
         </th>
         </thead>
         <tr>
-            <td style="padding-top: 20px" width="30%">
+            <td style="padding-top: 20px" width="50%">
                 <span th:text="#{page.list.firstname}">First Name</span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;">
@@ -41,10 +42,18 @@
             </td>
         <tr>
             <td>
-                <span th:text="#{page.list.donation.quantity}"></span>
+                <span th:text="#{page.list.donation.given.quantity}"></span>
             </td>
             <td style="padding-top: 20px; border-bottom: 1px dashed;">
                 <span th:text="${userDonationCountGiven}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span th:text="#{page.list.donation.give.quantity}"></span>
+            </td>
+            <td style="padding-top: 20px; border-bottom: 1px dashed;">
+                <span th:text="${userDonationCountToGive}"></span>
             </td>
         </tr>
         <tr>
@@ -81,6 +90,5 @@
                        class="btn btn-outline-info"/></a>
             </a>
         </td>
-
     </table>
 </div>
