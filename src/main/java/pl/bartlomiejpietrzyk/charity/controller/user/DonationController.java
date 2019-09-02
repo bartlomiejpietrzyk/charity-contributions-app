@@ -3,12 +3,15 @@ package pl.bartlomiejpietrzyk.charity.controller.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.bartlomiejpietrzyk.charity.entity.Donation;
 import pl.bartlomiejpietrzyk.charity.entity.User;
 import pl.bartlomiejpietrzyk.charity.repository.CategoryRepository;
 import pl.bartlomiejpietrzyk.charity.repository.InstitutionRepository;
 import pl.bartlomiejpietrzyk.charity.service.DonationService;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -36,8 +39,12 @@ public class DonationController {
     }
 
     @PostMapping("/form")
-    public String proceedForm(@ModelAttribute("donation") Donation donation,
-                              @ModelAttribute("currentUser") User user) {
+    public String proceedForm(@Valid @ModelAttribute("donation") Donation donation,
+                              @ModelAttribute("currentUser") User user,
+                              BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/form?error";
+        }
         donationService.donationCreate(donation, user);
         return "user/formConfirm";
     }
