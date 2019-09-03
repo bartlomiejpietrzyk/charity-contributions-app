@@ -8,6 +8,8 @@ import pl.bartlomiejpietrzyk.charity.repository.MessageRepository;
 import pl.bartlomiejpietrzyk.charity.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @Transactional
@@ -26,11 +28,13 @@ public class MessageService {
         if (contactDto.getUserId() != null) {
             message.setUserId(userRepository.getOne(contactDto.getUserId()).getId());
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         message.setContactFirstName(contactDto.getContactFirstName());
         message.setContactLastName(contactDto.getContactLastName());
         message.setContactEmail(contactDto.getContactEmail());
         message.setContactTitle(contactDto.getContactTitle());
         message.setContactMessage(contactDto.getContactMessage());
+        message.setContactDateTime(LocalDateTime.now().format(formatter));
         return messageRepository.save(message);
     }
 
