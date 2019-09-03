@@ -23,7 +23,7 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public Message sendMessage(UserContactDto contactDto) throws NullPointerException {
+    public Message sendMessage(UserContactDto contactDto) {
         Message message = new Message();
         if (contactDto.getUserId() != null) {
             message.setUserId(userRepository.getOne(contactDto.getUserId()).getId());

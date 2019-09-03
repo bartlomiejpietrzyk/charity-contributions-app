@@ -16,7 +16,7 @@ import java.io.File;
 @Component
 public class EmailServiceImpl implements EmailService {
 
-    public JavaMailSender emailSender;
+    private JavaMailSender emailSender;
 
     @Autowired
     public EmailServiceImpl(@Qualifier("getJavaMailSender")
