@@ -10,19 +10,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bartlomiejpietrzyk.charity.dto.UserRegistrationDto;
 import pl.bartlomiejpietrzyk.charity.service.UserRegistrationService;
-import pl.bartlomiejpietrzyk.charity.service.UserService;
 
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    private final UserService userService;
     private final UserRegistrationService userRegistrationService;
 
     @Autowired
-    public RegistrationController(UserService userService, UserRegistrationService userRegistrationService) {
-        this.userService = userService;
+    public RegistrationController(UserRegistrationService userRegistrationService) {
         this.userRegistrationService = userRegistrationService;
     }
 

@@ -12,4 +12,5 @@ public class UserContactDto {
     private String contactEmail;
     private String contactMessage;
     private String contactTitle;
+    private String contactDateTime;
 }
