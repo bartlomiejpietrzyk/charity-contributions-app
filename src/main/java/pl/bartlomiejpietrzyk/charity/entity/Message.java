@@ -32,7 +32,7 @@ public class Message {
     @NotEmpty
     @Length(min = 25, max = 255)
     private String contactMessage;
-
+    private String contactDateTime;
     @ManyToMany
     @JoinTable(name = "user_message",
             joinColumns = @JoinColumn(name = "message_id"),

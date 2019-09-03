@@ -59,7 +59,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         userRepository.save(user);
         emailService.sendSimpleMessage(user.getEmail(), "Klinkij w link aktywacyjny by aktywowac konto:",
                 "Hello " + user.getFirstName() + " " + user.getLastName()
-                        + "! Przejdź by aktywować konto: http://localhost:8080/" + user.getUuid() + "/enable");
+                        + "! Przejdź by aktywować konto: http://localhost:8080/user/" + user.getUuid() + "/enable");
 
     }
 

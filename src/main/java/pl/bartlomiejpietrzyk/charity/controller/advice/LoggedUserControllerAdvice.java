@@ -15,7 +15,7 @@ public class LoggedUserControllerAdvice {
     private UserRepository userRepository;
 
     @ModelAttribute("currentUser")
-    public User currentUser(Principal principal) throws NullPointerException {
+    public User currentUser(Principal principal) {
         if (principal != null) {
             SecurityContextHolder.getContext().getAuthentication().getAuthorities();
             return userRepository.findByEmail(principal.getName());

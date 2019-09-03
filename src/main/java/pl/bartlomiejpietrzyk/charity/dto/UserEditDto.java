@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.bartlomiejpietrzyk.charity.entity.User;
+import pl.bartlomiejpietrzyk.charity.validator.ValidPassword;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -23,8 +24,7 @@ public class UserEditDto {
     @NotEmpty
     private String email;
     @NotEmpty
-//    @ValidPassword
-    //todo uncomment validation
+    @ValidPassword
     private String password;
 
     @Autowired
