@@ -24,7 +24,7 @@ public class Message {
     @Length(min = 3)
     private String contactLastName;
     @NotEmpty
-    @Length(min = 6)
+    @Length(min = 5)
     private String contactEmail;
     @NotEmpty
     @Length(min = 3)
