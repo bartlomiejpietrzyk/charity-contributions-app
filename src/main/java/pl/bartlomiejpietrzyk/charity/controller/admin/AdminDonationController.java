@@ -41,7 +41,7 @@ public class AdminDonationController {
     @GetMapping("/details")
     public String showDetailsDonationSite(@RequestParam Long id, Model model) {
         model.addAttribute("donation", donationRepository.getOne(id));
-        return "admin/donationDetails";
+        return "admin/donationsDetails";
     }
 
     @GetMapping("/edit")
