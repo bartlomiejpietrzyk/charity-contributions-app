@@ -2,6 +2,7 @@ package pl.bartlomiejpietrzyk.charity.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class AdminMessageController {
     public String showMessagesList(Model model,
                                    @RequestParam(defaultValue = "0") int page) {
         model.addAttribute("messages", messageRepository
-                .findAll(new PageRequest(page, 10)));
+                .findAll(new PageRequest(page, 10, Sort.Direction.DESC, "id")));
         model.addAttribute("currentPage", page);
         return "admin/messagesList";
     }
@@ -36,6 +37,8 @@ public class AdminMessageController {
     public String showMessage(Model model,
                               @RequestParam("id") Long id) {
         Message message = messageRepository.getOne(id);
+        message.setMessageOpen(true);
+        messageRepository.save(message);
         model.addAttribute("message", message);
         MailObject mailObject = new MailObject();
         model.addAttribute("answer", mailObject);
@@ -44,6 +47,7 @@ public class AdminMessageController {
 
     @PostMapping("/details")
     public String sendMessage(@ModelAttribute("answer") MailObject mailObject) {
+
         emailService.sendSimpleMessage(mailObject.getTo(), mailObject.getSubject(), mailObject.getText());
         return "redirect:/admin/messages?messageSent";
     }

@@ -2,7 +2,6 @@ package pl.bartlomiejpietrzyk.charity.controller.admin;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,14 +17,12 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/mail")
-public class MailController {
-    private EmailServiceImpl emailService;
-    public SimpleMailMessage template;
+public class AdminMailController {
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public MailController(EmailServiceImpl emailService, SimpleMailMessage template) {
+    public AdminMailController(EmailServiceImpl emailService) {
         this.emailService = emailService;
-        this.template = template;
     }
 
     @GetMapping
