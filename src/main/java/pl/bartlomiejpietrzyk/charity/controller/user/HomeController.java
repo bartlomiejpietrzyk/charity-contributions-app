@@ -21,8 +21,8 @@ public class HomeController {
         return "user/404";
     }
 
-//    @GetMapping("/500")
-//    public String error500() {
-//        return "user/500";
-//    }
+    @GetMapping("/500")
+    public String error500() {
+        return "user/500";
+    }
 }
