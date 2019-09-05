@@ -41,7 +41,7 @@
         </tr>
         </form>
         <th style="display: flex; margin-top: 5px">
-            <li style="list-style-type: none; margin-left: 2px"
+            <li style="list-style-type: none; margin-left: 2px" th:if="${donationList.totalPages > 0}"
                 th:each="i : ${#numbers.sequence(0, donationsList.totalPages-1)}">
                 <a class="btn btn--small" th:href="@{/user/donations(page=${i})}" th:text="${i+1}"
                    th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a>
