@@ -38,6 +38,7 @@
                                 <th th:text="#{page.list.from}">Name</th>
                                 <th th:text="#{page.list.email}">Email</th>
                                 <th th:text="#{page.list.message}">Message</th>
+                                <th th:text="#{page.list.status}">Status</th>
                                 <th th:text="#{page.list.action}">Action</th>
                             </tr>
                             </thead>
@@ -51,6 +52,10 @@
                                           th:text="#{text.empty.message}"></span>
                                     <span th:unless="${message.contactMessage == null}"
                                           th:text="${#strings.abbreviate(message.contactMessage,40)}"></span>
+                                </td>
+                                <td>
+                                    <span th:unless="${message.messageOpen} == true" th:text="'Nieprzeczytane'"></span>
+                                    <span th:if="${message.messageOpen} == true" th:text="'Przeczytane'"></span>
                                 </td>
                                 <td>
                                     <a th:href="@{/admin/messages/details(id=${message.id})}">

@@ -35,6 +35,7 @@ public class MessageService {
         message.setContactTitle(contactDto.getContactTitle());
         message.setContactMessage(contactDto.getContactMessage());
         message.setContactDateTime(LocalDateTime.now().format(formatter));
+        message.setMessageOpen(false);
         return messageRepository.save(message);
     }
 

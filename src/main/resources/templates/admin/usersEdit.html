@@ -5,7 +5,7 @@
 <body>
 <div layout:fragment="top-bar">
     <div class="btn border-dark"><span th:text="#{page.user.list}"></span>
-        <a th:href="@{/admin/users}">
+        <a href="javascript:history.back()">
             <input type="submit" th:value="#{page.btn.back}"
                    class="btn btn-outline-dark"/></a>
     </div>

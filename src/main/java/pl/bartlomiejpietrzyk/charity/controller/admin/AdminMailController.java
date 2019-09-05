@@ -2,7 +2,6 @@ package pl.bartlomiejpietrzyk.charity.controller.admin;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,20 +11,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bartlomiejpietrzyk.charity.email.EmailServiceImpl;
 import pl.bartlomiejpietrzyk.charity.email.MailObject;
+import pl.bartlomiejpietrzyk.charity.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/mail")
-public class MailController {
-    private EmailServiceImpl emailService;
-    public SimpleMailMessage template;
+public class AdminMailController {
+    private final EmailServiceImpl emailService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public MailController(EmailServiceImpl emailService, SimpleMailMessage template) {
+    public AdminMailController(EmailServiceImpl emailService, UserRepository userRepository) {
         this.emailService = emailService;
-        this.template = template;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -33,13 +33,14 @@ public class MailController {
         return "redirect:/admin/main/send";
     }
 
-    @GetMapping("/send")
+    @GetMapping("/user")
     public String createMail(Model model,
                              HttpServletRequest request) {
         request.getRequestURL().substring(
                 request.getRequestURL().lastIndexOf("/") + 1);
         model.addAttribute("mailObject", new MailObject());
-        return "admin/emailSend";
+        model.addAttribute("usersList", userRepository.findAll());
+        return "admin/emailForm";
     }
 
     @PostMapping("/send")
@@ -51,6 +52,6 @@ public class MailController {
         emailService.sendSimpleMessage(mailObject.getTo(),
                 mailObject.getSubject(), mailObject.getText());
 
-        return "redirect:/admin/mail/send?success";
+        return "redirect:/admin/mail/user?success";
     }
 }

@@ -4,7 +4,7 @@
       lang="pl">
 <body>
 <div layout:fragment="top-bar">
-    <div class="btn border-dark"><span th:text="#{page.administrator.list}"></span>
+    <div class="btn border-dark"><span th:text="#{page.user.list}"></span>
         <a href="javascript:history.back()">
             <input type="submit" th:value="#{page.btn.back}"
                    class="btn btn-outline-dark"/></a>
@@ -12,14 +12,15 @@
 </div>
 
 <div layout:fragment="fragmentOne">
-    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.administrator.edit.title}">Blank Page</h1>
+    <h1 class="h3 mb-4 text-gray-800" th:text="#{page.user.edit.title}">Blank Page</h1>
     <div class="container">
         <div class="row">
             <div class="col"></div>
         </div>
         <div class="col">
             <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
-                <h4 class="card-header text-center"><span th:text="#{page.administrator.add.prompt}">title</span></h4>
+                <h4 class="card-header text-center">
+                    <span th:text="#{page.user.add.prompt}">title</span></h4>
                 <div class="card-body col-md-auto">
                     <div th:if="${param.success}">
                         <div class="text-center alert alert-success mt-4 ml-3 mr-3">
@@ -36,9 +37,7 @@
                             <h4 th:text="#{reg.exist}">!</h4>
                         </div>
                     </div>
-                    <form th:action="@{/admin/administrators/edit(id=${administrator.id})}" th:object="${administrator}"
-                          th:method="post">
-
+                    <form th:object="${userDetails}">
                         <h6 class="error-message btn-outline-danger text-white"
                             th:if="${#fields.hasGlobalErrors()}"
                             th:each="error : ${#fields.errors('global')}">
@@ -51,13 +50,11 @@
                             <input id="firstName"
                                    class="form-control"
                                    th:field="*{firstName}"
-                                   th:required="true"/>
+                                   readonly="true"/>
                             <h6 class="error-message btn-outline-danger text-white"
                                 th:each="error : ${#fields.errors('firstName')}">
                                 <span class="btn-danger" th:text="${error}">Validation error</span></h6>
                         </div>
-
-
                         <div class="form-group"
                              th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
                             <label for="lastName" class="control-label"
@@ -65,7 +62,7 @@
                             <input id="lastName"
                                    class="form-control"
                                    th:field="*{lastName}"
-                                   th:required="true"/>
+                                   readonly="true"/>
                             <h6 class="error-message btn-outline-danger text-white"
                                 th:each="error : ${#fields.errors('lastName')}">
                                 <span class="btn-danger" th:text="${error}">Validation error</span></h6>
@@ -77,57 +74,31 @@
                             <input id="email"
                                    class="form-control"
                                    th:field="*{email}"
-                                   th:required="true"/>
+                                   readonly="true"/>
                             <h6 class="error-message btn-outline-danger text-white"
                                 th:each="error : ${#fields.errors('email')}">
                                 <span class="btn-danger" th:text="${error}">Validation error</span></h6>
                         </div>
-                        <div class="form-group"
-                             th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-                            <label for="password" class="control-label"
-                                   th:text="#{page.list.password}">Password</label>
-                            <input id="password"
-                                   type="password"
-                                   class="form-control"
-                                   th:field="*{password}"
-                                   th:required="true"/>
-                            <h6 class="error-message btn-outline-danger text-white"
-                                th:each="error : ${#fields.errors('password')}">
-                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                        </div>
-                        <!--                        <div class="form-group"-->
-                        <!--                             th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">-->
-                        <!--                            <label for="passwordConfirm" class="control-label"-->
-                        <!--                                   th:text="#{page.list.password.conf}">Repeat password</label>-->
-                        <!--                            <input id="passwordConfirm"-->
-                        <!--                        type="password"-->
-                        <!--                                   class="form-control"-->
-                        <!--                                   th:field="*{passwordConfirm}"-->
-                        <!--                                   th:required="true"/>-->
-                        <!--                            <h6 class="error-message btn-outline-danger text-white"-->
-                        <!--                                th:each="error : ${#fields.errors('passwordConfirm')}">-->
-                        <!--                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>-->
-                        <!--                        </div>-->
-
                         <div class="form-group">
                             <span class="" th:text="#{placeholder.roles}"></span><br>
-                            <select class="btn btn-outline-dark" th:field="*{roles}">
-                                <option th:value="1" th:text="#{page.user.title}"></option>
-                                <option th:value="2" th:text="#{page.administrator.title}"></option>
+                            <select class="btn btn-outline-dark">
+                                <option th:text="${userDetails.roles}"></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <span class="" th:text="#{placeholder.enable}"></span><br>
-                            <select class="btn btn-outline-dark" th:field="*{enabled}">
-                                <option th:value="0" th:text="#{placeholder.disable}"></option>
-                                <option th:value="1" th:text="#{placeholder.enable}"></option>
+                            <select class="btn btn-outline-dark">
+                                <option th:if="${userDetails.enabled == true}" th:text="#{placeholder.enable}"></option>
+                                <option th:if="${userDetails.enabled != true}"
+                                        th:text="#{placeholder.disable}"></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.edit}"
-                                    onclick="return confirm('Czy na pewno chcesz edytować Użytkownika: ' + document.getElementById('email').value + '?')">
-                                Register
-                            </button>
+                            <a th:href="@{/admin/administrators/edit(id=${userDetails.id})}">
+                                <button type="button" class="btn btn-outline-dark" th:text="#{page.btn.edit}">
+                                    Go
+                                </button>
+                            </a>
                         </div>
                     </form>
                 </div>

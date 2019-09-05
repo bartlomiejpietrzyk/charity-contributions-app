@@ -56,15 +56,21 @@ public class AdminUserController {
         return "redirect:/admin/users?addSuccess";
     }
 
+    @GetMapping("/details")
+    public String showUserDetails(@RequestParam Long id, Model model) {
+        model.addAttribute("userDetails", userRepository.getOne(id));
+        return "admin/usersDetails";
+    }
+
     @GetMapping("/edit")
-    public String showAdministratorEditForm(@RequestParam Long id, Model model) {
+    public String showUserEditForm(@RequestParam Long id, Model model) {
         model.addAttribute("user", userRepository.getOne(id));
         return "admin/usersEdit";
     }
 
     @PostMapping("/edit")
-    public String proceedAdministratorEditForm(@ModelAttribute("user") @Valid User user,
-                                               BindingResult result) {
+    public String proceedUserEditForm(@ModelAttribute("user") @Valid User user,
+                                      BindingResult result) {
 
         if (result.hasErrors()) {
             return "redirect:/admin/users/edit?id=" + user.getId() + "&failed";
