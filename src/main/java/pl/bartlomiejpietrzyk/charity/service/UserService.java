@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.bartlomiejpietrzyk.charity.dto.UserChangePasswordDto;
 import pl.bartlomiejpietrzyk.charity.dto.UserEditDto;
+import pl.bartlomiejpietrzyk.charity.email.EmailServiceImpl;
 import pl.bartlomiejpietrzyk.charity.entity.Donation;
 import pl.bartlomiejpietrzyk.charity.entity.User;
 import pl.bartlomiejpietrzyk.charity.repository.DonationRepository;
@@ -19,12 +20,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final DonationRepository donationRepository;
+    private final EmailServiceImpl emailService;
 
     @Autowired
-    public UserService(UserRepository userRepository, DonationRepository donationRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, DonationRepository donationRepository, PasswordEncoder passwordEncoder, EmailServiceImpl emailService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.donationRepository = donationRepository;
+        this.emailService = emailService;
     }
 
     public void updateUserDonation(Donation donation) {
@@ -40,6 +43,10 @@ public class UserService {
         User user = userRepository.findOneByUuid(uuid);
         user.setEnabled(true);
         userRepository.save(user);
+        emailService.sendSimpleMessage(user.getEmail(), "Konto aktywowane pomyślnie!",
+                "Witaj " + user.getFirstName() + " " + user.getLastName()
+                        + "!\nTwoje konto zostało aktywowane pomyślnie!\nZapraszamy do korzystania z serwisu!" +
+                        "\nZespół Charity Contributions!");
     }
 
     public void updateUser(UserEditDto user) {
