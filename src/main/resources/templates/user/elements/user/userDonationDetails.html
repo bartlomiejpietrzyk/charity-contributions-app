@@ -20,16 +20,37 @@
                 </div>
             </th>
             </thead>
+            <tbody>
             <tr>
                 <td style="padding-top: 20px; width: 33%">
-                    <span th:text="#{page.list.institution}">First Name</span>
+                    <span th:text="#{form.address.pickup}"></span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+
+                    <span th:text="${'ul. ' + donation.getStreet() + ', ' + donation.getCity() + ', ' + donation.getZipCode()}"></span>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 20px; width: 33%">
+                    <span th:text="#{form.mobile}"></span>
+                </td>
+                <td style="padding-top: 20px; border-bottom: 1px dashed;">
+
+                    <span th:text="${donation.getMobile()}"></span>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 20px; width: 33%">
+                    <span th:text="#{page.list.institution}">Instytucja</span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
                     <span th:text="${donation.getInstitution()}"></span>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{page.list.date.created.donation}"></span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
@@ -37,15 +58,15 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{page.list.date.pick.date.donation}"></span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
-                    <span th:text="${donation.getDate()}"></span>
+                    <span th:text="${donation.getDate() + ' ' + donation.getTime()}"></span>
                 </td>
             </tr>
             <tr th:unless="${donation.getDonationPicked() == null}">
-                <td>
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{page.list.date.picked.donation}"></span>
                 </td>
                 <td style="padding-top: 20px; border-bottom: 1px dashed;">
@@ -53,7 +74,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{admin.nav.categories}"</span>
                 </td>
                 <td style="border-bottom: 1px dashed black">
@@ -64,7 +85,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="border-bottom: 1px dashed black">
+                <td style="padding-top: 20px; width: 33%">
                     <span th:text="#{form.count.bags}"</span>
                 </td>
                 <td style="border-bottom: 1px dashed black">
@@ -84,6 +105,7 @@
                     </select>
                 </td>
             </tr>
+            </tbody>
             <td colspan="2" align="right" style="padding-top: 15px">
                 <a th:href="@{/user/donations/details(id=${donation.id})}">
                     <input type="submit" th:value="#{page.btn.edit}"
