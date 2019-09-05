@@ -92,7 +92,7 @@
                     <a class="collapse-item" th:href="@{/admin/messages}">
                         <i class="fas fa-fw fa-inbox"></i>
                         <span th:text="#{page.list.messages}"></span>
-                        <span class="ml-4" th:text="${newMessages}"></span>
+                        <span th:if="${newMessages} > 0" class="ml-4" th:text="${newMessages}"></span>
                         <i th:if="${newMessages} > 0" class="text-dark fa fa-bell"></i></span>
                     </a>
                     <a class="collapse-item" th:href="@{/admin/mail/user}">
