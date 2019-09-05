@@ -44,7 +44,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
         emailService.sendSimpleMessage(user.getEmail(), "Klinkij w link aktywacyjny by aktywowac konto:",
-                "To activate proceed: http://localhost:8080/user/" + user.getUuid() + "/enable");
+                "To activate proceed: http://localhost:8080/account?uuid=" + user.getUuid());
     }
 
     public void saveUser(UserRegistrationDto registrationDto) {
@@ -57,9 +57,10 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
+
         emailService.sendSimpleMessage(user.getEmail(), "Klinkij w link aktywacyjny by aktywowac konto:",
-                "Hello " + user.getFirstName() + " " + user.getLastName()
-                        + "! Przejdź by aktywować konto: http://localhost:8080/user/" + user.getUuid() + "/enable");
+                "Witaj " + user.getFirstName() + " " + user.getLastName()
+                        + "!\nPrzejdź by aktywować konto: http://localhost:8080/account?uuid=" + user.getUuid());
 
     }
 
