@@ -191,10 +191,10 @@
                             </select>
                         </div>
                         <div class="form-group"><span th:text="#{admin.nav.categories}"></span>
-                        </div>
-                        <div class="form-group alert btn-outline-dark border-dark"
-                             th:each="category : ${donation.categories}">
-                            <span class="description" th:text="${category.name}"></span>
+                            <div class="form-group alert">
+                                <p th:each="category : ${donation.categories}" class="description btn btn-outline-dark"
+                                   th:text="${category.name}"></p>
+                            </div>
                         </div>
                         <div class="form-group">
                             <a th:href="@{/admin/donations/edit(id=${donation.id})}">
