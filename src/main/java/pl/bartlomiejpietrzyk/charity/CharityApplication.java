@@ -26,7 +26,6 @@ public class CharityApplication {
         return message;
     }
 
-    //
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
