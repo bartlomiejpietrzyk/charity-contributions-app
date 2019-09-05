@@ -50,6 +50,10 @@
                                 <td th:text="${donation.quantity}"></td>
                                 <td th:text="${donation.status}"></td>
                                 <td>
+                                    <a th:href="@{/admin/donations/details(id=${donation.id})}">
+                                        <input type="hidden" name="id" th:value="${donation.id}">
+                                        <input type="submit" th:value="#{page.btn.details}"
+                                               class="btn btn-outline-secondary"/></a>
                                     <a th:href="@{/admin/donations/edit(id=${donation.id})}">
                                         <input type="hidden" name="id" th:value="${donation.id}">
                                         <input type="submit" th:value="#{page.btn.edit}"

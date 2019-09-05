@@ -64,6 +64,10 @@
                             <td th:text="${user.enabled}"></td>
                             <td th:text="${user.roles}"></td>
                             <td>
+                                <a th:href="@{/admin/users/details(id=${user.id})}">
+                                    <input type="hidden" name="id" th:value="${user.id}">
+                                    <input type="submit" th:value="#{page.btn.details}"
+                                           class="btn btn-outline-secondary"/></a>
                                 <a th:href="@{/admin/users/edit(id=${user.id})}">
                                     <input type="hidden" name="id" th:value="${user.id}">
                                     <input type="submit" th:value="#{page.btn.edit}"

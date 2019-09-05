@@ -19,123 +19,127 @@
         </div>
         <div class="col">
             <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
-                <h4 class="card-header text-center"><span th:text="#{page.user.add.prompt}">title</span></h4>
-                <div class="card-body col-md-auto">
-                    <div th:if="${param.addSuccess}">
-                        <div class="text-center alert alert-success mt-4 ml-3 mr-3">
-                            <h3 class="text-success" th:text="#{page.user.add.success}"></h3>
-                        </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" th:text="#{page.user.add.prompt}"></h6>
                     </div>
-                    <div th:if="${param.addFailed}">
-                        <div class="text-center alert alert-danger mt-4 ml-3 mr-3">
-                            <h3 class="text-danger" th:text="#{page.user.add.failed}">
-                                Rejestracja zakończona niepowodzeniem</h3>
+                    <div class="card-body">
+
+                        <div th:if="${param.addSuccess}">
+                            <div class="text-center alert alert-success mt-4 ml-3 mr-3">
+                                <h3 class="text-success" th:text="#{page.user.add.success}"></h3>
+                            </div>
                         </div>
+                        <div th:if="${param.addFailed}">
+                            <div class="text-center alert alert-danger mt-4 ml-3 mr-3">
+                                <h3 class="text-danger" th:text="#{page.user.add.failed}">
+                                    Rejestracja zakończona niepowodzeniem</h3>
+                            </div>
+                        </div>
+                        <div th:if="${param.exist}">
+                            <div class="text-center alert alert-warning mt-4 ml-3 mr-3">
+                                <h4 th:text="#{reg.exist}">
+                                    Użytkownik o podanym adresie e-mail istnieje! Spróbój
+                                    ponownie!</h4>
+                            </div>
+                        </div>
+                        <form th:action="@{/admin/users/add}" th:object="${user}" th:method="post">
+
+                            <h6 class="error-message btn-outline-danger text-white"
+                                th:if="${#fields.hasGlobalErrors()}"
+                                th:each="error : ${#fields.errors('global')}">
+                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+                                <label for="firstName" class="control-label"
+                                       th:text="#{page.list.firstname}">First Name</label>
+                                <input id="firstName"
+                                       class="form-control"
+                                       th:field="*{firstName}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('firstName')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+
+
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+                                <label for="lastName" class="control-label"
+                                       th:text="#{page.list.lastname}">Last Name</label>
+                                <input id="lastName"
+                                       class="form-control"
+                                       th:field="*{lastName}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('lastName')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+                                <label for="email" class="control-label"
+                                       th:text="#{page.list.email}">E-mail</label>
+                                <input id="email"
+                                       class="form-control"
+                                       th:field="*{email}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('email')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+                            <div class="form-group"
+                                 th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                                <label for="password" class="control-label"
+                                       th:text="#{page.list.password}">Password</label>
+                                <input id="password"
+                                       type="password"
+                                       class="form-control"
+                                       th:field="*{password}"
+                                       th:required="true"/>
+                                <h6 class="error-message btn-outline-danger text-white"
+                                    th:each="error : ${#fields.errors('password')}">
+                                    <span class="btn-danger" th:text="${error}">Validation error</span></h6>
+                            </div>
+                            <!--                        <div class="form-group"-->
+                            <!--                             th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">-->
+                            <!--                            <label for="passwordConfirm" class="control-label"-->
+                            <!--                                   th:text="#{page.list.password.conf}">Repeat password</label>-->
+                            <!--                            <input id="passwordConfirm"-->
+                            <!--                        type="password"-->
+                            <!--                                   class="form-control"-->
+                            <!--                                   th:field="*{passwordConfirm}"-->
+                            <!--                                   th:required="true"/>-->
+                            <!--                            <h6 class="error-message btn-outline-danger text-white"-->
+                            <!--                                th:each="error : ${#fields.errors('passwordConfirm')}">-->
+                            <!--                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>-->
+                            <!--                        </div>-->
+
+                            <div class="form-group">
+                                <span class="" th:text="#{placeholder.roles}"></span><br>
+                                <select class="btn btn-outline-dark" th:field="*{roles}">
+                                    <option th:value="1" th:text="#{page.user.title}"></option>
+                                    <option th:value="2" th:text="#{page.administrator.title}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span class="" th:text="#{placeholder.enable}"></span><br>
+                                <select class="btn btn-outline-dark" th:field="*{enabled}">
+                                    <option th:value="0" th:text="#{placeholder.disable}"></option>
+                                    <option th:value="1" th:text="#{placeholder.enable}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.add}"
+                                        onclick="return confirm('Czy na pewno chcesz stworzyć Użytkownika: ' + document.getElementById('email').value + '?')">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <div th:if="${param.exist}">
-                        <div class="text-center alert alert-warning mt-4 ml-3 mr-3">
-                            <h4 th:text="#{reg.exist}">
-                                Użytkownik o podanym adresie e-mail istnieje! Spróbój
-                                ponownie!</h4>
-                        </div>
-                    </div>
-                    <form th:action="@{/admin/users/add}" th:object="${user}" th:method="post">
-
-                        <h6 class="error-message btn-outline-danger text-white"
-                            th:if="${#fields.hasGlobalErrors()}"
-                            th:each="error : ${#fields.errors('global')}">
-                            <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-
-                        <div class="form-group"
-                             th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
-                            <label for="firstName" class="control-label"
-                                   th:text="#{page.list.firstname}">First Name</label>
-                            <input id="firstName"
-                                   class="form-control"
-                                   th:field="*{firstName}"
-                                   th:required="true"/>
-                            <h6 class="error-message btn-outline-danger text-white"
-                                th:each="error : ${#fields.errors('firstName')}">
-                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                        </div>
-
-
-                        <div class="form-group"
-                             th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
-                            <label for="lastName" class="control-label"
-                                   th:text="#{page.list.lastname}">Last Name</label>
-                            <input id="lastName"
-                                   class="form-control"
-                                   th:field="*{lastName}"
-                                   th:required="true"/>
-                            <h6 class="error-message btn-outline-danger text-white"
-                                th:each="error : ${#fields.errors('lastName')}">
-                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                        </div>
-                        <div class="form-group"
-                             th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
-                            <label for="email" class="control-label"
-                                   th:text="#{page.list.email}">E-mail</label>
-                            <input id="email"
-                                   class="form-control"
-                                   th:field="*{email}"
-                                   th:required="true"/>
-                            <h6 class="error-message btn-outline-danger text-white"
-                                th:each="error : ${#fields.errors('email')}">
-                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                        </div>
-                        <div class="form-group"
-                             th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-                            <label for="password" class="control-label"
-                                   th:text="#{page.list.password}">Password</label>
-                            <input id="password"
-                                   type="password"
-                                   class="form-control"
-                                   th:field="*{password}"
-                                   th:required="true"/>
-                            <h6 class="error-message btn-outline-danger text-white"
-                                th:each="error : ${#fields.errors('password')}">
-                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>
-                        </div>
-                        <!--                        <div class="form-group"-->
-                        <!--                             th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">-->
-                        <!--                            <label for="passwordConfirm" class="control-label"-->
-                        <!--                                   th:text="#{page.list.password.conf}">Repeat password</label>-->
-                        <!--                            <input id="passwordConfirm"-->
-                        <!--                        type="password"-->
-                        <!--                                   class="form-control"-->
-                        <!--                                   th:field="*{passwordConfirm}"-->
-                        <!--                                   th:required="true"/>-->
-                        <!--                            <h6 class="error-message btn-outline-danger text-white"-->
-                        <!--                                th:each="error : ${#fields.errors('passwordConfirm')}">-->
-                        <!--                                <span class="btn-danger" th:text="${error}">Validation error</span></h6>-->
-                        <!--                        </div>-->
-
-                        <div class="form-group">
-                            <span class="" th:text="#{placeholder.roles}"></span><br>
-                            <select class="btn btn-outline-dark" th:field="*{roles}">
-                                <option th:value="1" th:text="#{page.user.title}"></option>
-                                <option th:value="2" th:text="#{page.administrator.title}"></option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <span class="" th:text="#{placeholder.enable}"></span><br>
-                            <select class="btn btn-outline-dark" th:field="*{enabled}">
-                                <option th:value="0" th:text="#{placeholder.disable}"></option>
-                                <option th:value="1" th:text="#{placeholder.enable}"></option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-outline-dark" th:text="#{page.btn.add}"
-                                    onclick="return confirm('Czy na pewno chcesz stworzyć Użytkownika: ' + document.getElementById('email').value + '?')">
-                                Register
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
