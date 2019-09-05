@@ -58,7 +58,7 @@ public class AdminUserController {
 
     @GetMapping("/details")
     public String showUserDetails(@RequestParam Long id, Model model) {
-        model.addAttribute("user", userRepository.getOne(id));
+        model.addAttribute("userDetails", userRepository.getOne(id));
         return "admin/usersDetails";
     }
 
