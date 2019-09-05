@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="admin/elements/template/template"
       lang="pl">
+<link rel="stylesheet" href="../test/te.css">
 <body>
 <div layout:fragment="top-bar">
 </div>
@@ -30,7 +31,7 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-secondary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -49,7 +50,7 @@
             </div>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -57,28 +58,28 @@
                                 <span th:text="#{page.list.donation.give.quantity}"> </span>
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><span
-                                    th:text="${charityOrgQuantity}"></span></div>
+                                    th:text="${donationToGive}"></span></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-institution fa-2x text-gray-300"></i>
+                            <i class="fas fa-box fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <span th:text="#{page.list.donation.give.quantity}"> </span>
+                                <span th:text="#{page.list.donation.given.quantity}"> </span>
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><span
-                                    th:text="${newMessages}"></span></div>
+                                    th:text="${donationGiven}"></span></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-institution fa-2x text-gray-300"></i>
+                            <i class="fas fa-box-open fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -88,7 +89,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="text-center">
-                <div class="card shadow mb-4">
+                <div class="border-bottom-primary card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary" th:text="#{admin.nav.last.donations}"></h6>
                     </div>
@@ -116,6 +117,50 @@
                                         <input type="hidden" name="id" th:value="${donation.id}">
                                         <input type="submit" th:value="#{page.btn.details}"
                                                class="btn btn-outline-info"/></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <div class="border-bottom-info card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"
+                            th:text="#{page.last.user.title}"></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-fixed table-bordered" id="dataTable" width="100%"
+                                   cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm" th:text="#{page.list.id}">#ID#</th>
+                                    <th class="th-sm"
+                                        th:text="#{placeholder.firstname} + ' i ' + #{placeholder.lastname}">Firstname
+                                    </th>
+                                    <th class="th-sm" th:text="#{placeholder.email}">Email</th>
+                                    <th class="th-sm" th:text="#{placeholder.roles}">Roles</th>
+                                    <th class="th-sm" th:text="#{page.list.action}">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${lastUsers}">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.firstName + ' ' + user.lastName}"
+                                    </td>
+                                    <td th:text="${user.email}"></td>
+                                    <td th:text="${user.roles}"></td>
+                                    <td>
+                                        <a th:href="@{/admin/users/details(id=${user.id})}">
+                                            <input type="hidden" name="id" th:value="${user.id}">
+                                            <input type="submit" th:value="#{page.btn.details}"
+                                                   class="btn btn-outline-info"/></a>
+
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
