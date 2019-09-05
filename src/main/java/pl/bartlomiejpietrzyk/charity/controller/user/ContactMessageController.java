@@ -40,7 +40,7 @@ public class ContactMessageController {
                         "\nID: " + message.getId() +
                         "\nTytuł: " + userContactDto.getContactTitle() +
                         "\nWiadomość: " + userContactDto.getContactMessage() +
-                        "\nW przeciągu 48h odpowiemy na Twoje zgłoszenie!");
+                        "\n\nW przeciągu 48h odpowiemy na Twoje zgłoszenie!");
         return "redirect:/?messageSent";
 
     }
