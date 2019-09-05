@@ -66,6 +66,12 @@ public class AdminAdministratorController {
         return "redirect:/admin/administrators?addSuccess";
     }
 
+    @GetMapping("/details")
+    public String showUserDetails(@RequestParam Long id, Model model) {
+        model.addAttribute("userDetails", userRepository.getOne(id));
+        return "admin/adminDetails";
+    }
+
     @GetMapping("/edit")
     public String showAdministratorEditForm(@RequestParam Long id, Model model) {
         model.addAttribute("administrator", userRepository.getOne(id));
