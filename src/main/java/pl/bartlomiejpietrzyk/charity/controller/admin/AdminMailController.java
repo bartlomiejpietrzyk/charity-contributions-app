@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bartlomiejpietrzyk.charity.email.EmailServiceImpl;
 import pl.bartlomiejpietrzyk.charity.email.MailObject;
+import pl.bartlomiejpietrzyk.charity.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 @RequestMapping("/admin/mail")
 public class AdminMailController {
     private final EmailServiceImpl emailService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AdminMailController(EmailServiceImpl emailService) {
+    public AdminMailController(EmailServiceImpl emailService, UserRepository userRepository) {
         this.emailService = emailService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -30,13 +33,14 @@ public class AdminMailController {
         return "redirect:/admin/main/send";
     }
 
-    @GetMapping("/send")
+    @GetMapping("/user")
     public String createMail(Model model,
                              HttpServletRequest request) {
         request.getRequestURL().substring(
                 request.getRequestURL().lastIndexOf("/") + 1);
         model.addAttribute("mailObject", new MailObject());
-        return "admin/emailSend";
+        model.addAttribute("usersList", userRepository.findAll());
+        return "admin/emailForm";
     }
 
     @PostMapping("/send")
@@ -48,6 +52,6 @@ public class AdminMailController {
         emailService.sendSimpleMessage(mailObject.getTo(),
                 mailObject.getSubject(), mailObject.getText());
 
-        return "redirect:/admin/mail/send?success";
+        return "redirect:/admin/mail/user?success";
     }
 }
