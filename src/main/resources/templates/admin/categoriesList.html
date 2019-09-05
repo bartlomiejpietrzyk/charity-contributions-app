@@ -59,7 +59,7 @@
                         </table>
 
                     </div>
-                    <ul class="nav nav-item" style="margin-left: 5px">
+                    <ul class="nav nav-item" style="margin-left: 5px" th:if="${categories.totalPages > 0}">
                         <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, categories.totalPages-1)}">
                             <a th:href="@{/admin/categories(page=${i})}" th:text="${i+1}" class="nav-link"
                                th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a></li>

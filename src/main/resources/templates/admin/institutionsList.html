@@ -61,9 +61,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="nav nav-item" style="margin-left: 5px">
-                        <li th:unless="${#totalPages == 0}" class="nav nav-pills"
-                            th:each="i : ${#numbers.sequence(0, institutionList.totalPages-1)}">
+                    <ul class="nav nav-item" style="margin-left: 5px" th:if="${institutionList.totalPages > 0}">
+                        <li class="nav nav-pills" th:each="i : ${#numbers.sequence(0, institutionList.totalPages-1)}">
                             <a th:href="@{/admin/institutions(page=${i})}" th:text="${i+1}" class="nav-link"
                                th:classappend="${currentPage} == ${i} ? 'active disabled' : ''"></a></li>
 
