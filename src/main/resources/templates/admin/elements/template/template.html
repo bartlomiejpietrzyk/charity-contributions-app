@@ -31,7 +31,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-gifts"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">Charity <sup>DONATIONS</sup></div>
+            <div class="sidebar-brand-text mx-3">Charity <sup>Contributions</sup> <sup>ADMIN PANEL</sup></div>
         </a>
 
         <!-- Divider -->
@@ -80,7 +80,10 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMessages"
                aria-expanded="true" aria-controls="collapseMessages">
                 <i class="fas fa-fw fa-mail-bulk"></i>
-                <span th:text="#{page.list.messages}">Manage</span>
+                <span th:text="#{page.list.messages}">Messages</span>
+                <span th:if="${newMessages} > 0">
+                <span class="ml-4" th:text="${newMessages}"></span>
+                    <i class="fa fa-bell"></i></span>
             </a>
             <div id="collapseMessages" class="collapse" aria-labelledby="headingMessages"
                  data-parent="#accordionSidebar">
@@ -89,8 +92,10 @@
                     <a class="collapse-item" th:href="@{/admin/messages}">
                         <i class="fas fa-fw fa-inbox"></i>
                         <span th:text="#{page.list.messages}"></span>
+                        <span class="ml-4" th:text="${newMessages}"></span>
+                        <i th:if="${newMessages} > 0" class="text-dark fa fa-bell"></i></span>
                     </a>
-                    <a class="collapse-item" th:href="@{/admin/mail/send}">
+                    <a class="collapse-item" th:href="@{/admin/mail/user}">
                         <i class="fas fa-fw fa-at"></i>
                         <span th:text="#{page.email.page}"></span></a>
                 </div>
@@ -99,7 +104,7 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/donations}">
                 <i class="fas fa-fw fa-boxes"></i>
-                <span th:text="#{admin.nav.donations}">Donations</span></a>
+                <span th:text="#{admin.nav.donations}">Donations</span></span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/admin/institutions}">
@@ -195,7 +200,6 @@
         </footer>
         <!-- End of Footer -->
     </div>
-    <!-- End of Content Wrapper -->
     <!-- End of Content Wrapper -->
 
 </div>
