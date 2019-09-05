@@ -19,8 +19,11 @@
         </div>
         <div class="col">
             <div class="card bg-white border-dark shadow mb-3 ml-3 mr-3">
-                <h4 class="card-header text-center"><span th:text="#{page.administrator.add.prompt}">title</span></h4>
-                <div class="card-body col-md-auto">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary" th:text="#{page.user.add.prompt}"></h6>
+                    </div>
+                    <div class="card-body">
                     <div th:if="${param.addSuccess}">
                         <div class="text-center alert alert-success mt-4 ml-3 mr-3">
                             <h3 class="text-success" th:text="#{page.administrator.add.success}"></h3>
