@@ -78,7 +78,8 @@ public class PasswordLostController {
             return "redirect:/lostPassword?error";
         }
         session.invalidate();
-        UserChangeLostPasswordDto userChangeLostPasswordDto = new UserChangeLostPasswordDto(userRepository.getOne(id));
+        UserChangeLostPasswordDto userChangeLostPasswordDto =
+                new UserChangeLostPasswordDto(userRepository.getOne(id));
         userChangeLostPasswordDto.setToken(token);
         model.addAttribute("reset", userChangeLostPasswordDto);
         return "user/resetPassword";
@@ -96,8 +97,7 @@ public class PasswordLostController {
     }
 
     @GetMapping("/savePassword")
-    public String savePasswordResetSite(Model model,
-                                        HttpSession session) {
+    public String savePasswordResetSite(HttpSession session) {
 
         session.invalidate();
         return "user/savePassword";
