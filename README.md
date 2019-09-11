@@ -2,6 +2,11 @@
 
 This app gives random user a chance to help another people by sending things by courier or donate via website.
 
+# Demo:
+Application is deployed on heroku, check it out!
+
+https://charity-contribution-heroku.herokuapp.com/
+
 # Technologies used:
 
 ```
